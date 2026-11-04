@@ -17,37 +17,40 @@ enum Sex {
 
 /// One mobile number. A household can hold several family members.
 model Household {
-  id                 String       @id @default(cuid())
+  id                 String         @id @default(cuid())
   /// HMAC-SHA256 of the normalised number, keyed by PHONE_HASH_KEY. Used for lookup.
-  phoneHash          String       @unique
+  phoneHash          String         @unique
   /// AES-256-GCM ciphertext of the number, keyed by PHONE_ENC_KEY. Needed to send SMS.
   phoneCipher        String
   /// For display only, for example +91 ••••• •3210.
   phoneMasked        String
-  language           Language     @default(EN)
+  language           Language       @default(EN)
   readingMode        ReadingMode?
-  largeText          Boolean      @default(false)
+  largeText          Boolean        @default(false)
   /// DPDP Act 2023 consent: which text version was accepted, and when.
   consentVersion     String?
   consentAt          DateTime?
   consentWithdrawnAt DateTime?
-  createdAt          DateTime     @default(now())
+  createdAt          DateTime       @default(now())
   patients           Patient[]
   sessions           Session[]
+  callbackTasks      CallbackTask[]
 }
 
 /// A person whose reports belong to a household's number.
 model Patient {
-  id          String    @id @default(cuid())
-  householdId String
-  household   Household @relation(fields: [householdId], references: [id], onDelete: Restrict)
-  name        String
-  age         Int
-  sex         Sex
+  id            String         @id @default(cuid())
+  householdId   String
+  household     Household      @relation(fields: [householdId], references: [id], onDelete: Restrict)
+  name          String
+  age           Int
+  sex           Sex
   /// How this person relates to the number holder: Self, Mother, Father, Daughter.
-  relation    String
-  createdAt   DateTime  @default(now())
-  reports     Report[]
+  relation      String
+  createdAt     DateTime       @default(now())
+  reports       Report[]
+  callbackTasks CallbackTask[]
+  flags         PatientFlag[]
 
   @@unique([householdId, name])
   @@index([householdId])

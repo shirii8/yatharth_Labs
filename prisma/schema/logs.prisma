@@ -1,0 +1,108 @@
+enum ActorType {
+  PATIENT
+  STAFF
+  SYSTEM
+}
+
+enum AccessAction {
+  OTP_SENT
+  OTP_VERIFIED
+  OTP_FAILED
+  OTP_LOCKED
+  LINK_SENT
+  LINK_RESENT
+  LINK_OPENED
+  LINK_EXPIRED
+  REPORT_OPENED
+  REPORT_PDF_DOWNLOADED
+  CONSENT_GIVEN
+  CONSENT_WITHDRAWN
+  CALLBACK_REQUESTED
+  FLAG_RAISED
+  STAFF_SIGNED_IN
+  STAFF_VIEWED_PATIENT
+  STAFF_VIEWED_PHONE
+  IMPORT_RUN
+}
+
+/// Append only. A database trigger refuses UPDATE and DELETE on this table.
+/// Ids are plain text, not foreign keys, so the log outlives the rows it describes.
+model AccessLog {
+  id          BigInt       @id @default(autoincrement())
+  at          DateTime     @default(now())
+  actorType   ActorType
+  actorId     String?
+  action      AccessAction
+  householdId String?
+  patientId   String?
+  reportId    String?
+  /// HMAC of the IP address: enough to spot a pattern, not enough to identify a person.
+  ipHash      String?
+  detail      Json?
+
+  @@index([reportId, at])
+  @@index([householdId, at])
+  @@index([actorId, at])
+}
+
+enum CallbackType {
+  CRITICAL
+  CALL_ME_BACK
+}
+
+enum TaskStatus {
+  OPEN
+  DONE
+}
+
+/// A phone call staff must make. Critical tasks come first in the list.
+model CallbackTask {
+  id          String       @id @default(cuid())
+  type        CallbackType
+  householdId String
+  household   Household    @relation(fields: [householdId], references: [id], onDelete: Restrict)
+  patientId   String?
+  patient     Patient?     @relation(fields: [patientId], references: [id], onDelete: SetNull)
+  reportId    String?
+  report      Report?      @relation(fields: [reportId], references: [id], onDelete: SetNull)
+  status      TaskStatus   @default(OPEN)
+  /// What the patient said when asking for a call, if anything.
+  reason      String?
+  /// What staff wrote when marking it done.
+  note        String?
+  dueAt       DateTime
+  createdAt   DateTime     @default(now())
+  doneAt      DateTime?
+  doneById    String?
+
+  @@index([status, type, dueAt])
+  @@index([householdId])
+  @@index([patientId])
+  @@index([reportId])
+}
+
+enum FlagStatus {
+  OPEN
+  RESOLVED
+}
+
+/// "Something looks wrong", raised by a patient on a report.
+model PatientFlag {
+  id           String     @id @default(cuid())
+  reportId     String
+  report       Report     @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  patientId    String
+  patient      Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  /// Which part looks wrong: NAME, VALUE, EXPLANATION or OTHER.
+  kind         String
+  message      String
+  status       FlagStatus @default(OPEN)
+  createdAt    DateTime   @default(now())
+  resolvedAt   DateTime?
+  resolvedById String?
+  resolution   String?
+
+  @@index([status, createdAt])
+  @@index([reportId])
+  @@index([patientId])
+}
