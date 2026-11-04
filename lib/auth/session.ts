@@ -91,7 +91,3 @@ export async function revokeHouseholdSessions(householdId: string, client: Clien
     data: { revokedAt: new Date() },
   });
 }
-
-export async function choosePatient(sessionId: string, patientId: string): Promise<void> {
-  await db.session.update({ where: { id: sessionId }, data: { patientId } });
-}
