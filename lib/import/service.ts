@@ -335,7 +335,9 @@ async function saveReport(
   }
 
   let sms: PendingSms | undefined;
-  if (status === "SIGNED" && existing?.status !== "SIGNED") {
+  // Withdrawn consent means no links and no SMS. A critical call above still happens.
+  const mayMessage = household.consentWithdrawnAt === null;
+  if (status === "SIGNED" && existing?.status !== "SIGNED" && mayMessage) {
     const token = generateToken();
     const link = await tx.reportLink.create({
       data: {
