@@ -1,0 +1,19 @@
+/// One code sent to one number. The code is stored only as a keyed hash.
+/// Not linked to Household on purpose: a code can be asked for an unknown number,
+/// and the app must answer the same way so nobody can test which numbers are patients.
+model OtpChallenge {
+  id          String    @id @default(cuid())
+  phoneHash   String
+  codeHash    String
+  /// Wrong codes entered against this challenge. Five locks the number for 15 minutes.
+  attempts    Int       @default(0)
+  /// 10 minutes after creation.
+  expiresAt   DateTime
+  consumedAt  DateTime?
+  lockedUntil DateTime?
+  ipHash      String?
+  createdAt   DateTime  @default(now())
+
+  /// Resend cooldown, daily cap and lockout all read the latest rows for a number.
+  @@index([phoneHash, createdAt])
+}
