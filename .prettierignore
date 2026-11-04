@@ -8,3 +8,4 @@ next-env.d.ts
 lib/generated/
 prisma/migrations/
 design-handoff/
+docs/tdd/
