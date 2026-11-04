@@ -5,3 +5,5 @@ package-lock.json
 next-env.d.ts
 # Prose docs keep the line breaks they were written with
 *.md
+lib/generated/
+prisma/migrations/

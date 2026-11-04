@@ -49,3 +49,6 @@ desktop.ini
 # Certificates and keys
 *.pem
 *.key
+
+# Generated Prisma client (rebuilt by "prisma generate")
+lib/generated/
