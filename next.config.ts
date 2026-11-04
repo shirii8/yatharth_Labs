@@ -26,6 +26,8 @@ const nextConfig: NextConfig = {
   // Do not tell visitors which framework serves the site.
   poweredByHeader: false,
   reactStrictMode: true,
+  // No floating dev badge over screens while testing and taking screenshots.
+  devIndicators: false,
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
