@@ -1,0 +1,168 @@
+.greeting {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.3em;
+  font-style: italic;
+  animation: rise 400ms var(--ease-paper) 200ms both;
+}
+
+.title {
+  margin: -14px 0 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(36px, 10vw, 46px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  animation: rise 400ms var(--ease-paper) 200ms both;
+}
+
+/* The one green thread under the greeting: drawn once, then still. */
+.thread {
+  display: block;
+  width: 70%;
+  height: 10px;
+  margin-top: -10px;
+}
+
+.thread path {
+  stroke-dasharray: 1;
+  animation: draw 500ms ease-out 400ms both;
+}
+
+.inShort {
+  margin: 0;
+  font-size: 1.05em;
+}
+
+.aiNote {
+  margin: -10px 0 0;
+  font-size: 0.75em;
+  color: var(--ink-soft);
+}
+
+.resultCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(72px, 24vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.unit {
+  font-size: 22px;
+  letter-spacing: 0;
+}
+
+.words {
+  margin: 0;
+  font-size: 1.15em;
+  line-height: 1.45;
+  animation: fade 300ms ease-out 1100ms both;
+}
+
+.attention {
+  color: var(--clay);
+}
+
+.rule {
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.8em;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 10px;
+}
+
+.nav > :only-child {
+  grid-column: 1 / -1;
+}
+
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 8px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.steps li span:first-child {
+  font-family: var(--font-serif);
+  font-size: 1.2em;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.small {
+  margin: 0;
+  font-size: 0.85em;
+}
+
+.compactRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.3;
+}
+
+.compactValue {
+  font-family: var(--font-serif);
+  font-size: 1.5em;
+  text-align: right;
+}
+
+.mark {
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
