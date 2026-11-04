@@ -1,0 +1,124 @@
+/*
+ * Design tokens and base styles. "Your health file, kept by people who know you."
+ * Source of truth: DESIGN.md and design-handoff/design/tokens.css.
+ * Nothing else in the app hard-codes a colour.
+ */
+
+:root {
+  /* Paper and ink */
+  --desk: #dcd2bd;
+  --page: #faf6ee;
+  --field: #fffdf7;
+  --ink: #161513;
+  --ink-soft: #3a3631;
+  --rule: #b9b2a5;
+
+  /* The one accent. Job: "this is yours" or "the next step". Never status. */
+  --green: #0f5a43;
+  --on-green: #faf6ee;
+  --green-wash: #e4eee8;
+
+  /* Muted status, always paired with a word and a mark */
+  --clay: #8a3b26;
+  --clay-wash: #f0d8c8;
+  --call-page: #f6e8e6;
+
+  /* Index-tab tints: identify tabs, carry no meaning on their own */
+  --sky: #d7e3ee;
+  --sage: #dce7d6;
+  --sand: #f4e9c6;
+  --rose: #f1d9dc;
+  --lilac: #e2dcec;
+
+  /* Type */
+  --font-serif:
+    "Newsreader", "Noto Serif Telugu", "Noto Serif Devanagari", Georgia, "Times New Roman", serif;
+  --font-sans:
+    "Atkinson Hyperlegible Next", "Noto Sans Telugu", "Noto Sans Devanagari", system-ui, sans-serif;
+  --body: 19px;
+  --lh: 1.5;
+  --hero-size: clamp(44px, 14vw, 58px);
+  --hero-lh: 1;
+
+  /* Shape */
+  --frame: 2.5px;
+  --radius: 12px;
+  --tap: 56px;
+
+  /* Motion */
+  --ease-paper: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Aa: larger text, one tap away, remembered in a cookie */
+html[data-text="large"] {
+  --body: 22px;
+}
+
+/* Telugu and Hindi are taller scripts: more line height, smaller display size */
+html:lang(te),
+html:lang(hi) {
+  --lh: 1.7;
+  --hero-size: 42px;
+  --hero-lh: 1.3;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--body);
+  line-height: var(--lh);
+  /* Paper grain: one tiny static tile, no filters, cheap to scroll on old phones */
+  background: var(--desk)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' fill='%23161513' fill-opacity='.07'%3E%3Ccircle cx='7' cy='12' r='.8'/%3E%3Ccircle cx='31' cy='4' r='.6'/%3E%3Ccircle cx='54' cy='19' r='.9'/%3E%3Ccircle cx='88' cy='9' r='.7'/%3E%3Ccircle cx='112' cy='27' r='.8'/%3E%3Ccircle cx='18' cy='44' r='.7'/%3E%3Ccircle cx='47' cy='58' r='.6'/%3E%3Ccircle cx='73' cy='39' r='.9'/%3E%3Ccircle cx='101' cy='61' r='.7'/%3E%3Ccircle cx='9' cy='83' r='.9'/%3E%3Ccircle cx='38' cy='97' r='.7'/%3E%3Ccircle cx='64' cy='78' r='.8'/%3E%3Ccircle cx='92' cy='104' r='.6'/%3E%3Ccircle cx='117' cy='89' r='.8'/%3E%3Ccircle cx='26' cy='116' r='.6'/%3E%3Ccircle cx='79' cy='117' r='.7'/%3E%3C/svg%3E")
+    repeat;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
