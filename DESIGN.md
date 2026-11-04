@@ -2,7 +2,7 @@
 
 Single source of truth for how this product looks, sounds and moves. Read this before writing any UI. If a screen needs something this file does not cover, extend this file in the same commit.
 
-Product working name: **Asteya** (set via `NEXT_PUBLIC_BRAND_NAME`, never hard-coded). The lab's own name is `NEXT_PUBLIC_LAB_NAME` and is what patients see in the header.
+Product working name: **Yatharth** (set via `NEXT_PUBLIC_BRAND_NAME`, never hard-coded). The lab's own name is `NEXT_PUBLIC_LAB_NAME` and is what patients see in the header.
 
 ---
 
