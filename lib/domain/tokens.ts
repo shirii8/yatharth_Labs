@@ -29,10 +29,7 @@ export function linkExpiresAt(createdAt: Date): Date {
 }
 
 /** Valid until, but not at, the expiry moment, and never after it is revoked. */
-export function isLinkValid(
-  link: { expiresAt: Date; revokedAt: Date | null },
-  now: Date,
-): boolean {
+export function isLinkValid(link: { expiresAt: Date; revokedAt: Date | null }, now: Date): boolean {
   if (link.revokedAt !== null) return false;
   return now.getTime() < link.expiresAt.getTime();
 }
