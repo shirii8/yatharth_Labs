@@ -36,6 +36,7 @@ const EN: Record<string, string> = {
   "next.any.call": 'Questions? Tap "Call me back" and one of us will ring you.',
   "test.CBC.next": "Very tired or short of breath? Call your doctor sooner.",
   "test.ELEC.next": "Feeling very weak or dizzy? Call your doctor sooner.",
+  "trend.change": "{analyte} was {before} on {date}. This time it is {now}.",
   footer:
     "These words come from the lab's checked wording for this test. Low and usual come from the ranges printed on your signed report. Your doctor's advice comes first.",
   "critical.safety.head": "Go to the nearest hospital emergency now if any of these happen:",

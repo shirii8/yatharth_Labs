@@ -28,7 +28,9 @@ export interface PatientSummary {
 /** Do not ask the AI again for a report whose last attempt failed within a day. */
 const RETRY_AFTER_MS = 24 * 60 * 60_000;
 
-async function approvedTemplates(language: "EN" | "TE" | "HI"): Promise<Map<string, string>> {
+export async function approvedTemplates(
+  language: "EN" | "TE" | "HI",
+): Promise<Map<string, string>> {
   const rows = await db.summaryTemplate.findMany({
     where: { language, status: "APPROVED" },
     orderBy: { version: "asc" },
@@ -151,4 +153,15 @@ async function aiParagraph(
     });
     return null;
   }
+}
+
+/** "Haemoglobin was 10.9 on 12 Aug. This time it is 10.2." From a template; values only. */
+export async function trendSentence(
+  locale: Locale,
+  values: { analyte: string; before: string; date: string; now: string },
+): Promise<string> {
+  const english = await approvedTemplates("EN");
+  const local = locale === "en" ? english : await approvedTemplates(locale === "te" ? "TE" : "HI");
+  const body = local.get("trend.change") ?? english.get("trend.change") ?? "";
+  return body.replace(/\{(\w+)\}/g, (_, k: string) => values[k as keyof typeof values] ?? "");
 }
