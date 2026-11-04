@@ -39,6 +39,17 @@
   border-bottom-color: var(--page);
 }
 
+/* A selected tab whose tint carries on into the sheet below (the family file). */
+.tab[aria-current][data-keep-tint],
+.tab[aria-selected="true"][data-keep-tint] {
+  background: var(--tint);
+  border-bottom-color: var(--tint);
+}
+
+.tab[data-static] {
+  cursor: default;
+}
+
 .primary {
   display: flex;
   align-items: center;
