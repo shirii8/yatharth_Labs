@@ -1,0 +1,76 @@
+/*
+ * Hero b, "the value finds its place". The number above is printed first and
+ * never moves. Then: the ruler draws left to right (0-300 ms), the usual band
+ * widens from its centre (to 500 ms), the "You" tab slides in from the left
+ * and rests on the value (600-1100 ms). Only transform, opacity and
+ * stroke-dashoffset move. Reduced motion shows the final frame at once.
+ */
+
+.ruler {
+  display: block;
+  overflow: visible;
+}
+
+.usual {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.youText {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--on-green);
+}
+
+.line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: draw 300ms linear both;
+}
+
+.band {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: widen 200ms var(--ease-paper) 300ms both;
+}
+
+.you {
+  animation: slide 500ms var(--ease-paper) 600ms both;
+}
+
+.still .line,
+.still .band,
+.still .you {
+  animation: none;
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes widen {
+  from {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateX(var(--you-from));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line,
+  .band,
+  .you {
+    animation: none;
+  }
+}
