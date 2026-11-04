@@ -13,6 +13,7 @@ const DRAWINGS: Record<NoticeKind, () => ReactNode> = {
   loading: () => <Kettle size={110} />,
   empty: () => <EmptyFolder size={110} />,
   error: () => <Lamp size={110} />,
+  withdrawn: () => <FiledPage size={110} />,
   notFound: () => <EmptyFolder size={110} />,
 };
 

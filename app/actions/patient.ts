@@ -60,6 +60,35 @@ export async function setReadingModeAction(form: FormData): Promise<void> {
   redirect(back.startsWith("/file/") ? back : "/family");
 }
 
+/**
+ * Withdraws consent for the whole number: reports stop opening, every session
+ * on the number ends at once, and no further SMS links are sent. The record of
+ * the withdrawal is written in the same transaction.
+ */
+export async function withdrawConsentAction(form: FormData): Promise<void> {
+  const { session, household } = await requirePatient();
+  if (form.get("confirm") !== "yes") redirect("/me/data?withdraw=1");
+  const now = new Date();
+  await db.$transaction([
+    db.household.update({ where: { id: household.id }, data: { consentWithdrawnAt: now } }),
+    db.session.updateMany({
+      where: { householdId: household.id, revokedAt: null },
+      data: { revokedAt: now },
+    }),
+    db.accessLog.create({
+      data: {
+        actorType: "PATIENT",
+        actorId: session.id,
+        action: "CONSENT_WITHDRAWN",
+        householdId: household.id,
+        ipHash: await ipHash(),
+      },
+    }),
+  ]);
+  await clearSessionCookie();
+  redirect("/notice/withdrawn");
+}
+
 export async function signOutAction(): Promise<void> {
   const token = await sessionToken();
   if (token) await revokeSession(token);

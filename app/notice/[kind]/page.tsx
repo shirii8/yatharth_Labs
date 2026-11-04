@@ -12,6 +12,7 @@ const TARGETS: Partial<Record<NoticeKind, string>> = {
   invalid: "/",
   timeout: "/",
   empty: "/family",
+  withdrawn: "/",
 };
 
 /** Notices reached by redirect: expired or broken links, and a timed-out session. */
