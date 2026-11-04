@@ -26,6 +26,9 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 - A9. "Hosting in India" is met with the database in Supabase's Mumbai region and Vercel functions pinned to the Mumbai region.
 - A10. Seed data uses the brief's sample patients, orders and results. Phone numbers are fake (+91 90000 0000x), and extra family members are invented.
 
-## Open
+## AI summaries
 
-- O1. Where AI writes summary wording: only drafting templates and translations for staff approval, or also per report. To be decided before Day 3.
+- A11. The AI makes real model calls; it is a required feature, not a mock. Rules decide every flag. The AI only writes the wording, and a checker rejects any output whose numbers or flag words do not match the rules, or that uses banned words. On a rejected output, a timeout or no API key, the patient sees the plain rule line and the full report link.
+- A12. The AI receives only the test name, analyte names, values, units, ranges and rule flags. No name, phone, age or order ID is sent, so no personal data leaves India. An India-hosted model (for example Sarvam) can replace it behind the same interface.
+- A13. Critical results never reach the AI. Tests with an approved locked template use the template text and make no AI call at read time.
+- A14. Telugu and Hindi wording written by the AI is a draft until a lab_admin approves it. Until then the patient sees English.
