@@ -32,6 +32,7 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 - A12. The AI receives only the test name, analyte names, values, units, ranges and rule flags. No name, phone, age or order ID is sent, so no personal data leaves India. An India-hosted model (for example Sarvam) can replace it behind the same interface.
 - A13. Critical results never reach the AI. Tests with an approved locked template use the template text and make no AI call at read time.
 - A14. Telugu and Hindi wording written by the AI is a draft until a lab_admin approves it. Until then the patient sees English.
+- A22. The AI model is claude-opus-5-5 at low effort, set by AI_MODEL. It gets one try with an 8 second limit and no retries; after a failed or refused attempt it is not asked again for that report for 24 hours, and the patient sees the rule-based wording.
 
 ## Import format and test catalog
 

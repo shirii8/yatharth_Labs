@@ -7,6 +7,7 @@ import { hashSecret } from "@/lib/domain/tokens";
 import { env } from "@/lib/env";
 import { importLisCsv } from "@/lib/import/service";
 import { MockSmsProvider } from "@/lib/sms/provider";
+import { upsertDefaultTemplates } from "@/lib/summary/seed-templates";
 import { upsertCatalog } from "./catalog";
 
 /**
@@ -23,6 +24,7 @@ async function main() {
   const keys = env();
   const sms = new MockSmsProvider();
   await upsertCatalog(db);
+  await upsertDefaultTemplates(db);
 
   // Older exports first, imported "as of" their own dates, so their links have expired.
   const exports = [
