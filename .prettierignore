@@ -1,0 +1,7 @@
+.next/
+node_modules/
+coverage/
+package-lock.json
+next-env.d.ts
+# Prose docs keep the line breaks they were written with
+*.md
