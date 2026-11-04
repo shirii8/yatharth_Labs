@@ -1,0 +1,36 @@
+enum TemplateStatus {
+  DRAFT
+  APPROVED
+  REJECTED
+  RETIRED
+}
+
+enum TextSource {
+  HUMAN
+  AI
+}
+
+/// Locked, versioned wording. Rules choose the key; the template supplies the words.
+/// A new wording is a new version, so old reports can always show what was approved then.
+model SummaryTemplate {
+  id                  String         @id @default(cuid())
+  /// For example "flag.low.mild" or "test.CBC.next_step" or "critical.safety_note".
+  key                 String
+  language            Language
+  /// Text with {placeholders} that only rules fill, such as {analyte} and {range}.
+  body                String
+  version             Int
+  status              TemplateStatus @default(DRAFT)
+  source              TextSource     @default(HUMAN)
+  /// Placeholder wording a lab doctor must approve before go-live.
+  needsDoctorApproval Boolean        @default(false)
+  /// For a translation: the English template it was made from.
+  sourceTemplateId    String?
+  createdAt           DateTime       @default(now())
+  approvedById        String?
+  approvedAt          DateTime?
+  rejectedReason      String?
+
+  @@unique([key, language, version])
+  @@index([key, language, status])
+}
