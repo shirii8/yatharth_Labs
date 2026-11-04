@@ -21,7 +21,7 @@ Built as a one-person, 7-day build test. Status: in progress.
 
 ## Stack
 
-Next.js 14 (App Router, TypeScript strict), PostgreSQL with Prisma, Zod, Vitest and Playwright. SMS and translation sit behind small interfaces with mock defaults, so the app runs with no outside accounts.
+Next.js 16 (App Router, server components, TypeScript strict), PostgreSQL with Prisma, Zod, Vitest and Playwright. Run `npm run check` before every push: it runs lint, type checks, format check and tests. SMS and translation sit behind small interfaces with mock defaults, so the app runs with no outside accounts.
 
 ## Data
 
