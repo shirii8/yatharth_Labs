@@ -7,6 +7,7 @@ model TestDefinition {
   /// True when this test's wording templates are approved and locked by the lab doctor.
   locked   Boolean   @default(false)
   analytes Analyte[]
+  reports  Report[]
 }
 
 /// One measured value within a test, such as Haemoglobin within CBC.
@@ -26,6 +27,7 @@ model Analyte {
   /// One plain line on what this measures, shown under the name.
   helper       String
   sortOrder    Int            @default(0)
+  results      Result[]
 
   @@unique([testId, code])
   @@unique([testId, name])

@@ -46,6 +46,7 @@ model Patient {
   /// How this person relates to the number holder: Self, Mother, Father, Daughter.
   relation    String
   createdAt   DateTime  @default(now())
+  reports     Report[]
 
   @@unique([householdId, name])
   @@index([householdId])

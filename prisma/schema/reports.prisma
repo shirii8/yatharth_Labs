@@ -1,0 +1,65 @@
+enum ReportStatus {
+  SAMPLE_GIVEN
+  TESTED
+  SIGNED
+}
+
+enum Flag {
+  LOW
+  USUAL
+  HIGH
+}
+
+model ReferringDoctor {
+  id      String   @id @default(cuid())
+  name    String   @unique
+  reports Report[]
+}
+
+/// One test on one order for one patient, as exported by the LIS.
+model Report {
+  id                String           @id @default(cuid())
+  /// The LIS order ID, for example ORD-71204.
+  orderId           String
+  patientId         String
+  patient           Patient          @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  testId            String
+  test              TestDefinition   @relation(fields: [testId], references: [id], onDelete: Restrict)
+  referringDoctorId String?
+  referringDoctor   ReferringDoctor? @relation(fields: [referringDoctorId], references: [id], onDelete: SetNull)
+  /// Patients only ever see a report once it is SIGNED.
+  status            ReportStatus
+  signedAt          DateTime?
+  /// True if any result crossed a critical limit. Patients then see no values for this report.
+  hasCritical       Boolean          @default(false)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  results           Result[]
+
+  /// Re-importing the same order and test updates it instead of adding a copy.
+  @@unique([orderId, testId])
+  @@index([patientId, createdAt])
+  @@index([testId])
+  @@index([referringDoctorId, signedAt])
+}
+
+/// One value on a report. The flag is computed by rule when the row is written, never by AI.
+model Result {
+  id         String  @id @default(cuid())
+  reportId   String
+  report     Report  @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  analyteId  String
+  analyte    Analyte @relation(fields: [analyteId], references: [id], onDelete: Restrict)
+  value      Float
+  /// The value exactly as printed, so 12.0 stays 12.0.
+  valueText  String
+  /// The range printed on this report. Flags are computed against this.
+  refLow     Float?
+  refHigh    Float?
+  refText    String
+  flag       Flag
+  isCritical Boolean @default(false)
+
+  @@unique([reportId, analyteId])
+  @@index([analyteId])
+}
