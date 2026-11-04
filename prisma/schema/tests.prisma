@@ -1,0 +1,33 @@
+/// A test the lab runs, such as CBC.
+model TestDefinition {
+  id       String    @id @default(cuid())
+  /// The LIS test code, for example CBC or LIPID.
+  code     String    @unique
+  name     String
+  /// True when this test's wording templates are approved and locked by the lab doctor.
+  locked   Boolean   @default(false)
+  analytes Analyte[]
+}
+
+/// One measured value within a test, such as Haemoglobin within CBC.
+model Analyte {
+  id           String         @id @default(cuid())
+  testId       String
+  test         TestDefinition @relation(fields: [testId], references: [id], onDelete: Restrict)
+  code         String
+  name         String
+  unit         String
+  /// Default usual range. The range printed on each report wins and is stored on Result.
+  refLow       Float?
+  refHigh      Float?
+  /// Beyond these the result is critical: no summary, and staff call the patient.
+  criticalLow  Float?
+  criticalHigh Float?
+  /// One plain line on what this measures, shown under the name.
+  helper       String
+  sortOrder    Int            @default(0)
+
+  @@unique([testId, code])
+  @@unique([testId, name])
+  @@index([testId])
+}
