@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reading preference</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; min-height: 1000px; box-sizing: border-box; padding: 0 10px 12px; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 19px; line-height: 1.5; display: flex; flex-direction: column; overflow: hidden">
+<svg aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.14"><filter id="grP"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#grP)"></rect></svg>
+
+<header style="position: relative; padding: 12px 4px 6px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px; font-variant: small-caps; letter-spacing: 0.04em">[Lab name]</span>
+<h1 style="margin: 10px 0 14px; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1; letter-spacing: -0.02em">How would you like to read?</h1>
+</header>
+
+<div role="tablist" aria-label="Reading style" style="position: relative; z-index: 2; display: flex; gap: 4px; padding: 0 10px; margin-bottom: -2.5px">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+<button role="tab" aria-selected="{{t.sel}}" onClick="{{t.pick}}" style="flex: 1; min-height: {{t.h}}; margin-top: {{t.mt}}; border: 2.5px solid #161513; border-bottom-color: {{t.bb}}; border-radius: 12px 12px 0 0; background: {{t.bg}}; color: #161513; font-family: 'Newsreader', Georgia, serif; font-size: 22px; cursor: pointer">{{t.label}}</button>
+</sc-for>
+</div>
+
+<main role="tabpanel" style="position: relative; flex: 1; display: flex; flex-direction: column; gap: 18px; padding: 28px 22px 24px; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 6px #FAF6EE, inset 0 0 0 7.5px #161513">
+<sc-if value="{{simple}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 1.05em">Big letters, one result at a time, and it can be read aloud to you.</p>
+<div aria-hidden="true" style="padding: 18px; border: 1.5px dashed #161513; border-radius: 8px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase">Result 1 of 4</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 30px; line-height: 1">Haemoglobin</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 84px; line-height: 1; letter-spacing: -0.03em">10.2</span>
+<svg width="100%" height="34" viewBox="0 0 280 34" preserveAspectRatio="none"><rect x="112" y="8" width="98" height="14" rx="7" fill="#DCE7D6" stroke="#161513" stroke-width="1.5"></rect><path d="M2 15Q70 13 140 15T278 14" fill="none" stroke="#161513" stroke-width="1.8"></path><path d="M50 15v6h22v-6" fill="#0F5A43" stroke="#0F5A43"></path></svg>
+<span style="font-size: 17px"><strong style="color: #8A3B26">A little low.</strong> Next result →</span>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{compact}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 1.05em">Everything on one screen, with how each value changed since last time.</p>
+<div aria-hidden="true" style="border: 1.5px dashed #161513; border-radius: 8px; padding: 6px 14px">
+<sc-for list="{{mini}}" as="m" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: 1fr auto 52px; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid #B9B2A5; font-size: 15px">
+<span style="font-weight: 700">{{m.n}}</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 20px">{{m.v}}</span>
+<svg width="52" height="18" viewBox="0 0 52 18"><path d="{{m.d}}" fill="none" stroke="#161513" stroke-width="1.5"></path></svg>
+</div>
+</sc-for>
+<span style="display: block; padding: 8px 0 4px; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 16px">Mostly steady since March.</span>
+</div>
+</div>
+</sc-if>
+<a href="Who.dc.html" style="display: flex; align-items: center; justify-content: space-between; min-height: 62px; padding: 8px 10px 8px 20px; box-sizing: border-box; border-radius: 12px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700">{{cta}}<span aria-hidden="true" style="width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid #FAF6EE; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<p style="margin: 0; font-size: 0.85em; color: #3A3631">Same words and results either way. Switch any time with the tabs at the top of a report.</p>
+</main>
+
+<footer style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding-top: 10px">
+<a href="tel:+910000000000" style="display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE; color: #161513; text-decoration: none; font-weight: 700; font-size: 17px">Call the lab</a>
+<button style="min-height: 56px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: inherit; font-weight: 700; font-size: 17px">Call me back</button>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const pick = (this.state && this.state.pick) || 'simple';
+    const tabs = [['simple', 'Simple', '#D7E3EE'], ['compact', 'Compact', '#DCE7D6']].map(([id, label, tint]) => ({
+      label, sel: pick === id ? 'true' : 'false', bg: pick === id ? '#FAF6EE' : tint, bb: pick === id ? '#FAF6EE' : '#161513',
+      h: pick === id ? '58px' : '50px', mt: pick === id ? '0' : '8px', pick: () => this.setState({ pick: id })
+    }));
+    return {
+      tabs, simple: pick === 'simple', compact: pick === 'compact', cta: pick === 'simple' ? 'Read it the Simple way' : 'Read it the Compact way',
+      mini: [{ n: 'Haemoglobin', v: '10.2', d: 'M2 6L26 9L50 14' }, { n: 'White cells', v: '7,400', d: 'M2 10L26 8L50 9' }, { n: 'Platelets', v: '2.6', d: 'M2 11L26 8L50 9' }, { n: 'Red cells', v: '4.1', d: 'M2 9L26 9L50 10' }]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Staff patient desk</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; min-height: 1250px; box-sizing: border-box; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 16px; line-height: 1.5; display: flex; flex-wrap: wrap">
+
+<nav aria-label="Front desk" style="flex: 1 1 220px; max-width: 100%; box-sizing: border-box; padding: 24px 14px; background: transparent; display: flex; flex-direction: column; gap: 4px">
+<span style="padding: 0 10px 18px; font-family: 'Newsreader', Georgia, serif; font-size: 20px; letter-spacing: 0.06em; font-variant: small-caps">[Lab name] · desk</span>
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
+<a href="{{n.href}}" aria-current="{{n.current}}" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: {{n.bg}}; color: #161513; text-decoration: none; font-weight: {{n.weight}}">{{n.label}}<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px">{{n.count}}</span></a>
+</sc-for>
+<span style="margin-top: auto; padding: 12px 10px 0; font-size: 13.5px; color: #3A3631">Priya K · front desk</span>
+</nav>
+
+<div style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; margin: 16px 16px 16px 0; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 7px #FAF6EE, inset 0 0 0 8.5px #161513; padding: 28px clamp(16px, 3vw, 40px) 44px; display: flex; flex-direction: column; gap: 22px">
+<label style="display: flex; align-items: center; gap: 12px; min-height: 54px; padding: 0 16px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a8 8 0 1 0 16 0a8 8 0 1 0-16 0M21 21l-4-4"></path></svg>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden">Search patients</span>
+<input type="search" value="3210" placeholder="Name, phone or sample number" style="flex: 1; min-width: 0; border: 0; background: transparent; font-family: inherit; font-size: 16px; color: #161513; outline: none">
+</label>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<main style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+<section style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid #161513">
+<div style="display: flex; flex-direction: column">
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1; letter-spacing: -0.02em">Lakshmi Devi, 64</h1>
+<span>+91 ••••• •3210 · consent given 14 Oct 2026 · reads in Simple mode, English</span>
+<span style="color: #3A3631">Same number: Ramana Rao (69), Anjali (34)</span>
+</div>
+<a href="StaffFamily.dc.html" style="display: inline-flex; align-items: center; min-height: 46px; padding: 0 16px; border-radius: 10px; border: 1.5px solid #161513; color: #161513; text-decoration: none; font-weight: 700">Add a family member</a>
+</section>
+
+<section style="display: flex; flex-direction: column">
+<h2 style="margin: 0 0 6px; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 24px">Letters and delivery</h2>
+<sc-for list="{{reports}}" as="r" hint-placeholder-count="3">
+<div style="display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 14px 0; border-top: 1px solid #B9B2A5">
+<div style="flex: 1 1 200px; display: flex; flex-direction: column">
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 19px">{{r.test}}</strong>
+<span style="font-size: 14px; color: #3A3631">{{r.meta}}</span>
+</div>
+<ol aria-label="Delivery" style="flex: 2 1 320px; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14.5px">
+<sc-for list="{{r.steps}}" as="s" hint-placeholder-count="3">
+<li style="display: inline-flex; align-items: center; gap: 5px; color: {{s.color}}; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{s.d}}"></path></svg>{{s.label}}</li>
+</sc-for>
+</ol>
+<sc-if value="{{r.canResend}}" hint-placeholder-val="{{ true }}"><button style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700">Resend link</button></sc-if>
+</div>
+</sc-for>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border-radius: 8px; background: #FAF6EE; border: 1px solid #B9B2A5; border-left: 4px solid #161513">
+<span style="font-size: 13.5px; letter-spacing: 0.06em; text-transform: uppercase">Patient flag · F-2041 · today 11:12</span>
+<strong>"A value looks different from what I expected" · Blood count</strong>
+<span style="font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 17px">"My haemoglobin was 12.4 at another lab last month."</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px">
+<button style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 0; background: #0F5A43; color: #FAF6EE; font-family: inherit; font-weight: 700">Send to lab doctor</button>
+<button style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-weight: 700">Call her back</button>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px">
+<h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 24px">Access log</h2>
+<span style="font-size: 14px; color: #3A3631">The same record the patient sees under "Every opening"</span>
+</div>
+<div style="overflow-x: auto; border-top: 1px solid #161513">
+<table style="width: 100%; min-width: 560px; border-collapse: collapse; font-size: 15px">
+<thead><tr style="text-align: left"><th style="padding: 10px 12px 10px 0">When</th><th style="padding: 10px 12px">What happened</th><th style="padding: 10px 12px">Letter</th><th style="padding: 10px 0 10px 12px">By</th></tr></thead>
+<tbody>
+<sc-for list="{{log}}" as="l" hint-placeholder-count="6">
+<tr style="border-top: 1px solid #D6CCB4"><td style="padding: 10px 12px 10px 0; font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; white-space: nowrap">{{l.when}}</td><td style="padding: 10px 12px">{{l.what}}</td><td style="padding: 10px 12px">{{l.report}}</td><td style="padding: 10px 0 10px 12px">{{l.by}}</td></tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+
+<aside aria-label="Callback tasks" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 24px">Callbacks</h2>
+<sc-for list="{{tasks}}" as="k" hint-placeholder-count="3">
+<article style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 8px; background: #FAF6EE; border: 1px solid #B9B2A5; border-left: 4px solid {{k.edge}}">
+<span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; color: {{k.edge}}">{{k.kind}}</span>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 20px; line-height: 1.2">{{k.who}}</strong>
+<span style="font-size: 15px">{{k.why}}</span>
+<span style="font-size: 14px; color: #3A3631">{{k.due}}</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<a href="tel:+910000000000" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700; font-size: 15px">Call now</a>
+<button style="min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700">Mark done</button>
+</div>
+</article>
+</sc-for>
+</aside>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1250}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const olive = '#161513', soft = '#3A3631', terra = '#8A3B26';
+    const check = 'M5 12l5 5L19 7', clock = 'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2', eye = 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0';
+    const nav = [['Import results', 'StaffImport.dc.html', ''], ['Patients', 'StaffDesk.dc.html', ''], ['Callbacks', 'StaffDesk.dc.html', '3'], ['Add a family member', 'StaffFamily.dc.html', '']].map(([label, href, count], i) => ({ label, href, count, current: i === 1 ? 'page' : 'false', bg: i === 1 ? '#FAF6EE' : 'transparent', weight: i === 1 ? 700 : 400 }));
+    return {
+      nav,
+      reports: [
+        { test: 'Blood count', meta: 'S-1041 · signed 2 Nov 10:40 · open until 5 Nov', canResend: true, steps: [{ label: 'SMS sent 10:41', color: olive, d: check }, { label: 'Delivered 10:41', color: olive, d: check }, { label: 'Opened 11:05', color: olive, d: eye }] },
+        { test: 'Thyroid', meta: 'S-1043 · with the lab doctor', canResend: false, steps: [{ label: 'Waiting for signature', color: soft, d: clock }] },
+        { test: 'Cholesterol and fats', meta: 'S-0987 · signed 14 Oct · closed after 3 days', canResend: true, steps: [{ label: 'Delivered 14 Oct', color: olive, d: check }, { label: 'Opened 15 Oct', color: olive, d: eye }, { label: 'Link closed', color: soft, d: clock }] }
+      ],
+      log: [
+        { when: '2 Nov 11:12', what: 'Patient flag sent (F-2041)', report: 'Blood count', by: 'Patient, phone •3210' },
+        { when: '2 Nov 11:05', what: 'Letter opened', report: 'Blood count', by: 'Patient, phone •3210' },
+        { when: '2 Nov 11:04', what: 'Code entered correctly', report: '—', by: 'Patient, phone •3210' },
+        { when: '2 Nov 10:41', what: 'Letter created and SMS sent', report: 'Blood count', by: 'LIS import' },
+        { when: '2 Nov 10:38', what: 'Record viewed', report: '—', by: 'Priya K, front desk' },
+        { when: '15 Oct 09:12', what: 'Letter opened', report: 'Cholesterol', by: 'Patient, phone •3210' }
+      ],
+      tasks: [
+        { kind: 'Critical value', edge: terra, who: 'Ramana Rao, 69', why: 'Potassium 6.8 mmol/L (usual 3.5–5.1). Patient saw the "please call us" page at 10:52.', due: 'Made 10:41 · call by 11:11' },
+        { kind: 'Patient flag', edge: '#161513', who: 'Lakshmi Devi, 64', why: 'Thinks a value looks different. Doctor to review before calling back.', due: 'Made 11:12 · today by 6 pm' },
+        { kind: 'Call me back', edge: soft, who: 'Anjali, 34', why: 'Tapped "Call me back" from her family page.', due: 'Made 11:20 · today' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="te">
+<head>
+<meta charset="utf-8">
+<title>Telugu and Hindi screens</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;family=Noto+Sans+Telugu:wght@400;600&amp;family=Noto+Serif+Telugu:wght@500&amp;family=Noto+Sans+Devanagari:wght@400;600&amp;family=Noto+Serif+Devanagari:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 2720px; min-height: 2130px; box-sizing: border-box; padding: 30px 40px 40px; background: #CFC5AF; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; display: grid; grid-template-columns: repeat(6, 390px); column-gap: 60px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">తెలుగు · Sign in</span>
+<dc-import name="Main" locale="te" hint-size="390px,1000px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">తెలుగు · Report, Simple</span>
+<dc-import name="Report" locale="te" hint-size="390px,2000px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">తెలుగు · Please call us</span>
+<dc-import name="Critical" locale="te" hint-size="390px,1500px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">తెలుగు · Something looks wrong</span>
+<dc-import name="Flag" locale="te" step="1" hint-size="390px,1000px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">हिन्दी · Sign in</span>
+<dc-import name="Main" locale="hi" hint-size="390px,1000px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">हिन्दी · Report, Simple</span>
+<dc-import name="Report" locale="hi" hint-size="390px,2000px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2720,"height":2130}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

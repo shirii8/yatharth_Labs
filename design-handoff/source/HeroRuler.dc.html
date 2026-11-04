@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hero b, the value finds its place</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes hrLine{0%{stroke-dashoffset:1}5%,85%{stroke-dashoffset:0}95%,100%{stroke-dashoffset:1}}
+@keyframes hrBand{0%,5%{opacity:0;transform:scaleX(.6)}8.3%,85%{opacity:1;transform:scaleX(1)}92%,100%{opacity:0}}
+@keyframes hrTab{0%,8.3%{transform:translateX(-60px);opacity:0}9%{opacity:1}18.3%,85%{transform:translateX(70px);opacity:1}92%,100%{opacity:0;transform:translateX(70px)}}
+@keyframes hrWord{0%,18.3%{opacity:0;transform:translateY(6px)}21.7%,85%{opacity:1;transform:none}92%,100%{opacity:0}}
+.hrLine{stroke-dasharray:1;animation:hrLine 6s ease-in-out infinite}
+.hrBand{transform-origin:center;animation:hrBand 6s ease-out infinite}
+.hrTab{animation:hrTab 6s cubic-bezier(.2,.8,.2,1) infinite}
+.hrWord{animation:hrWord 6s ease-out infinite}
+@media (prefers-reduced-motion: reduce){.hrLine,.hrBand,.hrTab,.hrWord{animation:none}.hrLine{stroke-dashoffset:0}.hrTab{transform:translateX(70px)}}
+</style>
+</helmet>
+<div style="position: relative; width: 1760px; height: 1000px; box-sizing: border-box; padding: 40px 48px; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 16px; line-height: 1.5; display: grid; grid-template-columns: 390px 1fr; gap: 56px; overflow: hidden">
+
+<div aria-label="Live demo, loops every 6 seconds" style="position: relative; width: 390px; height: 900px; box-sizing: border-box; padding: 0 12px; overflow: hidden; border: 2.5px solid #161513; border-radius: 28px; background: #DCD2BD; display: flex; flex-direction: column">
+<div style="display: flex; gap: 4px; padding: 70px 10px 0; margin-bottom: -2.5px; position: relative; z-index: 2">
+<span style="flex: 1; height: 50px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-bottom-color: #FAF6EE; border-radius: 12px 12px 0 0; background: #FAF6EE; font-family: 'Newsreader', Georgia, serif; font-size: 22px">1</span>
+<span style="flex: 1; height: 42px; margin-top: 8px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-radius: 12px 12px 0 0; background: #DCE7D6; font-family: 'Newsreader', Georgia, serif; font-size: 20px">2</span>
+<span style="flex: 1; height: 42px; margin-top: 8px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-radius: 12px 12px 0 0; background: #DCE7D6; font-family: 'Newsreader', Georgia, serif; font-size: 20px">3</span>
+<span style="flex: 1; height: 42px; margin-top: 8px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-radius: 12px 12px 0 0; background: #DCE7D6; font-family: 'Newsreader', Georgia, serif; font-size: 20px">4</span>
+</div>
+<div style="position: relative; flex: 1; margin-bottom: 14px; box-sizing: border-box; padding: 34px 22px; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 6px #FAF6EE, inset 0 0 0 7.5px #161513; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase">Result 1 of 4</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 44px; line-height: 1">Haemoglobin</span>
+<span style="font-size: 19px">Carries oxygen around your body.</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 96px; line-height: 1; letter-spacing: -0.03em; margin-top: 10px">10.2<span style="font-size: 22px; letter-spacing: 0"> g/dL</span></span>
+<div style="position: relative; height: 130px; width: 320px; margin-top: 8px">
+<span class="hrBand" style="position: absolute; top: 46px; left: 128px; width: 112px; height: 20px; box-sizing: border-box; border: 2px solid #161513; border-radius: 10px; background: #DCE7D6"></span>
+<span class="hrBand" style="position: absolute; top: 14px; left: 128px; width: 112px; text-align: center; font-size: 14px; font-weight: 700">usual 12.0 – 15.5</span>
+<svg aria-hidden="true" width="320" height="30" viewBox="0 0 320 30" style="position: absolute; top: 41px; left: 0"><path class="hrLine" pathLength="1" d="M2 15Q80 13 160 15T318 14" fill="none" stroke="#161513" stroke-width="2" stroke-linecap="round"></path></svg>
+<span class="hrTab" style="position: absolute; top: 72px; left: 0; width: 0">
+<span style="position: absolute; left: -28px; top: 0; width: 56px; height: 36px; box-sizing: border-box; border: 2px solid #161513; border-top: 0; border-radius: 0 0 10px 10px; background: #0F5A43; color: #FAF6EE; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px">You</span>
+<span style="position: absolute; left: -1.5px; top: -26px; width: 3px; height: 26px; background: #0F5A43"></span>
+</span>
+</div>
+<span class="hrWord" style="font-size: 20px"><strong style="color: #8A3B26">A little low.</strong> Your doctor will tell you whether anything needs to be done.</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 26px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700">Hero b · the first result</span>
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 64px; line-height: 1; letter-spacing: -0.02em">Your value finds its place.</h1>
+<p style="margin: 6px 0 0; max-width: 820px; font-size: 18px">You see where you are before you read a word about it. The ruler is drawn, the usual stretch appears, and your green tab slides in from the edge and rests where you are. Only then does the sentence arrive. The number never moves; it is printed first and stays still.</p>
+</div>
+
+<ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px">
+<sc-for list="{{frames}}" as="f" hint-placeholder-count="5">
+<li style="display: flex; flex-direction: column; gap: 10px">
+<div aria-hidden="true" style="position: relative; height: 170px; border: 2px solid #161513; border-radius: 14px; background: #FAF6EE; overflow: hidden">
+<span style="position: absolute; left: 14px; top: 12px; font-family: 'Newsreader', Georgia, serif; font-size: 30px">10.2</span>
+<span style="position: absolute; top: 76px; left: 46%; width: 30%; height: 12px; border: 1.5px solid #161513; border-radius: 6px; background: #DCE7D6; opacity: {{f.band}}"></span>
+<span style="position: absolute; top: 81px; left: 8%; width: {{f.line}}%; border-top: 2px solid #161513"></span>
+<span style="position: absolute; top: 94px; left: {{f.tab}}%; width: 30px; height: 20px; margin-left: -15px; background: #0F5A43; border-radius: 0 0 6px 6px; opacity: {{f.tabOn}}"></span>
+<span style="position: absolute; left: 14px; bottom: 12px; font-size: 13px; font-weight: 700; color: #8A3B26; opacity: {{f.word}}">A little low.</span>
+</div>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1">{{f.t}}</strong>
+<span style="font-size: 15px">{{f.what}}</span>
+</li>
+</sc-for>
+</ol>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-top: 16px; border-top: 2.5px solid #161513; font-size: 15px">
+<div><strong>Where the numbers come from</strong><br>The band and the tab position come from the range printed on the signed report and the lab's rule, never from a model.</div>
+<div><strong>Easing</strong><br>Tab: cubic-bezier(.2, .8, .2, 1), 600 ms, arriving softly. Band: 200 ms fade and widen from its centre.</div>
+<div><strong>Screen readers and reduced motion</strong><br>The ruler is one image with a full sentence label; the final frame shows at once when motion is reduced.</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1760,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      frames: [
+        { t: '0 ms', what: 'Name, helper line and the value are already printed and still.', line: 0, band: 0, tab: 8, tabOn: 0, word: 0 },
+        { t: '300 ms', what: 'The ruler is drawn from left to right, a little uneven, like a pencil line.', line: 84, band: 0, tab: 8, tabOn: 0, word: 0 },
+        { t: '500 ms', what: 'The usual stretch fades in and widens from its centre.', line: 84, band: 1, tab: 8, tabOn: 0, word: 0 },
+        { t: '1100 ms', what: 'Your green tab slides in from the left edge and comes to rest at 10.2.', line: 84, band: 1, tab: 30, tabOn: 1, word: 0 },
+        { t: '1300 ms', what: 'The words arrive: "A little low", then what to do about it.', line: 84, band: 1, tab: 30, tabOn: 1, word: 1 }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

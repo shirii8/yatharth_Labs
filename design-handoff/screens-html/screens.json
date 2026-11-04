@@ -1,0 +1,405 @@
+[
+ {
+  "src": "BeforeAfter",
+  "out": "00-before-and-after",
+  "preview": {
+   "width": 1280,
+   "height": 1900
+  },
+  "ok": true
+ },
+ {
+  "src": "HeroOpen",
+  "out": "01-hero-a-opening-the-report",
+  "preview": {
+   "width": 1760,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "HeroRuler",
+  "out": "02-hero-b-value-finds-its-place",
+  "preview": {
+   "width": 1760,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "HeroCritical",
+  "out": "03-hero-c-calmest-page",
+  "preview": {
+   "width": 1760,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Main",
+  "out": "10-sign-in",
+  "props": {
+   "locale": "en"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Main",
+  "out": "10-sign-in.te",
+  "props": {
+   "locale": "te"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Main",
+  "out": "10-sign-in.hi",
+  "props": {
+   "locale": "hi"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Otp",
+  "out": "11-code",
+  "props": {
+   "state": "normal"
+  },
+  "preview": {
+   "width": 390,
+   "height": 960
+  },
+  "ok": true
+ },
+ {
+  "src": "Otp",
+  "out": "11-code.wrong",
+  "props": {
+   "state": "wrong"
+  },
+  "preview": {
+   "width": 390,
+   "height": 960
+  },
+  "ok": true
+ },
+ {
+  "src": "Otp",
+  "out": "11-code.locked",
+  "props": {
+   "state": "locked"
+  },
+  "preview": {
+   "width": 390,
+   "height": 960
+  },
+  "ok": true
+ },
+ {
+  "src": "Consent",
+  "out": "12-consent",
+  "preview": {
+   "width": 390,
+   "height": 1150
+  },
+  "ok": true
+ },
+ {
+  "src": "Preference",
+  "out": "13-reading-preference",
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Who",
+  "out": "14-whose-file",
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Reports",
+  "out": "15-reports-list",
+  "preview": {
+   "width": 390,
+   "height": 1400
+  },
+  "ok": true
+ },
+ {
+  "src": "Report",
+  "out": "16-report-simple",
+  "props": {
+   "locale": "en"
+  },
+  "preview": {
+   "width": 390,
+   "height": 2000
+  },
+  "ok": true
+ },
+ {
+  "src": "Report",
+  "out": "16-report-simple.te",
+  "props": {
+   "locale": "te"
+  },
+  "preview": {
+   "width": 390,
+   "height": 2000
+  },
+  "ok": true
+ },
+ {
+  "src": "Report",
+  "out": "16-report-simple.hi",
+  "props": {
+   "locale": "hi"
+  },
+  "preview": {
+   "width": 390,
+   "height": 2000
+  },
+  "ok": true
+ },
+ {
+  "src": "Compact",
+  "out": "17-report-compact",
+  "preview": {
+   "width": 390,
+   "height": 1700
+  },
+  "ok": true
+ },
+ {
+  "src": "Critical",
+  "out": "18-critical-please-call",
+  "props": {
+   "locale": "en"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1500
+  },
+  "ok": true
+ },
+ {
+  "src": "Critical",
+  "out": "18-critical-please-call.te",
+  "props": {
+   "locale": "te"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1500
+  },
+  "ok": true
+ },
+ {
+  "src": "Flag",
+  "out": "19-flag.step1",
+  "props": {
+   "step": "1"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Flag",
+  "out": "19-flag.step2",
+  "props": {
+   "step": "2"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Flag",
+  "out": "19-flag.step3",
+  "props": {
+   "step": "3"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Flag",
+  "out": "19-flag.step1.te",
+  "props": {
+   "step": "1",
+   "locale": "te"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1000
+  },
+  "ok": true
+ },
+ {
+  "src": "Notice",
+  "out": "20-notice.expired",
+  "props": {
+   "kind": "expired"
+  },
+  "preview": {
+   "width": 390,
+   "height": 900
+  },
+  "ok": true
+ },
+ {
+  "src": "Notice",
+  "out": "20-notice.invalid",
+  "props": {
+   "kind": "invalid"
+  },
+  "preview": {
+   "width": 390,
+   "height": 900
+  },
+  "ok": true
+ },
+ {
+  "src": "Notice",
+  "out": "20-notice.timeout",
+  "props": {
+   "kind": "timeout"
+  },
+  "preview": {
+   "width": 390,
+   "height": 900
+  },
+  "ok": true
+ },
+ {
+  "src": "Notice",
+  "out": "20-notice.loading",
+  "props": {
+   "kind": "loading"
+  },
+  "preview": {
+   "width": 390,
+   "height": 900
+  },
+  "ok": true
+ },
+ {
+  "src": "Notice",
+  "out": "20-notice.empty",
+  "props": {
+   "kind": "empty"
+  },
+  "preview": {
+   "width": 390,
+   "height": 900
+  },
+  "ok": true
+ },
+ {
+  "src": "Notice",
+  "out": "20-notice.error",
+  "props": {
+   "kind": "error"
+  },
+  "preview": {
+   "width": 390,
+   "height": 900
+  },
+  "ok": true
+ },
+ {
+  "src": "Data",
+  "out": "21-data-and-choices",
+  "props": {
+   "view": "settings"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1100
+  },
+  "ok": true
+ },
+ {
+  "src": "Data",
+  "out": "21-data-and-choices.withdraw",
+  "props": {
+   "view": "withdraw"
+  },
+  "preview": {
+   "width": 390,
+   "height": 1100
+  },
+  "ok": true
+ },
+ {
+  "src": "Pdf",
+  "out": "22-printable-report-a4",
+  "preview": {
+   "width": 794,
+   "height": 1123
+  },
+  "ok": true
+ },
+ {
+  "src": "StaffLogin",
+  "out": "30-staff-sign-in",
+  "preview": {
+   "width": 1280,
+   "height": 820
+  },
+  "ok": true
+ },
+ {
+  "src": "StaffImport",
+  "out": "31-staff-csv-import",
+  "preview": {
+   "width": 1280,
+   "height": 1150
+  },
+  "ok": true
+ },
+ {
+  "src": "StaffDesk",
+  "out": "32-staff-patient-desk",
+  "preview": {
+   "width": 1280,
+   "height": 1250
+  },
+  "ok": true
+ },
+ {
+  "src": "StaffFamily",
+  "out": "33-staff-add-family-member",
+  "preview": {
+   "width": 1280,
+   "height": 900
+  },
+  "ok": true
+ }
+]

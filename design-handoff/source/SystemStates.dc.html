@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>System states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1370px; min-height: 1030px; box-sizing: border-box; padding: 30px 40px 40px; background: #CFC5AF; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; display: grid; grid-template-columns: repeat(3, 390px); column-gap: 60px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">Loading on slow internet</span>
+<dc-import name="Notice" kind="loading" hint-size="390px,900px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">Empty · a quiet file</span>
+<dc-import name="Notice" kind="empty" hint-size="390px,900px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">Error · our lamp is out</span>
+<dc-import name="Notice" kind="error" hint-size="390px,900px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1370,"height":1030}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

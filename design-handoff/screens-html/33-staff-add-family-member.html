@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add a family member</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+
+
+<style>
+body{margin:0}
+</style>
+
+</head>
+<body>
+
+
+<div style="position: relative; min-height: 900px; box-sizing: border-box; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 16px; line-height: 1.5; display: flex; flex-wrap: wrap">
+
+<nav aria-label="Front desk" style="flex: 1 1 220px; max-width: 100%; box-sizing: border-box; padding: 24px 14px; background: transparent; display: flex; flex-direction: column; gap: 4px">
+<span style="padding: 0 10px 18px; font-family: 'Newsreader', Georgia, serif; font-size: 20px; letter-spacing: 0.06em; font-variant: small-caps">[Lab name] · desk</span>
+
+<a href="StaffImport.dc.html" aria-current="false" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: transparent; color: #161513; text-decoration: none; font-weight: 400">Import results<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px"></span></a>
+
+<a href="StaffDesk.dc.html" aria-current="false" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: transparent; color: #161513; text-decoration: none; font-weight: 400">Patients<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px"></span></a>
+
+<a href="StaffDesk.dc.html" aria-current="false" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: transparent; color: #161513; text-decoration: none; font-weight: 400">Callbacks<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px">3</span></a>
+
+<a href="StaffFamily.dc.html" aria-current="page" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: #FAF6EE; color: #161513; text-decoration: none; font-weight: 700">Add a family member<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px"></span></a>
+
+<span style="margin-top: auto; padding: 12px 10px 0; font-size: 13.5px; color: #3A3631">Priya K · front desk</span>
+</nav>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; margin: 16px 16px 16px 0; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 7px #FAF6EE, inset 0 0 0 8.5px #161513; padding: 32px clamp(16px, 3vw, 44px) 44px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<form style="flex: 999 1 420px; min-width: 0; max-width: 620px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="color: #3A3631">Phone number +91 ••••• •3210 · 3 people already</span>
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 52px; line-height: 1; letter-spacing: -0.02em">Add a family member</h1>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px">
+<label style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px; font-weight: 700">Full name, as on their lab form
+<input type="text" value="Sita Ramana" style="min-height: 50px; padding: 0 14px; border-radius: 10px; border: 2px solid #161513; background: #FAF6EE; font-family: inherit; font-size: 16px; font-weight: 400">
+</label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 700">Date of birth
+<input type="text" value="12 / 08 / 1957" inputmode="numeric" style="min-height: 50px; padding: 0 14px; border-radius: 10px; border: 2px solid #161513; background: #FAF6EE; font-family: inherit; font-size: 16px; font-weight: 400">
+</label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-weight: 700">Relation to the number's owner
+<select style="min-height: 50px; padding: 0 12px; border-radius: 10px; border: 2px solid #161513; background: #FAF6EE; font-family: inherit; font-size: 16px"><option>Sister-in-law</option><option>Parent</option><option>Child</option><option>Spouse</option><option>Other</option></select>
+</label>
+</div>
+
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="padding: 0; margin-bottom: 8px; font-weight: 700">Language for her letters</legend>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+
+<label style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; border-radius: 10px; border: 1px solid #B9B2A5; background: transparent; font-family: 'Atkinson Hyperlegible Next', sans-serif; cursor: pointer"><input type="radio" name="lang" style="accent-color: #161513">English</label>
+
+<label style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; border-radius: 10px; border: 2.5px solid #161513; background: #FAF6EE; font-family: 'Noto Sans Telugu', sans-serif; cursor: pointer"><input type="radio" name="lang" checked="" style="accent-color: #161513">తెలుగు</label>
+
+<label style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; border-radius: 10px; border: 1px solid #B9B2A5; background: transparent; font-family: 'Noto Sans Devanagari', sans-serif; cursor: pointer"><input type="radio" name="lang" style="accent-color: #161513">हिन्दी</label>
+
+</div>
+</fieldset>
+
+<fieldset style="margin: 0; padding: 16px 18px; border: 1px solid #B9B2A5; border-left: 4px solid #161513; border-radius: 8px; background: #FAF6EE; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0 6px; font-weight: 700">Her consent</legend>
+<p style="margin: 0; font-size: 15px">Adults give their own consent. Her reports stay closed on this number until she agrees.</p>
+<label style="display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px"><input type="radio" name="consent" checked="" style="width: 20px; height: 20px; margin-top: 3px; accent-color: #161513">She is here and agrees in person. I read her the four promises.</label>
+<label style="display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px"><input type="radio" name="consent" style="width: 20px; height: 20px; margin-top: 3px; accent-color: #161513">She is not here. Send a consent SMS to her own phone first.</label>
+</fieldset>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<a href="StaffDesk.dc.html" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 12px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700">Add to this number</a>
+<a href="StaffDesk.dc.html" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 12px; border: 1.5px solid #161513; color: #161513; text-decoration: none; font-weight: 700">Cancel</a>
+</div>
+<span style="font-size: 14px; color: #3A3631">This change is written in the access log under your name.</span>
+</form>
+
+<aside aria-label="Preview of her place card" style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13.5px; letter-spacing: 0.08em; text-transform: uppercase">What the family will see</span>
+<div style="display: flex; flex-direction: column">
+<span aria-hidden="true" style="height: 18px; margin: 0 14px; border: 1px solid #B9B2A5; border-bottom: 0; border-radius: 6px 6px 0 0; background: #FAF6EE"></span>
+<div style="display: flex; flex-direction: column; gap: 2px; padding: 16px 18px; border: 1px solid #B9B2A5; border-radius: 4px 4px 10px 10px; background: #FAF6EE">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 26px; line-height: 1.15">Sita Ramana</span>
+<span style="font-size: 13.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #3A3631">Sister-in-law · 69</span>
+<span style="margin-top: 6px; font-size: 15px; font-weight: 700; color: #3A3631">Waiting for her consent</span>
+</div>
+<svg aria-hidden="true" width="100%" height="10" viewBox="0 0 300 10" preserveAspectRatio="none" style="display: block; margin-top: 4px"><path d="M2 5q80-3 150 0t146 0" fill="none" stroke="#161513" stroke-width="1.6" stroke-linecap="round"></path></svg>
+</div>
+</aside>
+</main>
+</div>
+
+</body>
+</html>

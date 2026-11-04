@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero c, the calmest page</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+
+
+<style>
+body{margin:0}
+@keyframes hcFade{0%{opacity:0}5%,90%{opacity:1}100%{opacity:0}}
+@keyframes hcCord{0%,5%{stroke-dashoffset:1}15%,90%{stroke-dashoffset:0}100%{stroke-dashoffset:1}}
+@keyframes hcTick{0%,15%{background:#FAF6EE;color:#FAF6EE}20%,90%{background:#0F5A43;color:#FAF6EE}100%{background:#FAF6EE}}
+@keyframes hcBreath{0%,100%{box-shadow:0 0 0 0 rgba(15,90,67,0)}50%{box-shadow:0 0 0 10px rgba(15,90,67,.22)}}
+.hcFade{animation:hcFade 8s ease-out infinite}
+.hcCord{stroke-dasharray:1;animation:hcCord 8s ease-in-out infinite}
+.hcTick{animation:hcTick 8s ease-out infinite}
+.hcBreath{animation:hcBreath 4s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.hcFade,.hcCord,.hcTick,.hcBreath{animation:none}.hcCord{stroke-dashoffset:0}.hcTick{background:#0F5A43}}
+</style>
+
+</head>
+<body>
+
+
+<div style="position: relative; width: 1760px; height: 1000px; box-sizing: border-box; padding: 40px 48px; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 16px; line-height: 1.5; display: grid; grid-template-columns: 390px 1fr; gap: 56px; overflow: hidden">
+
+<div aria-label="Live demo" style="position: relative; width: 390px; height: 900px; box-sizing: border-box; padding: 0 12px; overflow: hidden; border: 2.5px solid #161513; border-radius: 28px; background: #DCD2BD; display: flex; flex-direction: column">
+<div style="display: flex; gap: 4px; padding: 70px 10px 0; margin-bottom: -2.5px; position: relative; z-index: 2">
+<span style="flex: 1; height: 42px; margin-top: 8px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-radius: 12px 12px 0 0; background: #D7E3EE; font-weight: 700; font-size: 15px">Lakshmi</span>
+<span style="flex: 1.2; height: 50px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-bottom-color: #F6E8E6; border-radius: 12px 12px 0 0; background: #F6E8E6; font-weight: 700; font-size: 15px">Ramana</span>
+<span style="flex: 1; height: 42px; margin-top: 8px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-radius: 12px 12px 0 0; background: #F4E9C6; font-weight: 700; font-size: 15px">Anjali</span>
+</div>
+<div class="hcFade" style="position: relative; flex: 1; margin-bottom: 14px; box-sizing: border-box; padding: 30px 22px; background: #F6E8E6; border: 2.5px solid #161513; box-shadow: inset 0 0 0 6px #F6E8E6, inset 0 0 0 7.5px #161513; display: flex; flex-direction: column; gap: 16px">
+<svg aria-hidden="true" width="120" height="96" viewBox="0 0 120 96" fill="none" stroke="#161513" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 84h76l-8-26H30zM53 71a7 7 0 1 0 14 0a7 7 0 1 0-14 0M18 42q0-14 14-14h56q14 0 14 14l-12 6q-4-10-30-10t-30 10z"></path><path class="hcCord" pathLength="1" d="M102 42q14 10 6 26t-14 18" stroke="#0F5A43" stroke-width="2.4"></path></svg>
+<span style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 44px; line-height: 1.02; letter-spacing: -0.02em">Please call us about Ramana garu's report.</span>
+<span style="font-size: 19px">One result needs a doctor to talk it through with you today. We kept the explanation for that call, so you are not left reading it alone.</span>
+<a href="tel:+910000000000" class="hcBreath" style="display: flex; align-items: center; justify-content: center; min-height: 64px; border-radius: 12px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700; font-size: 20px">Call the lab now</a>
+<div style="display: flex; gap: 12px; align-items: center; font-size: 17px">
+<span class="hcTick" aria-hidden="true" style="flex: none; width: 30px; height: 30px; border-radius: 50%; border: 2px solid #0F5A43; display: flex; align-items: center; justify-content: center; font-size: 16px">✓</span>
+<span><strong>We have asked our team to call you.</strong> Usually within 30 minutes.</span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 26px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700">Hero c · the critical value</span>
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 64px; line-height: 1; letter-spacing: -0.02em">Nothing moves fast here.</h1>
+<p style="margin: 6px 0 0; max-width: 840px; font-size: 18px">This page holds the most worrying news in the product, so it is the stillest. No number, no summary, no red. The page simply appears; the phone's cord is drawn, one green tick says someone is already on it, and the call button breathes slowly, about as fast as a calm breath.</p>
+</div>
+
+<ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px">
+
+<li style="display: flex; flex-direction: column; gap: 10px">
+<div aria-hidden="true" style="position: relative; height: 170px; border: 2px solid #161513; border-radius: 14px; background: #F6E8E6; overflow: hidden; opacity: 0.35">
+<span style="position: absolute; left: 14px; top: 14px; width: 54px; height: 30px; border: 2px solid #161513; border-radius: 12px 12px 4px 4px"></span>
+<span style="position: absolute; left: 72px; top: 22px; width: 0px; height: 20px; border: 2px solid #0F5A43; border-left: 0; border-bottom: 0; border-radius: 0 14px 0 0"></span>
+<span style="position: absolute; left: 14px; top: 60px; right: 14px; font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1">Please call us.</span>
+<span style="position: absolute; left: 14px; right: 14px; top: 100px; height: 28px; border-radius: 8px; background: #0F5A43; box-shadow: 0 0 0 0px rgba(15,90,67,.22)"></span>
+<span style="position: absolute; left: 14px; bottom: 10px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #0F5A43; background: #F6E8E6"></span>
+</div>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1">0 ms</strong>
+<span style="font-size: 15px">Ramana’s tab is already open. The page fades in over 300 ms; it does not slide.</span>
+</li>
+
+<li style="display: flex; flex-direction: column; gap: 10px">
+<div aria-hidden="true" style="position: relative; height: 170px; border: 2px solid #161513; border-radius: 14px; background: #F6E8E6; overflow: hidden; opacity: 1">
+<span style="position: absolute; left: 14px; top: 14px; width: 54px; height: 30px; border: 2px solid #161513; border-radius: 12px 12px 4px 4px"></span>
+<span style="position: absolute; left: 72px; top: 22px; width: 0px; height: 20px; border: 2px solid #0F5A43; border-left: 0; border-bottom: 0; border-radius: 0 14px 0 0"></span>
+<span style="position: absolute; left: 14px; top: 60px; right: 14px; font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1">Please call us.</span>
+<span style="position: absolute; left: 14px; right: 14px; top: 100px; height: 28px; border-radius: 8px; background: #0F5A43; box-shadow: 0 0 0 0px rgba(15,90,67,.22)"></span>
+<span style="position: absolute; left: 14px; bottom: 10px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #0F5A43; background: #F6E8E6"></span>
+</div>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1">300 ms</strong>
+<span style="font-size: 15px">Page complete: the drawing, one large sentence, the green call button.</span>
+</li>
+
+<li style="display: flex; flex-direction: column; gap: 10px">
+<div aria-hidden="true" style="position: relative; height: 170px; border: 2px solid #161513; border-radius: 14px; background: #F6E8E6; overflow: hidden; opacity: 1">
+<span style="position: absolute; left: 14px; top: 14px; width: 54px; height: 30px; border: 2px solid #161513; border-radius: 12px 12px 4px 4px"></span>
+<span style="position: absolute; left: 72px; top: 22px; width: 40px; height: 20px; border: 2px solid #0F5A43; border-left: 0; border-bottom: 0; border-radius: 0 14px 0 0"></span>
+<span style="position: absolute; left: 14px; top: 60px; right: 14px; font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1">Please call us.</span>
+<span style="position: absolute; left: 14px; right: 14px; top: 100px; height: 28px; border-radius: 8px; background: #0F5A43; box-shadow: 0 0 0 0px rgba(15,90,67,.22)"></span>
+<span style="position: absolute; left: 14px; bottom: 10px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #0F5A43; background: #F6E8E6"></span>
+</div>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1">1200 ms</strong>
+<span style="font-size: 15px">The phone’s cord is drawn in green, joining the drawing to the button.</span>
+</li>
+
+<li style="display: flex; flex-direction: column; gap: 10px">
+<div aria-hidden="true" style="position: relative; height: 170px; border: 2px solid #161513; border-radius: 14px; background: #F6E8E6; overflow: hidden; opacity: 1">
+<span style="position: absolute; left: 14px; top: 14px; width: 54px; height: 30px; border: 2px solid #161513; border-radius: 12px 12px 4px 4px"></span>
+<span style="position: absolute; left: 72px; top: 22px; width: 40px; height: 20px; border: 2px solid #0F5A43; border-left: 0; border-bottom: 0; border-radius: 0 14px 0 0"></span>
+<span style="position: absolute; left: 14px; top: 60px; right: 14px; font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1">Please call us.</span>
+<span style="position: absolute; left: 14px; right: 14px; top: 100px; height: 28px; border-radius: 8px; background: #0F5A43; box-shadow: 0 0 0 0px rgba(15,90,67,.22)"></span>
+<span style="position: absolute; left: 14px; bottom: 10px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #0F5A43; background: #0F5A43"></span>
+</div>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1">1600 ms</strong>
+<span style="font-size: 15px">One tick fills: "We have asked our team to call you." Someone is already on it.</span>
+</li>
+
+<li style="display: flex; flex-direction: column; gap: 10px">
+<div aria-hidden="true" style="position: relative; height: 170px; border: 2px solid #161513; border-radius: 14px; background: #F6E8E6; overflow: hidden; opacity: 1">
+<span style="position: absolute; left: 14px; top: 14px; width: 54px; height: 30px; border: 2px solid #161513; border-radius: 12px 12px 4px 4px"></span>
+<span style="position: absolute; left: 72px; top: 22px; width: 40px; height: 20px; border: 2px solid #0F5A43; border-left: 0; border-bottom: 0; border-radius: 0 14px 0 0"></span>
+<span style="position: absolute; left: 14px; top: 60px; right: 14px; font-family: 'Newsreader', Georgia, serif; font-size: 18px; line-height: 1">Please call us.</span>
+<span style="position: absolute; left: 14px; right: 14px; top: 100px; height: 28px; border-radius: 8px; background: #0F5A43; box-shadow: 0 0 0 8px rgba(15,90,67,.22)"></span>
+<span style="position: absolute; left: 14px; bottom: 10px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #0F5A43; background: #0F5A43"></span>
+</div>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1">2 s onwards</strong>
+<span style="font-size: 15px">The call button breathes, a soft green halo in and out every 4 seconds.</span>
+</li>
+
+</ol>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-top: 16px; border-top: 2.5px solid #161513; font-size: 15px">
+<div><strong>Words</strong><br>"Please call us", never "urgent", "critical" or "abnormal". The safety note below is fixed, approved by the lab doctor, the same for every report like this.</div>
+<div><strong>Colour</strong><br>A muted rose page, chosen once per family member with this news. The only strong colour is the green way forward: the call.</div>
+<div><strong>Reduced motion</strong><br>No fade, no cord, no breathing: the page arrives complete, tick already green.</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>

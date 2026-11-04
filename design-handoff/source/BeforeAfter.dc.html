@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Before and after</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 1280px; height: 1900px; box-sizing: border-box; padding: 28px 40px 40px; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 16px; line-height: 1.5; display: flex; flex-direction: column; overflow: hidden">
+<svg aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.14"><filter id="grBA"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#grBA)"></rect></svg>
+<svg aria-hidden="true" width="0" height="0" style="position: absolute"><filter id="wbBA"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="2.2"></feDisplacementMap></filter></svg>
+
+<div style="position: relative; display: flex; justify-content: space-between; align-items: center; padding: 0 4px 16px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 26px; letter-spacing: 0.04em; font-variant: small-caps">[Lab name] · second pass</span>
+<span style="font-size: 14px">Every page under 150 KB · CSS motion only · reduced motion respected</span>
+</div>
+
+<nav aria-label="Sections" style="position: relative; z-index: 2; display: flex; gap: 6px; padding: 0 18px; margin-bottom: -2.5px">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="6">
+<a href="{{t.href}}" style="min-width: 150px; min-height: 48px; margin-top: {{t.mt}}; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-bottom-color: {{t.bb}}; border-radius: 12px 12px 0 0; background: {{t.bg}}; color: #161513; text-decoration: none; font-size: 15px; font-weight: 700">{{t.label}}</a>
+</sc-for>
+</nav>
+
+<main style="position: relative; flex: 1; display: flex; flex-direction: column; gap: 34px; padding: 48px 52px; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 7px #FAF6EE, inset 0 0 0 8.5px #161513">
+<section id="idea" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: end">
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 82px; line-height: 0.95; letter-spacing: -0.03em">Your health file, kept by people who know you.</h1>
+<p style="margin: 0; font-size: 19px">One idea, used everywhere. Each report is a page in your file, behind its own tab. A person at the lab files it, writes on it and calls you when it matters. Anything that is not part of a file, a page, a tab or a person was cut.</p>
+</section>
+
+<section id="motif" style="display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">The motif: the index tab, recognisable from any crop</h2>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<sc-for list="{{crops}}" as="c" hint-placeholder-count="5">
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 8px">
+<svg aria-hidden="true" width="100%" height="110" viewBox="0 0 200 110" fill="none" stroke="#161513" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="background: #F2ECDF; border-radius: 6px"><g filter="url(#wbBA)"><path d="{{c.d}}"></path><path d="{{c.g}}" stroke="#0F5A43" stroke-width="3"></path></g></svg>
+<figcaption style="font-size: 14.5px"><strong>{{c.where}}</strong> {{c.how}}</figcaption>
+</figure>
+</sc-for>
+</div>
+</section>
+
+<section id="change" style="display: flex; flex-direction: column">
+<div style="display: grid; grid-template-columns: 160px 1fr 1fr; gap: 24px; padding-bottom: 8px; border-bottom: 2.5px solid #161513; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700"><span></span><span>Before</span><span>After, and why</span></div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+<div style="display: grid; grid-template-columns: 160px 1fr 1fr; gap: 24px; padding: 12px 0; border-bottom: 1px solid #B9B2A5">
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 21px; line-height: 1.2">{{r.k}}</strong>
+<span style="color: #3A3631">{{r.before}}</span>
+<span>{{r.after}}</span>
+</div>
+</sc-for>
+</section>
+
+<section id="colour" style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Colour, with one job for the accent</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{swatches}}" as="w" hint-placeholder-count="8">
+<div style="display: flex; flex-direction: column; gap: 4px; font-size: 13.5px"><span style="height: 54px; border-radius: 6px; border: 1.5px solid #161513; background: {{w.hex}}"></span><strong>{{w.name}}</strong><span>{{w.hex}} · {{w.role}}</span></div>
+</sc-for>
+</div>
+</div>
+<div id="cut" style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">Cut in this pass</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<sc-for list="{{cuts}}" as="c" hint-placeholder-count="6"><li style="padding: 8px 0; border-bottom: 1px solid #B9B2A5"><s style="text-decoration-thickness: 1.5px">{{c.what}}</s> <span style="color: #3A3631">{{c.why}}</span></li></sc-for>
+</ul>
+</div>
+</section>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tints = ['#FAF6EE', '#D7E3EE', '#F1D9DC', '#DCE7D6', '#F4E9C6', '#CFCBC4'];
+    const tabs = [['Before & after', '#change'], ['Idea', '#idea'], ['Motif', '#motif'], ['Colour', '#colour'], ['Cut', '#cut']].map(([label, href], i) => ({ label, href, bg: tints[i], bb: i === 0 ? '#FAF6EE' : '#161513', mt: i === 0 ? '0' : '7px' }));
+    const tab = 'M20 96V40q0-8 8-8h36q8 0 8 8v14h108';
+    return {
+      tabs,
+      crops: [
+        { where: 'Sign in:', how: 'languages are the first tabs of your file.', d: 'M10 96V40q0-8 8-8h50q8 0 8 8v14h114M10 96h180', g: 'M84 54V44q0-6 6-6h42q6 0 6 6v10' },
+        { where: 'Progress:', how: 'results 1 to 4 are tabs; yours is raised in green.', d: 'M10 80h180M14 80V60q0-6 6-6h30q6 0 6 6v20M104 80V60q0-6 6-6h30q6 0 6 6v20M150 80V60q0-6 6-6h30q6 0 6 6v20', g: 'M58 80V48q0-6 6-6h30q6 0 6 6v32' },
+        { where: 'Your value:', how: 'a small green tab rests on the ruler where you are.', d: 'M10 70q90-2 180 0M30 70v-8M60 70v-6M90 70v-8M120 70v-6M150 70v-8M180 70v-6', g: 'M60 62V40q0-5 5-5h22q5 0 5 5v22M60 62h32' },
+        { where: 'Dividers:', how: 'every section rule carries a little tab notch.', d: 'M10 70H86q4 0 6-10h30q2 10 6 10H190', g: '' },
+        { where: 'Empty and waiting:', how: 'drawings of the file itself: an empty folder, a page filed away.', d: 'M24 34h50l8-12h36l8 12h50v62H24zM24 50h152', g: 'M44 34V20h72' }
+      ],
+      rows: [
+        { k: 'Idea', before: 'A letter from the lab: right mood, but the envelope did nothing after the list page.', after: 'Your health file. Tabs, pages and notes carry the whole journey, from sign-in to the front desk.' },
+        { k: 'Motif', before: 'Drawings and rules appeared here and there with no shared shape.', after: 'The index tab everywhere: languages, family, results, your marker on the ruler, dividers, empty states.' },
+        { k: 'Accent', before: 'Black buttons; olive and terracotta both used for status.', after: 'Ink-green #0F5A43 means only "yours" or "the next step". Status words stay muted and always carry a word.' },
+        { k: 'Scale', before: 'Every heading 30 to 36 px; pages felt even.', after: 'One serif moment per screen at 52 to 96 px (a name, a number, a sentence), then quiet 15 to 19 px text.' },
+        { k: 'Rhythm', before: 'Report sections spaced the same top to bottom.', after: 'The report breathes at the top (greeting, one result) and tightens below (steps, copies, ledger).' },
+        { k: 'Frame', before: 'Soft cards with thin borders.', after: 'A heavy double-ruled page on a warm desk, with tinted tabs, borrowed from good printed folders.' },
+        { k: 'States', before: 'Correct but generic copy.', after: 'A kettle, an empty folder, a door ajar, an unlit lamp, a filed-away page, signed by the front desk in a human voice.' },
+        { k: 'Compact', before: 'The Simple page, smaller.', after: 'Sharper: tighter leading, square corners, a trend line with one sentence. Same file, grown up.' }
+      ],
+      swatches: [
+        { name: 'Desk', hex: '#DCD2BD', role: 'behind the file' },
+        { name: 'Page', hex: '#FAF6EE', role: 'every page' },
+        { name: 'Ink', hex: '#161513', role: 'text, rules, frames' },
+        { name: 'Ink-green', hex: '#0F5A43', role: 'yours / next step only' },
+        { name: 'Sky tab', hex: '#D7E3EE', role: 'tabs, quiet' },
+        { name: 'Rose tab', hex: '#F1D9DC', role: 'please-call page' },
+        { name: 'Sage tab', hex: '#DCE7D6', role: 'usual range' },
+        { name: 'Clay word', hex: '#8A3B26', role: '"a little low", text only' }
+      ],
+      cuts: [
+        { what: 'The rationale and left-out boards.', why: 'Merged into this page.' },
+        { what: 'Envelope wax seals.', why: 'Replaced by the tab, which already says "yours".' },
+        { what: 'Black primary buttons.', why: 'Next steps are green; everything else is an outline.' },
+        { what: 'Olive status colour.', why: '"Usual" is plain ink with a tick; green is saved for you.' },
+        { what: 'Repeated headings like "What to do next" in large type.', why: 'Only one big moment per screen.' },
+        { what: 'Monospace and grey text.', why: 'Serif numbers; secondary text is still AAA.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staff patient desk</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+
+
+<style>
+body{margin:0}
+</style>
+
+</head>
+<body>
+
+
+<div style="position: relative; min-height: 1250px; box-sizing: border-box; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 16px; line-height: 1.5; display: flex; flex-wrap: wrap">
+
+<nav aria-label="Front desk" style="flex: 1 1 220px; max-width: 100%; box-sizing: border-box; padding: 24px 14px; background: transparent; display: flex; flex-direction: column; gap: 4px">
+<span style="padding: 0 10px 18px; font-family: 'Newsreader', Georgia, serif; font-size: 20px; letter-spacing: 0.06em; font-variant: small-caps">[Lab name] · desk</span>
+
+<a href="StaffImport.dc.html" aria-current="false" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: transparent; color: #161513; text-decoration: none; font-weight: 400">Import results<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px"></span></a>
+
+<a href="StaffDesk.dc.html" aria-current="page" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: #FAF6EE; color: #161513; text-decoration: none; font-weight: 700">Patients<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px"></span></a>
+
+<a href="StaffDesk.dc.html" aria-current="false" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: transparent; color: #161513; text-decoration: none; font-weight: 400">Callbacks<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px">3</span></a>
+
+<a href="StaffFamily.dc.html" aria-current="false" style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; border-radius: 10px; background: transparent; color: #161513; text-decoration: none; font-weight: 400">Add a family member<span style="font-family: 'Newsreader', Georgia, serif; color: #8A3B26; font-size: 18px"></span></a>
+
+<span style="margin-top: auto; padding: 12px 10px 0; font-size: 13.5px; color: #3A3631">Priya K · front desk</span>
+</nav>
+
+<div style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; margin: 16px 16px 16px 0; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 7px #FAF6EE, inset 0 0 0 8.5px #161513; padding: 28px clamp(16px, 3vw, 40px) 44px; display: flex; flex-direction: column; gap: 22px">
+<label style="display: flex; align-items: center; gap: 12px; min-height: 54px; padding: 0 16px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a8 8 0 1 0 16 0a8 8 0 1 0-16 0M21 21l-4-4"></path></svg>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden">Search patients</span>
+<input type="search" value="3210" placeholder="Name, phone or sample number" style="flex: 1; min-width: 0; border: 0; background: transparent; font-family: inherit; font-size: 16px; color: #161513; outline: none">
+</label>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<main style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+
+<section style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid #161513">
+<div style="display: flex; flex-direction: column">
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 56px; line-height: 1; letter-spacing: -0.02em">Lakshmi Devi, 64</h1>
+<span>+91 ••••• •3210 · consent given 14 Oct 2026 · reads in Simple mode, English</span>
+<span style="color: #3A3631">Same number: Ramana Rao (69), Anjali (34)</span>
+</div>
+<a href="StaffFamily.dc.html" style="display: inline-flex; align-items: center; min-height: 46px; padding: 0 16px; border-radius: 10px; border: 1.5px solid #161513; color: #161513; text-decoration: none; font-weight: 700">Add a family member</a>
+</section>
+
+<section style="display: flex; flex-direction: column">
+<h2 style="margin: 0 0 6px; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 24px">Letters and delivery</h2>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 14px 0; border-top: 1px solid #B9B2A5">
+<div style="flex: 1 1 200px; display: flex; flex-direction: column">
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 19px">Blood count</strong>
+<span style="font-size: 14px; color: #3A3631">S-1041 · signed 2 Nov 10:40 · open until 5 Nov</span>
+</div>
+<ol aria-label="Delivery" style="flex: 2 1 320px; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14.5px">
+
+<li style="display: inline-flex; align-items: center; gap: 5px; color: #161513; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"></path></svg>SMS sent 10:41</li>
+
+<li style="display: inline-flex; align-items: center; gap: 5px; color: #161513; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"></path></svg>Delivered 10:41</li>
+
+<li style="display: inline-flex; align-items: center; gap: 5px; color: #161513; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0"></path></svg>Opened 11:05</li>
+
+</ol>
+<button style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700">Resend link</button>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 14px 0; border-top: 1px solid #B9B2A5">
+<div style="flex: 1 1 200px; display: flex; flex-direction: column">
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 19px">Thyroid</strong>
+<span style="font-size: 14px; color: #3A3631">S-1043 · with the lab doctor</span>
+</div>
+<ol aria-label="Delivery" style="flex: 2 1 320px; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14.5px">
+
+<li style="display: inline-flex; align-items: center; gap: 5px; color: #3A3631; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2"></path></svg>Waiting for signature</li>
+
+</ol>
+
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 14px 0; border-top: 1px solid #B9B2A5">
+<div style="flex: 1 1 200px; display: flex; flex-direction: column">
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 19px">Cholesterol and fats</strong>
+<span style="font-size: 14px; color: #3A3631">S-0987 · signed 14 Oct · closed after 3 days</span>
+</div>
+<ol aria-label="Delivery" style="flex: 2 1 320px; margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14.5px">
+
+<li style="display: inline-flex; align-items: center; gap: 5px; color: #161513; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"></path></svg>Delivered 14 Oct</li>
+
+<li style="display: inline-flex; align-items: center; gap: 5px; color: #161513; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0"></path></svg>Opened 15 Oct</li>
+
+<li style="display: inline-flex; align-items: center; gap: 5px; color: #3A3631; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 7v5l3 2"></path></svg>Link closed</li>
+
+</ol>
+<button style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700">Resend link</button>
+</div>
+
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border-radius: 8px; background: #FAF6EE; border: 1px solid #B9B2A5; border-left: 4px solid #161513">
+<span style="font-size: 13.5px; letter-spacing: 0.06em; text-transform: uppercase">Patient flag · F-2041 · today 11:12</span>
+<strong>"A value looks different from what I expected" · Blood count</strong>
+<span style="font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 17px">"My haemoglobin was 12.4 at another lab last month."</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px">
+<button style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 0; background: #0F5A43; color: #FAF6EE; font-family: inherit; font-weight: 700">Send to lab doctor</button>
+<button style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-weight: 700">Call her back</button>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px">
+<h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 24px">Access log</h2>
+<span style="font-size: 14px; color: #3A3631">The same record the patient sees under "Every opening"</span>
+</div>
+<div style="overflow-x: auto; border-top: 1px solid #161513">
+<table style="width: 100%; min-width: 560px; border-collapse: collapse; font-size: 15px">
+<thead><tr style="text-align: left"><th style="padding: 10px 12px 10px 0">When</th><th style="padding: 10px 12px">What happened</th><th style="padding: 10px 12px">Letter</th><th style="padding: 10px 0 10px 12px">By</th></tr></thead>
+<tbody>
+
+<tr style="border-top: 1px solid #D6CCB4"><td style="padding: 10px 12px 10px 0; font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; white-space: nowrap">2 Nov 11:12</td><td style="padding: 10px 12px">Patient flag sent (F-2041)</td><td style="padding: 10px 12px">Blood count</td><td style="padding: 10px 0 10px 12px">Patient, phone •3210</td></tr>
+
+<tr style="border-top: 1px solid #D6CCB4"><td style="padding: 10px 12px 10px 0; font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; white-space: nowrap">2 Nov 11:05</td><td style="padding: 10px 12px">Letter opened</td><td style="padding: 10px 12px">Blood count</td><td style="padding: 10px 0 10px 12px">Patient, phone •3210</td></tr>
+
+<tr style="border-top: 1px solid #D6CCB4"><td style="padding: 10px 12px 10px 0; font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; white-space: nowrap">2 Nov 11:04</td><td style="padding: 10px 12px">Code entered correctly</td><td style="padding: 10px 12px">—</td><td style="padding: 10px 0 10px 12px">Patient, phone •3210</td></tr>
+
+<tr style="border-top: 1px solid #D6CCB4"><td style="padding: 10px 12px 10px 0; font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; white-space: nowrap">2 Nov 10:41</td><td style="padding: 10px 12px">Letter created and SMS sent</td><td style="padding: 10px 12px">Blood count</td><td style="padding: 10px 0 10px 12px">LIS import</td></tr>
+
+<tr style="border-top: 1px solid #D6CCB4"><td style="padding: 10px 12px 10px 0; font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; white-space: nowrap">2 Nov 10:38</td><td style="padding: 10px 12px">Record viewed</td><td style="padding: 10px 12px">—</td><td style="padding: 10px 0 10px 12px">Priya K, front desk</td></tr>
+
+<tr style="border-top: 1px solid #D6CCB4"><td style="padding: 10px 12px 10px 0; font-family: 'Newsreader', Georgia, serif; font-size: 16.5px; white-space: nowrap">15 Oct 09:12</td><td style="padding: 10px 12px">Letter opened</td><td style="padding: 10px 12px">Cholesterol</td><td style="padding: 10px 0 10px 12px">Patient, phone •3210</td></tr>
+
+</tbody>
+</table>
+</div>
+</section>
+</main>
+
+<aside aria-label="Callback tasks" style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 24px">Callbacks</h2>
+
+<article style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 8px; background: #FAF6EE; border: 1px solid #B9B2A5; border-left: 4px solid #8A3B26">
+<span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; color: #8A3B26">Critical value</span>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 20px; line-height: 1.2">Ramana Rao, 69</strong>
+<span style="font-size: 15px">Potassium 6.8 mmol/L (usual 3.5–5.1). Patient saw the "please call us" page at 10:52.</span>
+<span style="font-size: 14px; color: #3A3631">Made 10:41 · call by 11:11</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<a href="tel:+910000000000" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700; font-size: 15px">Call now</a>
+<button style="min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700">Mark done</button>
+</div>
+</article>
+
+<article style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 8px; background: #FAF6EE; border: 1px solid #B9B2A5; border-left: 4px solid #161513">
+<span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; color: #161513">Patient flag</span>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 20px; line-height: 1.2">Lakshmi Devi, 64</strong>
+<span style="font-size: 15px">Thinks a value looks different. Doctor to review before calling back.</span>
+<span style="font-size: 14px; color: #3A3631">Made 11:12 · today by 6 pm</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<a href="tel:+910000000000" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700; font-size: 15px">Call now</a>
+<button style="min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700">Mark done</button>
+</div>
+</article>
+
+<article style="display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 8px; background: #FAF6EE; border: 1px solid #B9B2A5; border-left: 4px solid #3A3631">
+<span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; color: #3A3631">Call me back</span>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: 20px; line-height: 1.2">Anjali, 34</strong>
+<span style="font-size: 15px">Tapped "Call me back" from her family page.</span>
+<span style="font-size: 14px; color: #3A3631">Made 11:20 · today</span>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<a href="tel:+910000000000" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700; font-size: 15px">Call now</a>
+<button style="min-height: 44px; padding: 0 14px; border-radius: 10px; border: 1.5px solid #161513; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700">Mark done</button>
+</div>
+</article>
+
+</aside>
+</div>
+</div>
+</div>
+
+</body>
+</html>

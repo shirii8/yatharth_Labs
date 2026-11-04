@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Enter code</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; min-height: 960px; box-sizing: border-box; padding: 0 10px 12px; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 19px; line-height: 1.5; display: flex; flex-direction: column; overflow: hidden">
+<svg aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.14"><filter id="grO"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#grO)"></rect></svg>
+<svg aria-hidden="true" width="0" height="0" style="position: absolute"><filter id="wbO"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="2.2"></feDisplacementMap></filter></svg>
+
+<header style="position: relative; display: flex; align-items: center; justify-content: space-between; padding: 12px 4px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 6px; min-height: 50px; color: #161513; text-decoration: none; font-weight: 700; font-size: 17px"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Change number</a>
+<button aria-label="Change text size" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: 'Newsreader', Georgia, serif; font-size: 21px">Aa</button>
+</header>
+
+<ol aria-label="Signing in" style="position: relative; z-index: 2; display: flex; gap: 4px; margin: 0 0 -2.5px; padding: 0 10px; list-style: none">
+<li style="flex: 1; min-height: 44px; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; border: 2.5px solid #161513; border-radius: 12px 12px 0 0; background: #D7E3EE; font-size: 15px; font-weight: 700"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"></path></svg>Number</li>
+<li aria-current="step" style="flex: 1.2; min-height: 52px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-bottom-color: #FAF6EE; border-radius: 12px 12px 0 0; background: #FAF6EE; font-size: 15px; font-weight: 700">{{tabLabel}}</li>
+<li style="flex: 1; min-height: 44px; margin-top: 8px; display: flex; align-items: center; justify-content: center; border: 2.5px solid #161513; border-radius: 12px 12px 0 0; background: #DCE7D6; font-size: 15px; font-weight: 700">Your file</li>
+</ol>
+
+<main style="position: relative; flex: 1; display: flex; flex-direction: column; gap: 20px; padding: 30px 22px 26px; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 6px #FAF6EE, inset 0 0 0 7.5px #161513">
+
+<sc-if value="{{notLocked}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 46px; line-height: 1; letter-spacing: -0.02em">{{head}}</h1>
+<p style="margin: -6px 0 0">{{sub}}</p>
+<fieldset style="margin: 0; padding: 0; border: 0">
+<legend style="padding: 0; margin-bottom: 10px; font-weight: 700">Your 6-digit code</legend>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px">
+<sc-for list="{{digits}}" as="d" hint-placeholder-count="6">
+<input aria-label="{{d.label}}" aria-invalid="{{d.invalid}}" inputmode="numeric" autocomplete="one-time-code" maxlength="1" value="{{d.v}}" style="width: 100%; box-sizing: border-box; height: 66px; text-align: center; border-radius: 10px; border: {{d.border}}; background: {{d.bg}}; color: #161513; font-family: 'Newsreader', Georgia, serif; font-size: 32px">
+</sc-for>
+</div>
+</fieldset>
+<sc-if value="{{wrong}}" hint-placeholder-val="{{ false }}">
+<p role="alert" style="margin: 0; padding: 12px 14px; border-left: 4px solid #8A3B26; background: #F6E8E6"><strong style="color: #8A3B26">That one did not match.</strong> No harm done. Check the newest SMS and try again. You have 3 tries left.</p>
+</sc-if>
+<a href="Consent.dc.html" style="display: flex; align-items: center; justify-content: space-between; min-height: 62px; padding: 8px 10px 8px 20px; box-sizing: border-box; border-radius: 12px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700">{{cta}}<span aria-hidden="true" style="width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid #FAF6EE; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<svg aria-hidden="true" width="100%" height="14" viewBox="0 0 330 14" preserveAspectRatio="none"><path d="M1 12H150Q154 12 156 3H184Q186 12 190 12H329" fill="none" stroke="#161513" stroke-width="1.6" stroke-linecap="round" filter="url(#wbO)"></path></svg>
+<div style="display: flex; justify-content: space-between; font-size: 0.9em"><span>No SMS yet?</span><span>We can send another in 0:42</span></div>
+<p style="margin: 0; font-size: 0.82em; color: #3A3631">Codes work for 10 minutes. Your phone may offer to fill it in above the keyboard.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{locked}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<svg aria-hidden="true" width="110" height="96" viewBox="0 0 120 96" fill="none" stroke="#161513" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><g filter="url(#wbO)"><path d="M36 8h48M36 88h48M40 8v14l20 24-20 24v18M80 8v14L60 46l20 24v18"></path><path d="M48 80h24l-12-10z" stroke="#0F5A43"></path></g></svg>
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1.05; letter-spacing: -0.01em">Let us pause for a little while.</h1>
+<p style="margin: 0">The code was typed wrongly 5 times, so we have closed the door on this number for 15 minutes. It keeps your file safe if someone else picks up your phone.</p>
+<div style="display: flex; align-items: baseline; gap: 12px; padding: 6px 0; border-top: 2.5px solid #161513; border-bottom: 1px solid #B9B2A5">
+<span style="font-size: 0.85em">Try again at</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 72px; line-height: 1; letter-spacing: -0.03em">11:05</span>
+</div>
+<a href="tel:+910000000000" style="display: flex; align-items: center; justify-content: center; min-height: 62px; border-radius: 12px; background: #0F5A43; color: #FAF6EE; text-decoration: none; font-weight: 700">Call us instead</a>
+<p style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-style: italic">We can open it for you over the phone. — the front desk</p>
+</div>
+</sc-if>
+</main>
+
+<footer style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding-top: 10px">
+<a href="tel:+910000000000" style="display: flex; align-items: center; justify-content: center; min-height: 56px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE; color: #161513; text-decoration: none; font-weight: 700; font-size: 17px">Call the lab</a>
+<button style="min-height: 56px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: inherit; font-weight: 700; font-size: 17px">Call me back</button>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["normal","wrong","locked"],"default":"normal"},"$preview":{"width":390,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = this.props.state || 'normal';
+    const wrong = st === 'wrong';
+    const vals = wrong ? ['4', '8', '2', '9', '1', '6'] : ['4', '8', '2', '7', '', ''];
+    return {
+      wrong, locked: st === 'locked', notLocked: st !== 'locked',
+      tabLabel: st === 'locked' ? 'Paused' : 'Code',
+      head: wrong ? 'Let us try that once more.' : 'Type the code we just sent.',
+      sub: 'It went to +91 ••••• •3210 by SMS.',
+      cta: wrong ? 'Try again' : 'Open my file',
+      digits: vals.map((v, i) => ({ v, label: 'Digit ' + (i + 1) + ' of 6', invalid: wrong ? 'true' : 'false',
+        border: wrong ? '2.5px solid #8A3B26' : (i === 4 ? '3px solid #0F5A43' : '2px solid #161513'), bg: wrong ? '#F6E8E6' : '#FFFDF7' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

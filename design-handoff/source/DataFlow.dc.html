@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Consent withdraw</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 920px; min-height: 1230px; box-sizing: border-box; padding: 30px 40px 40px; background: #CFC5AF; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; display: grid; grid-template-columns: repeat(2, 390px); column-gap: 60px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">Your data · ledger and choices</span>
+<dc-import name="Data" view="settings" hint-size="390px,1100px"></dc-import>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-size: 22px">Withdraw · what happens, first</span>
+<dc-import name="Data" view="withdraw" hint-size="390px,1100px"></dc-import>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":920,"height":1230}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

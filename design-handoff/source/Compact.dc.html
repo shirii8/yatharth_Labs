@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Report Compact</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; min-height: 1700px; box-sizing: border-box; padding: 0 10px 12px; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 17px; line-height: 1.35; display: flex; flex-direction: column; overflow: hidden">
+<svg aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.12"><filter id="grK"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#grK)"></rect></svg>
+
+<header style="position: relative; display: flex; align-items: center; justify-content: space-between; padding: 12px 4px">
+<a href="Reports.dc.html" style="display: flex; align-items: center; gap: 6px; min-height: 48px; color: #161513; text-decoration: none; font-weight: 700; font-size: 16px"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Lakshmi's file</a>
+<button aria-label="Change text size" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: 'Newsreader', Georgia, serif; font-size: 20px">Aa</button>
+</header>
+
+<nav aria-label="Reading style" style="position: relative; z-index: 2; display: flex; gap: 4px; padding: 0 8px; margin-bottom: -2px">
+<a href="Report.dc.html" style="min-width: 110px; min-height: 46px; margin-top: 6px; display: flex; align-items: center; justify-content: center; border: 2px solid #161513; border-radius: 8px 8px 0 0; background: #D7E3EE; color: #161513; text-decoration: none; font-family: 'Newsreader', Georgia, serif; font-size: 19px">Simple</a>
+<span aria-current="page" style="min-width: 120px; min-height: 52px; display: flex; align-items: center; justify-content: center; border: 2px solid #161513; border-bottom-color: #FAF6EE; border-radius: 8px 8px 0 0; background: #FAF6EE; font-family: 'Newsreader', Georgia, serif; font-size: 19px">Compact</span>
+</nav>
+
+<main style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: 22px 18px 18px; background: #FAF6EE; border: 2px solid #161513; box-shadow: inset 0 0 0 5px #FAF6EE, inset 0 0 0 6px #161513">
+<div style="display: flex; justify-content: space-between; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase"><span>Blood count · Lakshmi Devi</span><span>2 Nov 2026</span></div>
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 48px; line-height: 0.95; letter-spacing: -0.03em">Steady, with one gentle dip.</h1>
+<p style="margin: 0; font-size: 15px">3 usual · 1 a little low · compared with your March and July tests here.</p>
+<button style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border-radius: 6px; border: 2px solid #161513; background: transparent; color: #161513; font-family: inherit; font-size: 15px; font-weight: 700"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h4l6-5v16l-6-5H4zM18 10a5 5 0 0 1 0 8M21 7a9 9 0 0 1 0 14"></path></svg>Read aloud</button>
+
+<div style="display: flex; flex-direction: column; border-top: 2px solid #161513">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+<article style="display: grid; grid-template-columns: 1fr auto; column-gap: 10px; row-gap: 6px; padding: 14px 0 12px; border-bottom: 1px solid #B9B2A5">
+<h2 style="margin: 0; font-size: 16px; font-weight: 700">{{r.name}}</h2>
+<span style="font-size: 14px; font-weight: 700; color: {{r.color}}; text-align: right">{{r.word}}</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 34px; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: lining-nums tabular-nums">{{r.short}}<span style="font-size: 13px; letter-spacing: 0"> {{r.unit}}</span></span>
+<svg role="img" aria-label="{{r.trendAria}}" width="96" height="34" viewBox="0 0 96 34" fill="none" style="align-self: end"><path d="M4 30H92" stroke="#B9B2A5" stroke-width="1"></path><path d="{{r.spark}}" stroke="#161513" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="88" cy="{{r.lastY}}" r="4" fill="#0F5A43"></circle></svg>
+<div role="img" aria-label="{{r.aria}}" style="grid-column: 1 / -1; position: relative; height: 30px">
+<span style="position: absolute; top: 6px; left: {{r.bandL}}%; width: {{r.bandW}}%; height: 10px; box-sizing: border-box; border: 1.5px solid #161513; border-radius: 5px; background: #DCE7D6"></span>
+<span style="position: absolute; top: 10px; left: 0; right: 0; border-top: 1.5px solid #161513"></span>
+<span style="position: absolute; top: 11px; left: {{r.pos}}%; width: 18px; height: 12px; margin-left: -9px; background: #0F5A43; border-radius: 0 0 4px 4px"></span>
+<span style="position: absolute; top: 15px; left: {{r.bandL}}%; width: {{r.bandW}}%; text-align: center; font-size: 12px; line-height: 1">{{r.range}}</span>
+</div>
+<p style="grid-column: 1 / -1; margin: 0; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 17px">{{r.story}}</p>
+</article>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 13.5px">"Low" and "usual" come from the lab's rules and the ranges printed on your signed report.</p>
+</main>
+
+<section style="position: relative; margin-top: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; font-size: 15px">
+<a href="Pdf.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 50px; border-radius: 6px; border: 2px solid #161513; background: #FAF6EE; color: #161513; text-decoration: none; font-weight: 700">Printable copy</a>
+<a href="#full" style="display: flex; align-items: center; justify-content: center; min-height: 50px; border-radius: 6px; border: 2px solid #161513; background: #FAF6EE; color: #161513; text-decoration: none; font-weight: 700">Signed report</a>
+<a href="Flag.dc.html" style="grid-column: 1 / -1; display: flex; align-items: center; min-height: 48px; color: #161513; font-weight: 700">Something looks wrong? Tell us</a>
+<span style="grid-column: 1 / -1; font-size: 13.5px">Opened today 11:05 on this phone. <a href="Data.dc.html" style="color: #161513; font-weight: 700">Every opening</a></span>
+</section>
+
+<footer style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding-top: 10px">
+<a href="tel:+910000000000" style="display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 6px; border: 2px solid #161513; background: #FAF6EE; color: #161513; text-decoration: none; font-weight: 700; font-size: 16px">Call the lab</a>
+<button style="min-height: 52px; border-radius: 6px; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: inherit; font-weight: 700; font-size: 16px">Call me back</button>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1700}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const raw = [
+      { name: 'Haemoglobin', unit: 'g/dL', short: '10.2', lo: 12.0, hi: 15.5, v: 10.2, min: 8, max: 18, range: '12.0–15.5', hist: [11.6, 11.0, 10.2], story: 'Drifting lower since March: 11.6, then 11.0, now 10.2.' },
+      { name: 'White blood cells', unit: '/µL', short: '7,400', lo: 4000, hi: 11000, v: 7400, min: 2000, max: 13000, range: '4,000–11,000', hist: [7100, 7600, 7400], story: 'Steady since March.' },
+      { name: 'Platelets', unit: 'lakh/µL', short: '2.6', lo: 1.5, hi: 4.5, v: 2.6, min: 0.5, max: 5.5, range: '1.5–4.5', hist: [2.4, 2.7, 2.6], story: 'Steady, right in the middle.' },
+      { name: 'Red blood cells', unit: 'mill/µL', short: '4.1', lo: 3.8, hi: 5.2, v: 4.1, min: 3.0, max: 6.0, range: '3.8–5.2', hist: [4.2, 4.2, 4.1], story: 'Steady since March.' }
+    ];
+    const pct = (x, q) => Math.round(((x - q.min) / (q.max - q.min)) * 1000) / 10;
+    return {
+      rows: raw.map(q => {
+        const low = q.v < q.lo;
+        const ys = q.hist.map(h => Math.round((30 - ((h - q.min) / (q.max - q.min)) * 26) * 10) / 10);
+        return {
+          name: q.name, unit: q.unit, short: q.short, range: q.range, story: q.story,
+          word: low ? 'A little low' : 'Usual', color: low ? '#8A3B26' : '#161513',
+          bandL: pct(q.lo, q), bandW: Math.round((pct(q.hi, q) - pct(q.lo, q)) * 10) / 10, pos: pct(q.v, q),
+          spark: 'M8 ' + ys[0] + ' L48 ' + ys[1] + ' L88 ' + ys[2], lastY: ys[2],
+          aria: q.name + ' ' + q.short + ' ' + q.unit + ', usual ' + q.range + (low ? ', a little low' : ', usual'),
+          trendAria: 'Trend: ' + q.hist.join(', ')
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

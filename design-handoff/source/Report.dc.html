@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Report Simple</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Noto+Sans+Telugu:wght@400;600&amp;family=Noto+Serif+Telugu:wght@500&amp;family=Noto+Sans+Devanagari:wght@400;600&amp;family=Noto+Serif+Devanagari:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div lang="{{loc}}" style="position: relative; width: 390px; min-height: 2000px; box-sizing: border-box; padding: 0 10px 12px; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', 'Noto Sans Telugu', 'Noto Sans Devanagari', system-ui, sans-serif; font-size: {{fs}}px; line-height: {{lh}}; display: flex; flex-direction: column; overflow: hidden">
+<svg aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.14"><filter id="grS"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#grS)"></rect></svg>
+<svg aria-hidden="true" width="0" height="0" style="position: absolute"><filter id="wbS"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="5"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="2"></feDisplacementMap></filter></svg>
+
+<header style="position: relative; display: flex; align-items: center; gap: 8px; padding: 12px 4px">
+<a href="Reports.dc.html" style="flex: 1; display: flex; align-items: center; gap: 6px; min-height: 50px; color: #161513; text-decoration: none; font-weight: 700; font-size: 16px"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>{{L.back}}</a>
+<a href="Compact.dc.html" style="display: flex; align-items: center; min-height: 50px; padding: 0 14px; border-radius: 25px; border: 2px solid #161513; background: #FAF6EE; color: #161513; text-decoration: none; font-size: 15px; font-weight: 700">{{L.compact}}</a>
+<button onClick="{{toggleSize}}" aria-label="Change text size" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: 'Newsreader', Georgia, serif; font-size: 21px; cursor: pointer">Aa</button>
+</header>
+
+<section style="position: relative; display: flex; flex-direction: column; gap: 10px; padding: 18px 6px 26px">
+<span style="font-family: 'Newsreader', 'Noto Serif Telugu', 'Noto Serif Devanagari', Georgia, serif; font-style: italic; font-size: 1.15em">{{L.salutation}}</span>
+<h1 style="margin: 0; font-family: 'Newsreader', 'Noto Serif Telugu', 'Noto Serif Devanagari', Georgia, serif; font-weight: 500; font-size: {{titleSize}}; line-height: {{hlh}}; letter-spacing: -0.02em">{{L.title}}</h1>
+<svg aria-hidden="true" width="230" height="12" viewBox="0 0 230 12"><path d="M2 8Q60 4 115 8T228 6" fill="none" stroke="#0F5A43" stroke-width="3" stroke-linecap="round" filter="url(#wbS)"></path></svg>
+<p style="margin: 6px 0 0">{{L.summary}}</p>
+<button onClick="{{toggleListen}}" aria-pressed="{{pressed}}" style="display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 60px; margin-top: 6px; padding: 8px 14px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: inherit; font-size: 0.92em; font-weight: 700; line-height: 1.3; cursor: pointer"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{listenIcon}}"></path></svg>{{listenLabel}}</button>
+<sc-if value="{{playing}}" hint-placeholder-val="{{ false }}"><span style="font-size: 0.78em; text-align: center">{{L.reading}}</span></sc-if>
+</section>
+
+<div role="tablist" aria-label="{{progressLabel}}" style="position: relative; z-index: 2; display: flex; gap: 4px; padding: 0 8px; margin-bottom: -2.5px">
+<sc-for list="{{knots}}" as="k" hint-placeholder-count="4">
+<button role="tab" aria-selected="{{k.sel}}" aria-label="{{k.aria}}" onClick="{{k.pick}}" style="flex: 1; min-height: {{k.h}}; margin-top: {{k.mt}}; display: flex; align-items: center; justify-content: center; gap: 4px; border: 2.5px solid #161513; border-bottom-color: {{k.bb}}; border-radius: 12px 12px 0 0; background: {{k.bg}}; color: #161513; font-family: 'Newsreader', Georgia, serif; font-size: 22px; cursor: pointer">{{k.label}}</button>
+</sc-for>
+</div>
+
+<main role="tabpanel" style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: 28px 22px 24px; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 6px #FAF6EE, inset 0 0 0 7.5px #161513">
+<span style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase">{{progressLabel}}</span>
+<h2 style="margin: -4px 0 0; font-family: 'Newsreader', 'Noto Serif Telugu', 'Noto Serif Devanagari', Georgia, serif; font-weight: 500; font-size: 1.7em; line-height: {{hlh}}">{{r.name}}</h2>
+<span style="font-size: 0.9em; margin-top: -8px">{{r.helper}}</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 108px; line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: lining-nums">{{r.short}}<span style="font-size: 22px; letter-spacing: 0"> {{r.unit}}</span></span>
+
+<div role="img" aria-label="{{r.aria}}" style="position: relative; height: 112px">
+<span style="position: absolute; top: 4px; left: {{r.bandL}}%; width: {{r.bandW}}%; text-align: center; font-size: 0.68em; font-weight: 700; white-space: nowrap">{{L.usual}} {{r.range}}</span>
+<span style="position: absolute; top: 34px; left: {{r.bandL}}%; width: {{r.bandW}}%; height: 20px; box-sizing: border-box; border: 2px solid #161513; border-radius: 10px; background: #DCE7D6"></span>
+<svg aria-hidden="true" width="100%" height="30" viewBox="0 0 300 30" preserveAspectRatio="none" style="position: absolute; top: 29px; left: 0"><g filter="url(#wbS)" fill="none" stroke="#161513" stroke-width="2" stroke-linecap="round"><path d="M2 15Q75 13 150 15T298 14"></path><path d="M30 15v5M60 15v7M90 15v5M120 15v7M150 15v5M180 15v7M210 15v5M240 15v7M270 15v5"></path></g></svg>
+<span style="position: absolute; top: 44px; left: {{r.pos}}%; width: 3px; height: 22px; margin-left: -1.5px; background: #0F5A43"></span>
+<span style="position: absolute; top: 66px; left: {{r.pos}}%; width: 64px; height: 38px; margin-left: -32px; box-sizing: border-box; border: 2px solid #161513; border-top: 0; border-radius: 0 0 10px 10px; background: #0F5A43; color: #FAF6EE; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700">{{L.you}}</span>
+</div>
+
+<p style="margin: 0; font-size: 1.05em"><strong style="color: {{r.color}}">{{r.word}}</strong> {{r.sentence}}</p>
+<p style="margin: 0; padding-top: 10px; border-top: 1px solid #B9B2A5; font-size: 0.72em">{{r.rule}}</p>
+<div style="display: grid; grid-template-columns: 1fr 1.7fr; gap: 8px">
+<button onClick="{{prev}}" style="min-height: 60px; padding: 6px 8px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: inherit; font-size: 0.85em; font-weight: 700; line-height: 1.3; opacity: {{prevOpacity}}; cursor: pointer">{{L.prev}}</button>
+<button onClick="{{next}}" style="min-height: 60px; padding: 6px 8px; border-radius: 12px; border: 0; background: #0F5A43; color: #FAF6EE; font-family: inherit; font-size: 0.85em; font-weight: 700; line-height: 1.3; cursor: pointer">{{nextLabel}}</button>
+</div>
+</main>
+
+<section style="position: relative; margin-top: 12px; display: flex; flex-direction: column; gap: 10px; padding: 18px 18px 16px; background: #F2ECDF; border: 2px solid #161513; font-size: 0.8em; line-height: 1.45">
+<h2 style="margin: 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">{{L.nextHead}}</h2>
+<sc-for list="{{L.steps}}" as="s" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: 22px 1fr; gap: 8px; padding-top: 8px; border-top: 1px solid #B9B2A5"><span style="font-family: 'Newsreader', Georgia, serif; font-size: 20px; line-height: 1">{{s.n}}</span><span>{{s.t}}</span></div>
+</sc-for>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 4px">
+<a href="Pdf.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 4px 8px; border-radius: 10px; border: 2px solid #161513; color: #161513; text-decoration: none; font-weight: 700; text-align: center; line-height: 1.25">{{L.print}}</a>
+<a href="#full" style="display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 4px 8px; border-radius: 10px; border: 2px solid #161513; color: #161513; text-decoration: none; font-weight: 700; text-align: center; line-height: 1.25">{{L.full}}</a>
+</div>
+<a href="Flag.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 48px; color: #161513; font-weight: 700"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h11l-2 4 2 4H5"></path></svg>{{L.flag}}</a>
+<span style="padding-top: 8px; border-top: 1px solid #161513">{{L.ledger}} <a href="Data.dc.html" style="color: #161513; font-weight: 700">{{L.ledgerLink}}</a></span>
+<span>{{L.expiry}}</span>
+</section>
+
+<footer style="position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding-top: 10px">
+<a href="tel:+910000000000" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 4px 8px; box-sizing: border-box; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE; color: #161513; text-decoration: none; font-weight: 700; font-size: 17px; line-height: 1.3; text-align: center">{{L.call}}</a>
+<button style="min-height: 56px; padding: 4px 8px; border-radius: 12px; border: 2px solid #161513; background: #FAF6EE; color: #161513; font-family: inherit; font-weight: 700; font-size: 17px; line-height: 1.3">{{L.callback}}</button>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"locale":{"editor":"enum","options":["en","te","hi"],"default":"en"},"$preview":{"width":390,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const loc = this.props.locale || 'en';
+    const D = {
+      en: { back: 'Lakshmi’s file', compact: 'Compact', salutation: 'Lakshmi garu,', title: 'your blood count is here.', summary: 'Three results are in the usual range. One, haemoglobin, is a little low. Let us go through them one at a time.', listen: 'Read it aloud to me', stop: 'Stop reading', reading: 'Reading result 1 of 4 aloud…', resultOf: 'Result {n} of 4', prev: 'Back', next: 'Next result', last: 'What to do next', usual: 'usual', you: 'You', low: 'A little low.', ok: 'In the usual range.',
+        names: ['Haemoglobin', 'White blood cells', 'Platelets', 'Red blood cells'], helpers: ['Carries oxygen around your body.', 'Help your body fight infection.', 'Help stop bleeding when you get a cut.', 'The cells that carry oxygen.'],
+        sLow: 'Your doctor will tell you whether anything needs to be done.', sOk: 'Nothing to do here.', rLow: 'Marked by the lab’s rule: below {lo}, the lower end of the range printed on your signed report.', rOk: 'Checked by the lab’s rule against the range printed on your signed report.',
+        nextHead: 'What to do next', steps: [{ n: '1', t: 'Show this page to your doctor at your next visit. No need to rush.' }, { n: '2', t: 'Very tired or short of breath? Call your doctor sooner.' }, { n: '3', t: 'Questions? Tap "Call me back" and one of us will ring you.' }],
+        print: 'Printable copy', full: 'Full signed report', flag: 'Something looks wrong? Tell us', ledger: 'Written in your file: opened today at 11:05 on this phone.', ledgerLink: 'Every opening', expiry: 'This page stays open until Thursday, 10:40 am.', call: 'Call the lab', callback: 'Call me back' },
+      te: { back: 'లక్ష్మి గారి ఫైల్', compact: 'కాంపాక్ట్', salutation: 'లక్ష్మి గారు,', title: 'మీ రక్త పరీక్ష వచ్చింది.', summary: 'మూడు ఫలితాలు సాధారణ పరిధిలో ఉన్నాయి. ఒకటి, హిమోగ్లోబిన్, కొంచెం తక్కువ. ఒక్కొక్కటిగా చూద్దాం.', listen: 'నా రిపోర్టు వినిపించండి', stop: 'చదవడం ఆపండి', reading: 'చదువుతోంది…', resultOf: 'ఫలితం {n} / 4', prev: 'వెనుకకు', next: 'తరువాతి ఫలితం', last: 'తరువాత ఏమి చేయాలి', usual: 'సాధారణం', you: 'మీరు', low: 'కొంచెం తక్కువ.', ok: 'సాధారణ పరిధిలో ఉంది.',
+        names: ['హిమోగ్లోబిన్', 'తెల్ల రక్త కణాలు', 'ప్లేట్‌లెట్లు', 'ఎర్ర రక్త కణాలు'], helpers: ['శరీరమంతా ఆక్సిజన్‌ను తీసుకెళ్తుంది.', 'ఇన్ఫెక్షన్‌తో పోరాడటానికి సహాయపడతాయి.', 'గాయమైనప్పుడు రక్తస్రావం ఆపడానికి సహాయపడతాయి.', 'ఆక్సిజన్‌ను మోసే కణాలు.'],
+        sLow: 'ఏమైనా చేయాలా అని మీ డాక్టర్ చెబుతారు.', sOk: 'ఇక్కడ చేయవలసింది ఏమీ లేదు.', rLow: 'ల్యాబ్ నియమం ప్రకారం గుర్తించబడింది: మీ రిపోర్టులోని పరిధి కనిష్ఠం {lo} కంటే తక్కువ.', rOk: 'మీ రిపోర్టులో ముద్రించిన పరిధితో ల్యాబ్ నియమం ద్వారా సరిచూడబడింది.',
+        nextHead: 'తరువాత ఏమి చేయాలి', steps: [{ n: '1', t: 'తదుపరి డాక్టర్ సందర్శనలో ఈ పేజీ చూపించండి.' }, { n: '2', t: 'చాలా అలసట లేదా ఆయాసం ఉంటే, త్వరగా డాక్టర్‌కు కాల్ చేయండి.' }, { n: '3', t: 'ప్రశ్నలు ఉంటే "నాకు తిరిగి కాల్ చేయండి" నొక్కండి.' }],
+        print: 'ప్రింట్ కాపీ', full: 'సంతకం చేసిన పూర్తి రిపోర్టు', flag: 'ఏదైనా తప్పుగా అనిపిస్తోందా? చెప్పండి', ledger: 'మీ ఫైల్‌లో నమోదు: ఈ రోజు 11:05కి ఈ ఫోన్‌లో తెరవబడింది.', ledgerLink: 'అన్ని నమోదులు', expiry: 'ఈ పేజీ గురువారం ఉదయం 10:40 వరకు తెరిచి ఉంటుంది.', call: 'ల్యాబ్‌కు కాల్ చేయండి', callback: 'నాకు తిరిగి కాల్ చేయండి' },
+      hi: { back: 'लक्ष्मी जी की फ़ाइल', compact: 'कॉम्पैक्ट', salutation: 'लक्ष्मी जी,', title: 'आपकी खून की जाँच आ गई है।', summary: 'तीन नतीजे सामान्य दायरे में हैं। एक, हीमोग्लोबिन, थोड़ा कम है। चलिए, एक-एक करके देखते हैं।', listen: 'मेरी रिपोर्ट सुनाइए', stop: 'रोकें', reading: 'पढ़ा जा रहा है…', resultOf: 'नतीजा {n} / 4', prev: 'पीछे', next: 'अगला नतीजा', last: 'आगे क्या करें', usual: 'सामान्य', you: 'आप', low: 'थोड़ा कम।', ok: 'सामान्य दायरे में।',
+        names: ['हीमोग्लोबिन', 'सफ़ेद रक्त कोशिकाएँ', 'प्लेटलेट्स', 'लाल रक्त कोशिकाएँ'], helpers: ['पूरे शरीर में ऑक्सीजन पहुँचाता है।', 'संक्रमण से लड़ने में मदद करती हैं।', 'चोट लगने पर खून रोकने में मदद करते हैं।', 'ऑक्सीजन ले जाने वाली कोशिकाएँ।'],
+        sLow: 'कुछ करने की ज़रूरत है या नहीं, यह आपके डॉक्टर बताएँगे।', sOk: 'यहाँ कुछ करने की ज़रूरत नहीं।', rLow: 'लैब के नियम से चिह्नित: आपकी रिपोर्ट में छपे दायरे के निचले सिरे {lo} से कम।', rOk: 'आपकी रिपोर्ट में छपे दायरे से लैब के नियम द्वारा जाँचा गया।',
+        nextHead: 'आगे क्या करें', steps: [{ n: '1', t: 'अगली बार डॉक्टर से मिलें तो यह पन्ना दिखाएँ।' }, { n: '2', t: 'बहुत थकान या साँस फूलने पर जल्दी डॉक्टर को फ़ोन करें।' }, { n: '3', t: 'कोई सवाल हो तो "मुझे वापस कॉल करें" दबाएँ।' }],
+        print: 'छापने लायक प्रति', full: 'हस्ताक्षरित पूरी रिपोर्ट', flag: 'कुछ गलत लग रहा है? बताइए', ledger: 'आपकी फ़ाइल में दर्ज: आज 11:05 बजे इस फ़ोन पर खोली गई।', ledgerLink: 'सारे रिकॉर्ड', expiry: 'यह पन्ना गुरुवार सुबह 10:40 तक खुला रहेगा।', call: 'लैब को कॉल करें', callback: 'मुझे वापस कॉल करें' }
+    };
+    const L = D[loc] || D.en;
+    const raw = [
+      { unit: 'g/dL', short: '10.2', lo: 12.0, hi: 15.5, v: 10.2, min: 8, max: 18, range: '12.0–15.5' },
+      { unit: '/µL', short: '7,400', lo: 4000, hi: 11000, v: 7400, min: 2000, max: 13000, range: '4,000–11,000' },
+      { unit: 'lakh/µL', short: '2.6', lo: 1.5, hi: 4.5, v: 2.6, min: 0.5, max: 5.5, range: '1.5–4.5' },
+      { unit: 'mill/µL', short: '4.1', lo: 3.8, hi: 5.2, v: 4.1, min: 3.0, max: 6.0, range: '3.8–5.2' }
+    ];
+    const idx = Math.max(0, Math.min(3, s.idx || 0));
+    const pct = (x, q) => Math.round(((x - q.min) / (q.max - q.min)) * 1000) / 10;
+    const q = raw[idx];
+    const low = q.v < q.lo;
+    const r = {
+      name: L.names[idx], helper: L.helpers[idx], unit: q.unit, short: q.short, range: q.range,
+      word: low ? L.low : L.ok, color: low ? '#8A3B26' : '#161513',
+      sentence: low ? L.sLow : L.sOk, rule: (low ? L.rLow : L.rOk).replace('{lo}', q.lo.toFixed(1)),
+      bandL: pct(q.lo, q), bandW: Math.round((pct(q.hi, q) - pct(q.lo, q)) * 10) / 10, pos: Math.max(8, Math.min(92, pct(q.v, q))),
+      aria: L.names[idx] + ': ' + q.short + ' ' + q.unit + '. ' + L.usual + ' ' + q.range + '. ' + (low ? L.low : L.ok)
+    };
+    const tints = ['#D7E3EE', '#DCE7D6', '#F4E9C6', '#E2DCEC'];
+    const knots = [0, 1, 2, 3].map(k => ({
+      label: k < idx ? '✓ ' + (k + 1) : String(k + 1), sel: k === idx ? 'true' : 'false', aria: L.resultOf.replace('{n}', String(k + 1)),
+      bg: k === idx ? '#FAF6EE' : tints[k], bb: k === idx ? '#FAF6EE' : '#161513', h: k === idx ? '58px' : '50px', mt: k === idx ? '0' : '8px',
+      pick: () => this.setState({ idx: k })
+    }));
+    const playing = !!s.playing;
+    const te = loc !== 'en';
+    return {
+      L, loc, r, knots, playing, pressed: playing ? 'true' : 'false',
+      listenLabel: playing ? L.stop : L.listen,
+      listenIcon: playing ? 'M9 6v16M19 6v16' : 'M4 11h4l6-5v16l-6-5H4zM18 10a5 5 0 0 1 0 8M21 7a9 9 0 0 1 0 14',
+      progressLabel: L.resultOf.replace('{n}', String(idx + 1)), nextLabel: idx === 3 ? L.last : L.next, prevOpacity: idx === 0 ? '0.5' : '1',
+      fs: s.big ? 25 : 22, lh: te ? 1.65 : 1.45, hlh: te ? 1.35 : 1.0, titleSize: te ? '36px' : '46px',
+      prev: () => this.setState({ idx: Math.max(0, idx - 1) }),
+      next: () => this.setState({ idx: Math.min(3, idx + 1) }),
+      toggleListen: () => this.setState({ playing: !playing }),
+      toggleSize: () => this.setState({ big: !s.big })
+    };
+  }
+}
+</script>
+</body>
+</html>

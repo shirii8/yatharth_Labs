@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hero a, opening the file page</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+@keyframes hoTab{0%,5%{transform:translateY(0)}8%,85%{transform:translateY(-6px)}95%,100%{transform:translateY(0)}}
+@keyframes hoPage{0%,8%{transform:translateY(560px)}15%,85%{transform:translateY(0)}95%,100%{transform:translateY(560px)}}
+@keyframes hoGreet{0%,15%{opacity:0;transform:translateY(8px)}20%,85%{opacity:1;transform:none}92%,100%{opacity:0}}
+@keyframes hoThread{0%,20%{stroke-dashoffset:1}28%,85%{stroke-dashoffset:0}92%,100%{stroke-dashoffset:1}}
+.hoTab{animation:hoTab 6s infinite}
+.hoPage{animation:hoPage 6s cubic-bezier(.2,.8,.2,1) infinite}
+.hoGreet{animation:hoGreet 6s ease-out infinite}
+.hoThread{stroke-dasharray:1;animation:hoThread 6s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.hoTab,.hoPage,.hoGreet,.hoThread{animation:none}.hoThread{stroke-dashoffset:0}}
+</style>
+</helmet>
+<div style="position: relative; width: 1760px; height: 1000px; box-sizing: border-box; padding: 40px 48px; background: #DCD2BD; color: #161513; font-family: 'Atkinson Hyperlegible Next', system-ui, sans-serif; font-size: 16px; line-height: 1.5; display: grid; grid-template-columns: 390px 1fr; gap: 56px; overflow: hidden">
+
+<div aria-label="Live demo, loops every 6 seconds" style="position: relative; width: 390px; height: 900px; overflow: hidden; border: 2.5px solid #161513; border-radius: 28px; background: #DCD2BD">
+<span style="position: absolute; top: 18px; left: 20px; font-family: 'Newsreader', Georgia, serif; font-size: 22px; font-variant: small-caps">[Lab name]</span>
+<div style="position: absolute; left: 14px; right: 14px; top: 90px; bottom: 120px; overflow: hidden">
+<div class="hoPage" style="position: absolute; inset: 0; box-sizing: border-box; padding: 34px 24px; background: #FAF6EE; border: 2.5px solid #161513; box-shadow: inset 0 0 0 6px #FAF6EE, inset 0 0 0 7.5px #161513; display: flex; flex-direction: column; gap: 14px">
+<div class="hoGreet" style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 24px">Lakshmi garu,</span>
+<span style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 46px; line-height: 1; letter-spacing: -0.02em">your blood count is here.</span>
+<svg aria-hidden="true" width="220" height="12" viewBox="0 0 220 12"><path class="hoThread" pathLength="1" d="M2 8Q60 4 110 8T218 6" fill="none" stroke="#0F5A43" stroke-width="3" stroke-linecap="round"></path></svg>
+</div>
+<span style="font-size: 18px">Three results are usual. One is a little low. Let us go through it together.</span>
+</div>
+</div>
+<div style="position: absolute; left: 14px; right: 14px; bottom: 14px; height: 210px">
+<span class="hoTab" style="position: absolute; left: 28px; top: -46px; height: 50px; padding: 0 18px; display: flex; align-items: center; border: 2.5px solid #161513; border-bottom: 0; border-radius: 12px 12px 0 0; background: #0F5A43; color: #FAF6EE; font-weight: 700">Blood count · new</span>
+<div style="position: absolute; inset: 0; background: #D7E3EE; border: 2.5px solid #161513; display: flex; align-items: center; justify-content: center; font-family: 'Newsreader', Georgia, serif; font-size: 22px">Lakshmi Devi's file</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 26px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700">Hero a · opening the report</span>
+<h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 64px; line-height: 1; letter-spacing: -0.02em">The page comes out of your file.</h1>
+<p style="margin: 6px 0 0; max-width: 820px; font-size: 18px">A report never "loads"; someone hands it to you. The green tab with your report's name lifts, the page slides up out of the folder, and the greeting is underlined by a single hand-drawn thread. 900 ms in all, then nothing moves.</p>
+</div>
+
+<ol style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px">
+<sc-for list="{{frames}}" as="f" hint-placeholder-count="5">
+<li style="display: flex; flex-direction: column; gap: 10px">
+<div aria-hidden="true" style="position: relative; height: 300px; border: 2px solid #161513; border-radius: 14px; background: #DCD2BD; overflow: hidden">
+<div style="position: absolute; left: 10px; right: 10px; top: {{f.pageTop}}px; height: 200px; background: #FAF6EE; border: 2px solid #161513; padding: 14px 12px; box-sizing: border-box">
+<span style="display: block; font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 14px; opacity: {{f.greet}}">Lakshmi garu,</span>
+<span style="display: block; font-family: 'Newsreader', Georgia, serif; font-size: 22px; line-height: 1; opacity: {{f.greet}}">your blood count is here.</span>
+<span style="display: block; margin-top: 8px; height: 3px; width: {{f.thread}}%; background: #0F5A43; border-radius: 2px"></span>
+</div>
+<div style="position: absolute; left: 10px; right: 10px; bottom: 10px; height: 90px; background: #D7E3EE; border: 2px solid #161513"></div>
+<span style="position: absolute; left: 22px; bottom: {{f.tabBottom}}px; height: 24px; width: 100px; border: 2px solid #161513; border-bottom: 0; border-radius: 8px 8px 0 0; background: #0F5A43"></span>
+</div>
+<strong style="font-family: 'Newsreader', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1">{{f.t}}</strong>
+<span style="font-size: 15px">{{f.what}}</span>
+</li>
+</sc-for>
+</ol>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-top: 16px; border-top: 2.5px solid #161513; font-size: 15px">
+<div><strong>Properties</strong><br>transform: translateY on the tab and page; opacity on the greeting; stroke-dashoffset on the thread. Nothing that triggers layout.</div>
+<div><strong>Easing</strong><br>Page: cubic-bezier(.2, .8, .2, 1), like paper pulled with one hand. Thread: ease-in-out. No bounce anywhere.</div>
+<div><strong>Reduced motion and slow phones</strong><br>The final frame shows at once. Under 1 KB of CSS; no script runs for the motion.</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1760,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      frames: [
+        { t: '0 ms', what: 'The folder rests on the desk. Your report tab is green, so you know which one is yours.', pageTop: 300, tabBottom: 98, greet: 0, thread: 0 },
+        { t: '180 ms', what: 'The tab lifts 6 px, as if a thumb had found it.', pageTop: 300, tabBottom: 104, greet: 0, thread: 0 },
+        { t: '420 ms', what: 'The page slides up out of the folder and settles. It stops; it does not bounce.', pageTop: 14, tabBottom: 104, greet: 0, thread: 0 },
+        { t: '600 ms', what: 'The greeting fades in and rises 8 px: "Lakshmi garu, your blood count is here."', pageTop: 14, tabBottom: 104, greet: 1, thread: 0 },
+        { t: '900 ms', what: 'A hand-drawn green thread underlines it. Then stillness; reading begins.', pageTop: 14, tabBottom: 104, greet: 1, thread: 80 }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
