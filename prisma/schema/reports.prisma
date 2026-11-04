@@ -38,6 +38,7 @@ model Report {
   links             ReportLink[]
   callbackTasks     CallbackTask[]
   flags             PatientFlag[]
+  aiSummaries       AiSummary[]
 
   /// Re-importing the same order and test updates it instead of adding a copy.
   @@unique([orderId, testId])

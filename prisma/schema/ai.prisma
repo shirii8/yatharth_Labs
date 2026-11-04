@@ -1,0 +1,38 @@
+enum AiSummaryStatus {
+  /// Passed the checker and is shown to the patient.
+  SHOWN
+  /// The checker refused it; the patient sees the plain rule line instead.
+  REJECTED
+  /// The model timed out, errored or had no key; the patient sees the plain rule line.
+  FAILED
+}
+
+enum ReviewVerdict {
+  GOOD
+  NEEDS_CHANGE
+  WRONG
+}
+
+/// Every AI summary attempt, kept for the pathologist's weekly review of 50.
+model AiSummary {
+  id            String          @id @default(cuid())
+  reportId      String
+  report        Report          @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  language      Language
+  /// Empty when the attempt failed.
+  body          String?
+  model         String
+  promptVersion String
+  status        AiSummaryStatus
+  /// Why the checker refused it, in plain words.
+  checkerNotes  String?
+  latencyMs     Int?
+  createdAt     DateTime        @default(now())
+  reviewedAt    DateTime?
+  reviewedById  String?
+  verdict       ReviewVerdict?
+  reviewNote    String?
+
+  @@index([reportId, language, createdAt])
+  @@index([reviewedAt, createdAt])
+}
