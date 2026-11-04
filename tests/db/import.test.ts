@@ -151,6 +151,24 @@ describe("importLisCsv with bad rows and later sign-off", () => {
     expect(report.results[0]?.flag).toBe("HIGH");
   });
 
+  it("sends no link to a number that withdrew consent, but still queues a critical call", async () => {
+    const first = `${HEADER}\nORD-90020,Test Person E,+91 90000 00007,60,F,Self,ELEC,Potassium,4.2,3.5-5.1,Ready,,`;
+    await importLisCsv({ fileName: "w1.csv", content: first }, { sms });
+    const household = (await reportFor("ORD-90020")).patientId;
+    const patient = await db.patient.findUniqueOrThrow({ where: { id: household } });
+    await db.household.update({
+      where: { id: patient.householdId },
+      data: { consentWithdrawnAt: new Date() },
+    });
+    const sentBefore = sms.outbox.length;
+    const critical = `${HEADER}\nORD-90021,Test Person E,+91 90000 00007,60,F,Self,ELEC,Potassium,6.9,3.5-5.1,Ready (critical),,`;
+    await importLisCsv({ fileName: "w2.csv", content: critical }, { sms });
+    const report = await reportFor("ORD-90021");
+    expect(report.links).toHaveLength(0);
+    expect(sms.outbox.length).toBe(sentBefore);
+    expect(report.callbackTasks[0]).toMatchObject({ type: "CRITICAL", status: "OPEN" });
+  });
+
   it("never moves a signed report back to Processing", async () => {
     const late = `${HEADER}\nORD-90010,Test Person D,+91 90000 00008,50,M,Self,LIPID,LDL cholesterol,120,0-100,Processing,,`;
     await importLisCsv({ fileName: "late.csv", content: late }, { sms });
