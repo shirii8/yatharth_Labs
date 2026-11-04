@@ -1,0 +1,13 @@
+Order ID,Patient,Phone,Age,Sex,Relation,Test Code,Parameter,Result,Reference Range,Status,Referring Doctor,Signed At
+ORD-71204,Lakshmi Prasanna K,+91 90000 00001,64,F,Self,CBC,Haemoglobin g/dL,10.2,12.0-15.5,Ready,Dr. S. Ramanaiah,2026-11-04T09:30:00+05:30
+ORD-71204,Lakshmi Prasanna K,+91 90000 00001,64,F,Self,CBC,White blood cells,7.1,4.0-11.0,Ready,Dr. S. Ramanaiah,2026-11-04T09:30:00+05:30
+ORD-71204,Lakshmi Prasanna K,+91 90000 00001,64,F,Self,CBC,Platelets,262,150-410,Ready,Dr. S. Ramanaiah,2026-11-04T09:30:00+05:30
+ORD-71240,Ramana Rao K,+91 90000 00001,69,M,Husband,CBC,Haemoglobin g/dL,14.1,13.0-17.0,Ready,Dr. S. Ramanaiah,2026-11-04T09:45:00+05:30
+ORD-71240,Ramana Rao K,+91 90000 00001,69,M,Husband,CBC,White blood cells,6.4,4.0-11.0,Ready,Dr. S. Ramanaiah,2026-11-04T09:45:00+05:30
+ORD-71240,Ramana Rao K,+91 90000 00001,69,M,Husband,CBC,Platelets,231,150-410,Ready,Dr. S. Ramanaiah,2026-11-04T09:45:00+05:30
+ORD-71241,Anjali K,+91 90000 00001,34,F,Daughter,THYROID,TSH,,0.4-4.0,Processing,Dr. S. Ramanaiah,
+ORD-71241,Anjali K,+91 90000 00001,34,F,Daughter,THYROID,Free T4,,0.8-1.8,Processing,Dr. S. Ramanaiah,
+ORD-71219,Venkata Rao M,+91 90000 00002,58,M,Self,LIPID,LDL cholesterol mg/dL,142,0-100,Processing,Dr. P. Anitha,
+ORD-71233,Farzana Begum,+91 90000 00003,47,F,Self,ELEC,Sodium,138,135-145,Ready (critical),Dr. K. Suresh,2026-11-04T10:05:00+05:30
+ORD-71233,Farzana Begum,+91 90000 00003,47,F,Self,ELEC,Potassium mmol/L,6.8,3.5-5.1,Ready (critical),Dr. K. Suresh,2026-11-04T10:05:00+05:30
+ORD-71233,Farzana Begum,+91 90000 00003,47,F,Self,ELEC,Chloride,101,98-107,Ready (critical),Dr. K. Suresh,2026-11-04T10:05:00+05:30
