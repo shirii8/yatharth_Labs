@@ -55,3 +55,6 @@ lib/generated/
 
 # Playwright
 blob-report/
+
+# Generated from docs/tdd/tdd.template.html by scripts/build-tdd.mjs
+docs/tdd/TDD.html

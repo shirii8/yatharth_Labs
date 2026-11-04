@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Yatharth: Technical Design Document</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm; }
+  body { font-family: "Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif; font-size: 10.5pt; line-height: 1.5; color: #161513; }
+  h1 { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 30pt; margin: 0 0 4px; }
+  h2 { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 18pt; margin: 22px 0 8px; border-bottom: 2px solid #161513; padding-bottom: 4px; break-after: avoid; }
+  h3 { font-size: 11.5pt; margin: 14px 0 4px; break-after: avoid; }
+  p { margin: 0 0 8px; }
+  a { color: #0f5a43; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 12px; font-size: 9.5pt; break-inside: auto; }
+  th, td { text-align: left; vertical-align: top; padding: 5px 6px; border-bottom: 1px solid #b9b2a5; }
+  thead th { border-bottom: 2px solid #161513; }
+  tr { break-inside: avoid; }
+  .links { padding: 10px 12px; border: 2px solid #161513; margin: 10px 0 14px; }
+  .muted { color: #3a3631; }
+  .shots { display: flex; gap: 10px; flex-wrap: wrap; margin: 8px 0 12px; break-inside: avoid; }
+  .shots figure { margin: 0; width: 31%; }
+  .shots img { width: 100%; border: 1px solid #b9b2a5; }
+  .wide img { width: 100%; border: 1px solid #b9b2a5; }
+  figcaption { font-size: 8.5pt; color: #3a3631; }
+  .diagram { width: 100%; margin: 8px 0 12px; }
+  ol, ul { margin: 0 0 8px; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+  code { font-size: 9pt; background: #f4e9c6; padding: 0 3px; }
+  .page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<h1>Yatharth</h1>
+<p style="font-size: 13pt; margin: 0;">Technical Design Document: lab report delivery portal for Company A, Vijayawada</p>
+<div class="links">
+  <strong>GitHub:</strong> <a href="https://github.com/shirii8/yatharth_Labs">https://github.com/shirii8/yatharth_Labs</a><br>
+  <strong>Live app:</strong> {{LIVE_URL}}<br>
+  <strong>Demo logins:</strong> in deployment.md, section 3.<br>
+  <span class="muted">Built by shirii8, 4 to 9 November 2026. All patient data is synthetic. Version {{COMMIT}}.</span>
+</div>
+
+<h2>1. What was built</h2>
+<p>The core slice from the brief works end to end: an LIS CSV import, an automatic report link on sign-off, a patient portal with mobile number and OTP, a report view with a plain-language summary of out-of-range values, and a front-desk console that finds a patient, resends a link, shows delivery status and the access log. Two roles: patient and front-desk staff, plus a lab admin who approves wording and reviews the AI.</p>
+<table>
+  <thead><tr><th>Brief, must have</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>Patient login by mobile and OTP, orders with status, PDF download</td><td>Built. OTP with lockout, family on one number, status per report, PDF (a marked stand-in, A7).</td></tr>
+    <tr><td>Automatic SMS with an expiring link when a report is signed, fed by the LIS export</td><td>Built, with SMS mocked. Link created in the same transaction as sign-off; 72 hours; one report per link.</td></tr>
+    <tr><td>Plain-language summary of out-of-range values in English, Telugu and Hindi</td><td>Built. Rules plus locked templates; AI paragraph for tests without locked wording, checked before showing. Telugu approved from the design copy, Hindi waiting for approval to show the approval step.</td></tr>
+    <tr><td>Front-desk console: find a patient, resend links, delivery status, access log</td><td>Built, plus callbacks, flags, add a family member, wording approvals and the AI review.</td></tr>
+    <tr><td>Referring doctor view of the last 90 days</td><td>Not built (optional depth). The data model records the referring doctor on each report.</td></tr>
+    <tr><td>Delivery and access report for the operations head</td><td>Not built as a report. The data is all there: link delivery and opening times, and the access log.</td></tr>
+  </tbody>
+</table>
+
+<h2>2. Architecture and why</h2>
+<svg class="diagram" viewBox="0 0 760 230" role="img" aria-label="Architecture diagram">
+  <style>.b{fill:#faf6ee;stroke:#161513;stroke-width:2}.g{fill:#dce7d6;stroke:#161513;stroke-width:2}.t{font:13px sans-serif;fill:#161513}.s{font:11px sans-serif;fill:#3a3631}.a{stroke:#161513;stroke-width:1.6;fill:none;marker-end:url(#m)}</style>
+  <defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#161513"/></marker></defs>
+  <rect class="b" x="10" y="20" width="150" height="56" rx="8"/><text class="t" x="22" y="44">Patient phone</text><text class="s" x="22" y="62">browser, 3G, 360 to 390 px</text>
+  <rect class="b" x="10" y="140" width="150" height="56" rx="8"/><text class="t" x="22" y="164">Front desk PC</text><text class="s" x="22" y="182">browser</text>
+  <rect class="g" x="250" y="60" width="230" height="110" rx="8"/><text class="t" x="262" y="84">Next.js 16 on Vercel (Mumbai)</text><text class="s" x="262" y="104">server components, server actions</text><text class="s" x="262" y="122">rules, templates, access control</text><text class="s" x="262" y="140">import service, OTP, sessions</text><text class="s" x="262" y="158">AI checker</text>
+  <rect class="b" x="580" y="10" width="170" height="56" rx="8"/><text class="t" x="592" y="34">Postgres (Supabase)</text><text class="s" x="592" y="52">Mumbai, append-only log</text>
+  <rect class="b" x="580" y="86" width="170" height="56" rx="8"/><text class="t" x="592" y="110">SMS provider</text><text class="s" x="592" y="128">mock, behind an interface</text>
+  <rect class="b" x="580" y="162" width="170" height="56" rx="8"/><text class="t" x="592" y="186">Claude API</text><text class="s" x="592" y="204">de-identified values only</text>
+  <rect class="b" x="250" y="190" width="230" height="34" rx="8"/><text class="t" x="262" y="212">LIS CSV export (upload)</text>
+  <path class="a" d="M160 48H250"/><path class="a" d="M160 168H250"/><path class="a" d="M480 85H580"/><path class="a" d="M480 115H580"/><path class="a" d="M480 150H580"/><path class="a" d="M365 190V170"/>
+</svg>
+<p><strong>One Next.js app, server rendered.</strong> Patient pages are rendered on the server and ship little JavaScript, which suits old phones on 3G. UI and server logic share one language (TypeScript), which is the fastest way for one person to deliver a tested slice in a week. Django or Laravel with Postgres would also fit; Next.js was chosen for server rendering, one language end to end, and speed for a solo build.</p>
+<p><strong>Next.js 16, not 14.</strong> The plan said 14, but <code>npm audit</code> showed critical advisories on the 14 line with no fix. 16.4.5 has a clean production audit.</p>
+<p><strong>Structure.</strong> <code>lib/domain</code> holds pure rules (flags, critical limits, tokens, phone, OTP), each tested on its own. <code>lib/import</code>, <code>lib/auth</code>, <code>lib/summary</code>, <code>lib/ai</code>, <code>lib/patient</code>, <code>lib/staff</code> hold services that use the database. <code>app/</code> routes are thin. SMS and AI sit behind small interfaces (<code>SmsProvider</code>, <code>SummaryWriter</code>), so a real SMS gateway or an India-hosted model is one more class.</p>
+<p><strong>Hosting in India.</strong> The database is in Supabase's Mumbai region and Vercel functions are pinned to Mumbai (<code>bom1</code>). The AI receives no personal data (section 5).</p>
+
+<h2>3. Data model</h2>
+<p>17 tables in Prisma 7 (one schema file per group, one commit per group). Highlights:</p>
+<table>
+  <thead><tr><th>Table</th><th>Holds</th><th>Design choice</th></tr></thead>
+  <tbody>
+    <tr><td>Household</td><td>One mobile number</td><td>Stored as an HMAC for lookup, AES-256-GCM ciphertext for sending SMS, and a masked form for display. Consent version and time.</td></tr>
+    <tr><td>Patient</td><td>A family member</td><td>Unique by household and name: one number covers a family.</td></tr>
+    <tr><td>TestDefinition, Analyte</td><td>Tests and what they measure</td><td>Critical limits on the analyte; a locked flag for tests with approved wording.</td></tr>
+    <tr><td>Report, Result</td><td>One test on one order</td><td>Order plus test is unique (re-import is safe). Each result keeps the range printed on its report and the value as printed; the flag is computed by rule on write.</td></tr>
+    <tr><td>ReportLink</td><td>The SMS link</td><td>Only the token's hash is stored. Delivery, opening and revoke times.</td></tr>
+    <tr><td>OtpChallenge</td><td>One code</td><td>Hash only, attempts, lock. Not linked to a household, so unknown numbers look the same.</td></tr>
+    <tr><td>Session</td><td>A signed-in browser</td><td>Server-side, so it can be ended at once. Kinds: PATIENT, LINK (one report), STAFF.</td></tr>
+    <tr><td>AccessLog</td><td>Every opening and step</td><td>Append only: a database trigger refuses UPDATE, DELETE and TRUNCATE. Plain ids, no foreign keys, so it outlives what it describes.</td></tr>
+    <tr><td>CallbackTask, PatientFlag</td><td>Work for staff</td><td>A partial unique index allows one open critical call per report.</td></tr>
+    <tr><td>SummaryTemplate</td><td>Locked wording</td><td>Versioned per key and language, DRAFT or APPROVED, source human or AI.</td></tr>
+    <tr><td>AiSummary</td><td>Every AI attempt</td><td>Shown, refused or failed, with the checker's reason and the reviewer's verdict.</td></tr>
+    <tr><td>ImportBatch, ImportRow</td><td>Each LIS file and row</td><td>A sentence per bad row; the file's hash.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="page-break">4. Main flows</h2>
+<h3>4.1 LIS export to an SMS link</h3>
+<ol>
+  <li>Staff upload the CSV (the export folder is simulated by upload, A4). Each row is validated; each problem becomes a sentence, for example "Phone number "900000001" is not a 10-digit Indian mobile number." Good rows import even when others are bad.</li>
+  <li>Rows of one order and test form a report. In one transaction: household, patient, report, results with rule flags, and, only when the report first becomes signed, a 72 hour link, a LINK_SENT log line and, for a critical result, a callback task due in 30 minutes.</li>
+  <li>After the transaction commits, the SMS is sent ("Lakshmi's Complete Blood Count report is ready. Open it here: ... The link works for 72 hours."). No result ever appears in an SMS. Delivery is recorded for the desk.</li>
+  <li>Uploading the same file again changes nothing; a later "Processing" row can never unsign a report.</li>
+</ol>
+<h3>4.2 Opening a link</h3>
+<p>The link page only checks the token. Opening the report needs a tap, because message apps fetch links to draw previews. The tap opens a session for that one report, capped at 2 hours and never past the link's 72 hours, and logs LINK_OPENED. Consent comes first. An expired or revoked link shows "We tied this page up for you" and offers a code.</p>
+<h3>4.3 Signing in with a code</h3>
+<p>Mobile number, then a six-digit code that lasts 10 minutes. Five wrong codes pause the number for 15 minutes; a resend waits 60 seconds; at most 5 codes a day (A19). An unknown number gets the same screens but no SMS. Codes are stored as keyed hashes and compared in constant time. Signing in opens the whole family's file, including pages whose links expired (A28).</p>
+<h3>4.4 Reading a report</h3>
+<p>Every report read joins through the session's own household, so an ID typed into the URL can never reach another family (tested). The opening is logged in the same transaction as the link's open count. Simple mode shows one result at a time with a ruler; Compact shows all results and the trend since the last report.</p>
+<h3>4.5 Critical values</h3>
+<p>The patient sees no number, no summary and no flag words: "Please call us about your report", with the first step already ticked ("We have asked our team to call you", with the time). The callback task was created with the report's link. Staff see the value and range on the desk. The AI is never involved.</p>
+<h3>4.6 Front desk</h3>
+<p>Search by full number (matched by hash), last four digits or name. Opening a record is logged; the full number is shown only on request, and that is logged too. Resend revokes the old link at once and sends a new one. Calls are marked done with a note; flags are resolved with a note.</p>
+
+<h2>5. How the AI part works, and what happens when it is wrong</h2>
+<p><strong>Rules decide every flag. Locked templates supply every sentence. The AI writes only the short "In short" paragraph, and only for tests without locked wording, and only if a checker passes it.</strong></p>
+<ol>
+  <li><strong>Rules</strong> set LOW, USUAL or HIGH against the range printed on the report, and "mild" or "marked" by how far past the limit (more than 20% is marked: 10.2 against 12.0 is "a little low").</li>
+  <li><strong>Templates</strong> turn each finding into words. A test fails if any sentence the builder produces does not match an approved template.</li>
+  <li><strong>Critical reports</strong> get no summary and no AI call.</li>
+  <li><strong>Locked tests</strong> (the brief's top 30; CBC and Electrolytes in the demo) use templates only.</li>
+  <li><strong>Other tests</strong> (Lipid, Thyroid in the demo) get an AI paragraph from claude-opus-5-5 at low effort. The model receives only test name, analyte names, values, units, printed ranges and the rule's words. No name, phone, age or order ID.</li>
+  <li><strong>The checker</strong> refuses any number not on the report, disease or organ names, medicine or treatment advice, alarming or falsely calming words, a flag that disagrees with the rule, or a flagged result left out.</li>
+  <li><strong>When the AI is wrong or unsure:</strong> a refused answer, an error, or no answer within 8 seconds means the patient sees the template sentence instead, at once. Every attempt is stored with the reason.</li>
+  <li><strong>Human review:</strong> the lab admin's review page shows unreviewed summaries next to the rule findings, counting toward the brief's 50 a week. Marking one "wrong" stops it showing immediately. Patients can also press "Something looks wrong".</li>
+  <li><strong>Translations:</strong> the AI can draft Telugu or Hindi wording for any approved English template. Drafts keep every placeholder or are dropped, and stay hidden until a lab admin approves them; until then the patient sees English.</li>
+</ol>
+
+<h2 class="page-break">6. UI and design decisions</h2>
+<p>The design idea is "your health file, kept by people who know you": every report is a page in a file, behind an index tab. The client values minimal, purposeful design, and many patients are elderly on small phones, so every screen has one large serif line, one green next step, large type (19 px, 22 px with Aa), and plain, calm words. Status is always a word plus a mark, never colour alone. There is no red anywhere a patient looks.</p>
+<div class="shots">
+  <figure><img src="img/signin.png" alt="Sign in"><figcaption>Sign in: language tabs, one field, one green button. The demo hint shows only in demo mode.</figcaption></figure>
+  <figure><img src="img/family.png" alt="Whose file"><figcaption>Whose file: one tab per person on the number; the tab's colour carries into the page.</figcaption></figure>
+  <figure><img src="img/critical.png" alt="Please call us"><figcaption>Please call us: no value, no summary, the call already queued, a fixed safety note.</figcaption></figure>
+</div>
+<div class="shots">
+  <figure><img src="img/report.png" alt="Report, Simple"><figcaption>Report, Simple: one result at a time; the ruler's position comes only from the printed range.</figcaption></figure>
+  <figure><img src="img/compact.png" alt="Report, Compact"><figcaption>Report, Compact: all results and the trend since last time, drawn as a small inline SVG.</figcaption></figure>
+  <figure><img src="img/desk-calls.png" alt="Desk callbacks"><figcaption>Desk: critical calls first, each closed with a note.</figcaption></figure>
+</div>
+<table>
+  <thead><tr><th>Decision</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Tabs, Back and Next are plain links; forms are plain posts</td><td>Everything works before JavaScript loads on a slow phone.</td></tr>
+    <tr><td>Fonts self-hosted and split by script (unicode-range)</td><td>No call to Google Fonts; a phone downloads Telugu glyphs only when a page shows Telugu.</td></tr>
+    <tr><td>Telugu and Hindi get taller line height and a smaller display size</td><td>The scripts are taller; buttons grow and never clip (checked at 390 px).</td></tr>
+    <tr><td>Three motion moments only (opening a report, the value finding its place, please call us), transform and opacity only</td><td>Calm, cheap on old phones, and shown as a final frame under reduced motion.</td></tr>
+    <tr><td>Listen uses the phone's own voice</td><td>Nothing leaves the phone; the button hides when there is no voice.</td></tr>
+    <tr><td>One notice layout for expired, invalid, timeout, loading, empty, error, withdrawn</td><td>Every dead end says what happened and what to do next, signed by the front desk.</td></tr>
+  </tbody>
+</table>
+
+<h2>7. Security and privacy (DPDP Act 2023)</h2>
+<ul>
+  <li><strong>Consent</strong> once, before any report, stored with its text version and time; withdrawing ends every session on the number, stops links and SMS, and is logged. A critical result still creates a staff call.</li>
+  <li><strong>Access log</strong> for every code sent, sign-in, link and report opening, PDF download, consent change, staff view and full-number view, written in the same transaction as the action. The database refuses to change or delete it. Patients read their own record in plain words.</li>
+  <li><strong>Secrets</strong> only in environment variables; <code>.gitignore</code> was the first commit. Phone numbers hashed and encrypted; tokens and codes stored only as keyed hashes.</li>
+  <li><strong>Access control</strong> on the server for every page and action: reports through the session's household (IDOR tests), link sessions scoped to one report, staff roles per route (tested so no desk route lacks a permission).</li>
+  <li><strong>Abuse limits:</strong> OTP lockout, cooldown and daily cap; staff lockout after 5 wrong passwords; same answers for unknown numbers and emails.</li>
+  <li><strong>Inputs</strong> validated with Zod at every boundary; errors are sentences.</li>
+  <li><strong>Headers:</strong> Referrer-Policy no-referrer (links carry tokens), framing refused, nosniff, HSTS in production, private pages never cached.</li>
+</ul>
+
+<h2>8. Testing</h2>
+<table>
+  <thead><tr><th>Kind</th><th>Count</th><th>What it proves</th></tr></thead>
+  <tbody>
+    <tr><td>Unit (Vitest)</td><td>{{UNIT}}</td><td>Flags and boundaries, critical limits, 72 hour links, phone rules, OTP limits, CSV reading and row errors, summary builder (no free text), AI checker, staff permissions.</td></tr>
+    <tr><td>Database (Vitest, real Postgres)</td><td>{{DB}}</td><td>Idempotent import with the brief's three orders, links on sign-off, critical calls, OTP sign-in and lockout, IDOR and consent rules, link sessions, call-backs and flags, resend, staff lockout, AI summary paths with fake writers, append-only log.</td></tr>
+    <tr><td>End to end (Playwright)</td><td>4</td><td>Sign in to a report explained by rule; a critical page with no value; five wrong codes pause the number; a staff import listing bad rows.</td></tr>
+  </tbody>
+</table>
+<p>Logic was written test first, visibly in the git history (a <code>test:</code> commit, then a <code>feat:</code> commit).</p>
+
+<h2>9. Performance and accessibility</h2>
+<p>First load measured on the production build at 390 px: about 155 KB transferred per page without fonts, of which about 135 KB is the React and Next.js runtime and about 20 KB is this app's code and CSS. This misses the 150 KB budget by about 5 KB; the next step is to drop the remaining client components from pages that do not need them. Fonts are a one-time, cached download. Every screen has a loading, empty and error state. Accessibility: real buttons, links and labels; each code box labelled; the ruler is one image with a full-sentence label; 3 px green focus ring; body text contrast above 7:1; touch targets at least 48 px.</p>
+
+<h2 class="page-break">10. Assumptions</h2>
+<p>Everything the brief does not say and the build had to decide, as kept in <code>docs/ASSUMPTIONS.md</code>:</p>
+{{ASSUMPTIONS}}
+
+<h2>11. What was cut, honest limits, and what comes next</h2>
+<ul>
+  <li><strong>Cut:</strong> the referring doctor view and the operations report (optional depth); a doctor role.</li>
+  <li><strong>Mocked by design:</strong> SMS (provider interface ready for an SMS or WhatsApp gateway) and the signed PDF (a marked stand-in).</li>
+  <li><strong>Limits:</strong> Telugu and Hindi copy comes from the design and needs native review; critical limits and the safety note are placeholders for the lab doctor; correcting a phone number on file is not built; there is no folder watcher yet (the import service is ready for one); the page-weight budget is missed by about 5 KB.</li>
+  <li><strong>Next:</strong> a real SMS gateway with delivery receipts; the referring doctor view (90 days, by doctor); an operations dashboard from the delivery and access data; an India-hosted model behind the same interface; native-speaker review and doctor sign-off of all wording; a folder watcher for the LIS export.</li>
+</ul>
+
+</body>
+</html>
