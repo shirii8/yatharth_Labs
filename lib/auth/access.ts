@@ -28,9 +28,8 @@ export async function reportForSession(session: Session, reportId: string) {
 
   const household = await db.household.findUnique({ where: { id: session.householdId } });
   if (!household) return null;
-  // A link session may show the consent screen first; a full session needs consent.
-  if (session.kind === "PATIENT" && !hasConsent(household)) return null;
-  if (household.consentWithdrawnAt) return null;
+  // No report is shown, by link or by sign-in, until consent is given and while it stands.
+  if (!hasConsent(household)) return null;
 
   return db.report.findFirst({
     where: { id: reportId, status: "SIGNED", patient: { householdId: session.householdId } },
