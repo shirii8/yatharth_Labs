@@ -72,7 +72,7 @@ You need Node.js 20 or newer (22 tested) and Docker Desktop.
 
 Steps:
 
-1. Create a Supabase project in the Mumbai region. Copy two connection strings: the pooled one (Supavisor, port 6543) for `DATABASE_URL`, and the direct one (port 5432) for `DIRECT_URL`.
+1. Create a Supabase project and choose the specific region **South Asia (Mumbai)**; the host must contain `ap-south-1`. Under Connect, copy the **Session pooler** URL (port 5432) for `DIRECT_URL`, and the same URL with port **6543** (the transaction pooler) for `DATABASE_URL`. The direct connection is IPv6 only on the free plan, so use the session pooler. Use a password of letters and numbers only.
 2. Import the GitHub repository into Vercel. `vercel.json` pins the region and runs `npm run vercel-build`, which applies migrations (`prisma migrate deploy`) and then builds.
 3. Set the environment variables below in Vercel, for Production.
 4. Load the demo data once, from a local machine, against the Supabase database:
