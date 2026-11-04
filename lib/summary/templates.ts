@@ -13,6 +13,8 @@ export type TemplateLanguage = "EN" | "TE" | "HI";
 const EN: Record<string, string> = {
   "intro.all_usual": "All {count} results are in the usual range.",
   "intro.count": "Of {count} results, {usual} are in the usual range.",
+  "intro.none_usual": "None of the {count} results are in the usual range.",
+  "intro.one_usual": "This result is in the usual range.",
   "flag.low.mild": "{analyte} is a little low.",
   "flag.low.marked": "{analyte} is much lower than usual.",
   "flag.high.mild": "{analyte} is a little high.",

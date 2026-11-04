@@ -113,20 +113,23 @@ export function buildSummary(
 
   const flagged = items.filter((i) => i.tone === "ATTENTION");
   const count = items.length;
-  const intro =
-    flagged.length === 0
-      ? text("intro.all_usual", { count })
-      : [
-          text("intro.count", { count, usual: count - flagged.length }),
-          ...flagged.map((i) =>
-            text(
-              `flag.${i.flag === "LOW" ? "low" : "high"}.${i.severity === "MARKED" ? "marked" : "mild"}`,
-              {
-                analyte: i.name,
-              },
-            ),
-          ),
-        ].join(" ");
+  const flagSentences = flagged.map((i) => {
+    const side = i.flag === "LOW" ? "low" : "high";
+    const grade = i.severity === "MARKED" ? "marked" : "mild";
+    return text(`flag.${side}.${grade}`, { analyte: i.name });
+  });
+  // One result: no count sentence. Several: say how many are usual, then name the rest.
+  const countSentence =
+    count === 1
+      ? flagged.length === 0
+        ? [text("intro.one_usual")]
+        : []
+      : flagged.length === 0
+        ? [text("intro.all_usual", { count })]
+        : flagged.length === count
+          ? [text("intro.none_usual", { count })]
+          : [text("intro.count", { count, usual: count - flagged.length })];
+  const intro = [...countSentence, ...flagSentences].join(" ");
 
   const testStep = `test.${input.testCode}.next`;
   const nextSteps =
