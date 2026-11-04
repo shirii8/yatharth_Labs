@@ -110,6 +110,28 @@ export const en = {
     missing: "Someone missing? The front desk can add them to this number.",
     data: "Your data and choices",
   },
+  file: {
+    eyebrow: "{name}'s file",
+    newCount: "{count} new page.",
+    newCountMany: "{count} new pages.",
+    noneNew: "All caught up.",
+    empty: "No pages yet.",
+    emptyBody:
+      "When the lab signs a report for {name}, it will appear here and we will send an SMS.",
+    newTag: "New · signed {when}",
+    signedAt: "Signed by the lab doctor {when}.",
+    open: "Open the page",
+    callTag: "Please call us",
+    callBody: "One result on this page needs a doctor to talk it through with you.",
+    callOpen: "See what to do",
+    preparingEyebrow: "{test} · being prepared",
+    preparingTitle: "It is with the doctor now.",
+    preparingBody: "We will send an SMS the moment it is signed. No need to call.",
+    filedEyebrow: "{test} · {date} · filed away",
+    filedBody: "Already read. It stays in your file.",
+    readAgain: "Read it again",
+    switchPerson: "Back to whose file",
+  },
 };
 
 export type Messages = typeof en;

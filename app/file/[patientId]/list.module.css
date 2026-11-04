@@ -1,0 +1,73 @@
+/* A page in the file: a tinted card with an index tab on its top edge. */
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 22px;
+  padding: 22px 18px 18px;
+  border: var(--frame) solid var(--ink);
+  border-radius: 4px;
+  background: var(--tint, var(--sky));
+}
+
+.tag {
+  position: absolute;
+  top: -40px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 4px 14px;
+  border: var(--frame) solid var(--ink);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  background: var(--green);
+  color: var(--on-green);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.tag[data-tone="call"] {
+  background: var(--rose);
+  color: var(--ink);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2em;
+  line-height: 1.25;
+}
+
+/* The kettle's steam breathes slowly while a report is being prepared. */
+.row :global(.steam) {
+  animation: steam 4.5s ease-in-out infinite;
+}
+
+@keyframes steam {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(2px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
