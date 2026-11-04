@@ -1,0 +1,166 @@
+/* Shared pieces: tabs, buttons, fields, the notch rule. Values from the design handoff. */
+
+.tabs {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+  padding: 0 10px;
+  margin-bottom: calc(var(--frame) * -1);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 54px;
+  margin-top: 8px;
+  padding: 4px 6px;
+  border: var(--frame) solid var(--ink);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--tint, var(--sky));
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tab[aria-current],
+.tab[aria-selected="true"] {
+  margin-top: 0;
+  background: var(--page);
+  border-bottom-color: var(--page);
+}
+
+.primary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 62px;
+  padding: 8px 10px 8px 20px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--green);
+  color: var(--on-green);
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primary:disabled,
+.primary[aria-disabled="true"] {
+  cursor: progress;
+}
+
+.chip {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--tap);
+  padding: 6px 14px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--page);
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+
+.notch {
+  display: block;
+  width: 100%;
+  height: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.inputWrap {
+  display: flex;
+  min-height: 62px;
+  border: var(--frame) solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--field);
+}
+
+.inputWrap:focus-within {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+.inputWrap[data-invalid="true"] {
+  border-color: var(--clay);
+}
+
+.prefix {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border-right: 1.5px solid var(--ink);
+  font-weight: 700;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  font-size: 1.05em;
+  letter-spacing: 0.04em;
+  outline: none;
+}
+
+.helper {
+  font-size: 0.8em;
+  color: var(--ink-soft);
+}
+
+.error {
+  font-size: 0.85em;
+  font-weight: 700;
+  color: var(--clay);
+}
