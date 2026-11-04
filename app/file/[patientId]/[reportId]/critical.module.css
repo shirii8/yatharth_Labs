@@ -1,0 +1,102 @@
+/*
+ * The calmest page: it fades in (no slide), the phone cord draws, the first
+ * step's tick is already filled, and the call button breathes slowly, about one
+ * calm breath every 5 seconds. Under reduced motion everything is still.
+ */
+
+.calm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: appear 300ms ease-out both;
+}
+
+.calm :global(.cord) {
+  stroke-dasharray: 1;
+  animation: cord 1.2s ease-out 300ms both;
+}
+
+.head {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(34px, 10vw, 44px);
+  line-height: 1.05;
+}
+
+.breathe {
+  animation: breathe 5s ease-in-out infinite;
+}
+
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.mark[data-done] {
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--on-green);
+}
+
+.safety {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--page);
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes cord {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calm,
+  .calm :global(.cord),
+  .breathe {
+    animation: none;
+  }
+}
