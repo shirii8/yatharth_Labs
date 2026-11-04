@@ -166,6 +166,56 @@ export const en = {
     markHigh: "High",
     markUsual: "Usual",
   },
+  link: {
+    title: "A page from your file is ready.",
+    body: "Tap below to open it. This link opens only this one page, and only for 3 days.",
+    open: "Open my page",
+    note: "Not expecting a message from us? Please do not open it. Call the lab instead.",
+  },
+  notice: {
+    expired: {
+      title: "We tied this page up for you.",
+      body: "After 3 days we put each page away so no one who finds your phone can read it. It is safe in your file. A new code unties it.",
+      cta: "Send me a new code",
+      sign: "It takes less than a minute.",
+    },
+    invalid: {
+      title: "This link has lost a piece.",
+      body: "Part of it may have been cut off in the message. Sign in with your number and you will reach the same file.",
+      cta: "Sign in with my number",
+      sign: "Did not expect a message from us? Please do not share the link, and call us.",
+    },
+    timeout: {
+      title: "We closed the door behind you.",
+      body: "After 30 quiet minutes we close your file so no one else sees it. Your place is kept for when you come back.",
+      cta: "Come back in",
+      sign: "A fresh code arrives by SMS.",
+    },
+    loading: {
+      title: "Taking your page out of the file…",
+      body: "On slow internet this can take up to a minute. You do not need to do anything.",
+      cta: "",
+      sign: "Our pages are small on purpose, so they still arrive on 3G.",
+    },
+    empty: {
+      title: "Your file is quiet.",
+      body: "When a test is ready and signed, we will send you an SMS with a link straight to the new page.",
+      cta: "Back to the family",
+      sign: "No need to keep checking. We will come to you.",
+    },
+    error: {
+      title: "Our lamp is out for a moment.",
+      body: "Your file is safe. Our side is slow right now. Please try again in a minute or two.",
+      cta: "Try again",
+      sign: "If you call us, say code {code} and we will know what happened.",
+    },
+    notFound: {
+      title: "This page is not in your file.",
+      body: "It may belong to someone else's number, or the address may be wrong. Your own pages are one tap away.",
+      cta: "Go to my file",
+      sign: "If you think something is missing, call us.",
+    },
+  },
   critical: {
     head: "Please call us about {name}'s report.",
     headSelf: "Please call us about your report.",

@@ -39,7 +39,9 @@ export async function giveConsentAction(
   ]);
 
   // Opened from an SMS link: go straight back to that one report.
-  if (session.kind === "LINK" && session.reportId) redirect(`/r/open/${session.reportId}`);
+  if (session.kind === "LINK" && session.reportId && session.patientId) {
+    redirect(`/file/${session.patientId}/${session.reportId}`);
+  }
   const household = await db.household.findUniqueOrThrow({ where: { id: householdId } });
   redirect(household.readingMode ? "/family" : "/preference");
 }
