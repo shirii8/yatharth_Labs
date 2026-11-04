@@ -1,0 +1,90 @@
+.title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.box {
+  width: 100%;
+  height: 66px;
+  padding: 0;
+  text-align: center;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--field);
+  font-family: var(--font-serif);
+  font-size: 32px;
+}
+
+.box[aria-invalid="true"] {
+  border-color: var(--clay);
+}
+
+.alert {
+  margin: 0;
+  padding: 12px 14px;
+  border-left: 4px solid var(--clay);
+  background: var(--call-page);
+}
+
+.resend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9em;
+}
+
+.resendButton {
+  min-height: 48px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.note {
+  margin: 0;
+  font-size: 0.85em;
+  color: var(--ink-soft);
+}
+
+.bigTime {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.sign {
+  margin: 0;
+  font-size: 0.85em;
+  font-style: italic;
+  color: var(--ink-soft);
+}

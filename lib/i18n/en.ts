@@ -9,7 +9,7 @@ export const en = {
     back: "Back",
     next: "Next",
     signOut: "Sign out",
-    signedBy: "the front desk",
+    signedBy: "The front desk",
   },
   signIn: {
     title: "Your file at the lab.",
@@ -23,6 +23,34 @@ export const en = {
     badPhone: "Please type the 10-digit mobile number you gave at the lab.",
     locked: "This number is paused for a little while. Please try again at {time}, or call us.",
     dailyCap: "We have sent the most codes we can for today. Please call us and we will help.",
+  },
+  code: {
+    title: "Type the code we just sent.",
+    wrongTitle: "Let us try that once more.",
+    sentTo: "It went to {phone} by SMS.",
+    legend: "Your 6-digit code",
+    digit: "Digit {n} of 6",
+    open: "Open my file",
+    tryAgain: "Try again",
+    checking: "Checking your code",
+    noSms: "No SMS yet?",
+    resendIn: "We can send another in {time}",
+    resend: "Send another code",
+    resent: "A new code is on its way. Use the newest SMS.",
+    note: "Codes work for 10 minutes. Your phone may offer to fill it in above the keyboard.",
+    wrong: "That one did not match.",
+    wrongMore: "No harm done. Check the newest SMS and try again. You have {n} tries left.",
+    wrongLast:
+      "No harm done. Check the newest SMS. You have 1 try left before we pause this number.",
+    expired: "That code has run out. Please ask for a new one below.",
+    badCode: "Please type all 6 digits.",
+    lockedTitle: "Let us pause for a little while.",
+    lockedBody:
+      "The code was typed wrongly 5 times, so we have closed the door on this number for 15 minutes. It keeps your file safe if someone else picks up your phone.",
+    tryAt: "Try again at",
+    callInstead: "Call us instead",
+    lockedSign: "We can open it for you over the phone.",
+    startOver: "Use a different number",
   },
 };
 

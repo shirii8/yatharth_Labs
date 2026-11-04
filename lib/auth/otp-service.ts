@@ -87,6 +87,22 @@ export async function requestCode(
   return { ok: true, resendAt: new Date(now.getTime() + RESEND_COOLDOWN_SECONDS * 1000) };
 }
 
+/** For the code screen: is the number paused, and when may another code be sent? */
+export async function codeStatus(
+  phone: string,
+  now: Date = new Date(),
+): Promise<{ lockedUntil: Date | null; resendAt: Date | null }> {
+  const phoneHash = hashPhone(phone, env().PHONE_HASH_KEY);
+  const recent = await db.otpChallenge.findMany({
+    where: { phoneHash, createdAt: { gt: new Date(now.getTime() - 24 * 60 * 60_000) } },
+    select: { createdAt: true, lockedUntil: true },
+  });
+  const decision = decideIssue(recent, now);
+  if (decision.ok) return { lockedUntil: null, resendAt: null };
+  if (decision.reason === "LOCKED") return { lockedUntil: decision.retryAt, resendAt: null };
+  return { lockedUntil: null, resendAt: decision.retryAt };
+}
+
 export type VerifyResult =
   | { ok: true; token: string; expiresAt: Date; householdId: string }
   | { ok: false; reason: "BAD_PHONE" | "EXPIRED" | "USED" }
