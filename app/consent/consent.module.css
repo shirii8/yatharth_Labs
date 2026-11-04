@@ -1,0 +1,75 @@
+.greeting {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.15em;
+  font-style: italic;
+}
+
+.title {
+  margin: -12px 0 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: var(--hero-size);
+  line-height: var(--hero-lh);
+  letter-spacing: -0.02em;
+}
+
+.promises {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--ink);
+}
+
+.promise {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 8px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.number {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  line-height: 1;
+}
+
+.promise strong {
+  display: block;
+}
+
+.promise span span {
+  display: block;
+  font-size: 0.9em;
+  color: var(--ink-soft);
+}
+
+.agree {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border: var(--frame) solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--field);
+  cursor: pointer;
+}
+
+.agree input {
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  accent-color: var(--green);
+}
+
+.agree[data-invalid="true"] {
+  border-color: var(--clay);
+}
+
+.footnote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
