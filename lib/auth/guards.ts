@@ -11,10 +11,10 @@ import { currentSession, sessionToken } from "./cookies";
 /** A signed-in patient (full sign-in, not a link) and their household. */
 export async function requirePatient() {
   const session = await currentSession();
-  if (!session || session.kind !== "PATIENT" || !session.householdId) {
-    // A cookie that no longer works means the session timed out.
-    redirect((await sessionToken()) ? "/notice/timeout" : "/");
-  }
+  // A cookie that no longer works means the session timed out.
+  if (!session) redirect((await sessionToken()) ? "/notice/timeout" : "/");
+  // A link opens one page only; the whole file needs a sign-in with a code.
+  if (session.kind !== "PATIENT" || !session.householdId) redirect("/");
   const household = await db.household.findUniqueOrThrow({ where: { id: session.householdId } });
   return { session, household };
 }
