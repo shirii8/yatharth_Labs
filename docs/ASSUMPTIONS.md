@@ -32,3 +32,10 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 - A12. The AI receives only the test name, analyte names, values, units, ranges and rule flags. No name, phone, age or order ID is sent, so no personal data leaves India. An India-hosted model (for example Sarvam) can replace it behind the same interface.
 - A13. Critical results never reach the AI. Tests with an approved locked template use the template text and make no AI call at read time.
 - A14. Telugu and Hindi wording written by the AI is a draft until a lab_admin approves it. Until then the patient sees English.
+
+## Import format and test catalog
+
+- A15. The LIS export has the brief's sample columns (Order ID, Patient, Parameter, Result, Reference Range, Status, Referring Doctor) plus Phone, Age, Sex, Test Code, and optional Relation and Signed At. The brief does not give the full layout, and a patient cannot be reached without a phone number.
+- A16. A patient is matched by phone number plus name. A new name on a known number becomes a new family member on that number.
+- A17. Critical limits (for example potassium 6.0 mmol/L and above, haemoglobin 7.0 g/dL and below) are placeholders. The brief gives none, so the lab doctor must confirm them before go-live. A report is also critical whenever the LIS marks it "Ready (critical)".
+- A18. CBC and Electrolytes have locked, doctor-approved templates in the demo; Lipid and Thyroid do not, so the demo shows both the template path and the AI path.
