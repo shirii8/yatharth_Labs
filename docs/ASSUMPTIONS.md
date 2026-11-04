@@ -39,3 +39,9 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 - A16. A patient is matched by phone number plus name. A new name on a known number becomes a new family member on that number.
 - A17. Critical limits (for example potassium 6.0 mmol/L and above, haemoglobin 7.0 g/dL and below) are placeholders. The brief gives none, so the lab doctor must confirm them before go-live. A report is also critical whenever the LIS marks it "Ready (critical)".
 - A18. CBC and Electrolytes have locked, doctor-approved templates in the demo; Lipid and Thyroid do not, so the demo shows both the template path and the AI path.
+
+## Sign-in and sessions
+
+- A19. The brief asks for a daily cap on codes but gives no number. The cap is 5 codes per number in 24 hours.
+- A20. A patient session ends after 30 minutes without use and after 12 hours at most. A session opened from an SMS link lasts at most 2 hours and opens only that report. Staff sessions end after 2 hours idle or 10 hours.
+- A21. Three demo numbers (+91 90000 00001 to 00003) accept a fixed code only when DEMO_MODE is on, so reviewers can sign in without a phone. It is off by default.
