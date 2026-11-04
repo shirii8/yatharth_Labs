@@ -41,6 +41,37 @@ async function main() {
     console.info(`Imported ${file}: ${result.totalRows} rows, ${result.linksSent} links`);
   }
 
+  // The older pages were read when they arrived, so they show as filed away, not new.
+  for (const orderId of ["ORD-68811", "ORD-71150"]) {
+    const report = await db.report.findFirst({
+      where: { orderId },
+      include: { patient: true, links: true },
+    });
+    if (!report?.signedAt) continue;
+    const opened = await db.accessLog.findFirst({
+      where: { reportId: report.id, action: "REPORT_OPENED" },
+    });
+    if (opened) continue;
+    const at = new Date(report.signedAt.getTime() + 2 * 60 * 60_000);
+    await db.accessLog.create({
+      data: {
+        at,
+        actorType: "PATIENT",
+        action: "REPORT_OPENED",
+        householdId: report.patient.householdId,
+        patientId: report.patientId,
+        reportId: report.id,
+        detail: { via: "link", seeded: true },
+      },
+    });
+    for (const link of report.links) {
+      await db.reportLink.update({
+        where: { id: link.id },
+        data: { firstOpenedAt: at, lastOpenedAt: at, openCount: 1 },
+      });
+    }
+  }
+
   // Staff. The demo password comes from the environment, never from the code.
   const password = process.env.DEMO_STAFF_PASSWORD;
   if (!password || password.length < 12) {
