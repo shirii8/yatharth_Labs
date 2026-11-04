@@ -1,0 +1,32 @@
+enum DeliveryStatus {
+  QUEUED
+  SENT
+  DELIVERED
+  FAILED
+}
+
+/// A report link sent by SMS. The token itself is never stored, only its hash.
+model ReportLink {
+  id                String         @id @default(cuid())
+  reportId          String
+  report            Report         @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  /// HMAC-SHA256 of the random token, keyed by TOKEN_HASH_KEY.
+  tokenHash         String         @unique
+  /// 72 hours after creation. After that the patient signs in with a code.
+  expiresAt         DateTime
+  /// Set when staff resend a link: the old one stops working at once.
+  revokedAt         DateTime?
+  channel           String         @default("SMS")
+  deliveryStatus    DeliveryStatus @default(QUEUED)
+  providerMessageId String?
+  sentAt            DateTime?
+  deliveredAt       DateTime?
+  firstOpenedAt     DateTime?
+  lastOpenedAt      DateTime?
+  openCount         Int            @default(0)
+  /// Staff user who resent it by hand. Empty when sent automatically on sign-off.
+  createdById       String?
+  createdAt         DateTime       @default(now())
+
+  @@index([reportId, createdAt])
+}

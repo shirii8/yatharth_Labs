@@ -35,6 +35,7 @@ model Report {
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   results           Result[]
+  links             ReportLink[]
 
   /// Re-importing the same order and test updates it instead of adding a copy.
   @@unique([orderId, testId])
