@@ -33,6 +33,7 @@ model Household {
   consentWithdrawnAt DateTime?
   createdAt          DateTime     @default(now())
   patients           Patient[]
+  sessions           Session[]
 }
 
 /// A person whose reports belong to a household's number.

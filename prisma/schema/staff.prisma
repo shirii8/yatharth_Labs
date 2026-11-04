@@ -16,4 +16,5 @@ model StaffUser {
   failedLogins Int       @default(0)
   lockedUntil  DateTime?
   createdAt    DateTime  @default(now())
+  sessions     Session[]
 }

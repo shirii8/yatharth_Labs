@@ -1,0 +1,30 @@
+enum SessionKind {
+  /// Signed in with mobile number and code: sees the household's reports.
+  PATIENT
+  /// Opened from an SMS link: sees that one report only.
+  LINK
+  STAFF
+}
+
+/// A signed-in browser. The cookie holds a random token and only its hash is stored,
+/// so any session can be ended from the server (sign out, consent withdrawn, staff disabled).
+model Session {
+  id          String      @id @default(cuid())
+  tokenHash   String      @unique
+  kind        SessionKind
+  householdId String?
+  household   Household?  @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  staffUserId String?
+  staffUser   StaffUser?  @relation(fields: [staffUserId], references: [id], onDelete: Cascade)
+  /// For LINK sessions: the only report this session may open.
+  reportId    String?
+  /// The family member chosen on the "Whose file?" screen.
+  patientId   String?
+  createdAt   DateTime    @default(now())
+  lastSeenAt  DateTime    @default(now())
+  expiresAt   DateTime
+  revokedAt   DateTime?
+
+  @@index([householdId])
+  @@index([staffUserId])
+}
