@@ -15,7 +15,7 @@ Built as a one-person, 7-day build test. Status: in progress.
 ## Links
 
 - Live demo: to be added
-- Deployment and local setup: `deployment.md` (to be added)
+- Deployment and local setup: [deployment.md](deployment.md)
 - Design: [DESIGN.md](DESIGN.md)
 - Assumptions: [docs/ASSUMPTIONS.md](docs/ASSUMPTIONS.md)
 
