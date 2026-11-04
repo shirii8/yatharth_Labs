@@ -18,9 +18,15 @@ interface ShellProps {
   footer?: boolean;
   /** Sheet colour when the selected tab's tint carries into the page (family file). */
   tint?: string;
+  /** Without the sheet, content sits on the desk (the report page has its own cards). */
+  sheet?: boolean;
+  /** Replaces the lab name with a way back, for example to the family file. */
+  back?: { href: string; label: string };
+  /** Extra header controls before Aa, for example the Compact switch. */
+  actions?: ReactNode;
 }
 
-/** The patient frame: lab name, Aa, optional tabs, the double-ruled sheet, the call footer. */
+/** The patient frame: lab name or back link, Aa, tabs, the double-ruled sheet, the call footer. */
 export async function Shell({
   children,
   tabs,
@@ -28,6 +34,9 @@ export async function Shell({
   mode = "simple",
   footer = true,
   tint,
+  sheet = true,
+  back,
+  actions,
 }: ShellProps) {
   const jar = await cookies();
   const t = messages(localeFromCookie(jar.get("lang")?.value));
@@ -37,20 +46,35 @@ export async function Shell({
     <div className={styles.shell}>
       <HandFilter />
       <header className={styles.topbar}>
-        <Link href="/" className={styles.labName} prefetch={false}>
-          {labName}
-        </Link>
-        <TextSizeToggle initial={jar.get("text")?.value === "large"} label={t.common.textSize} />
+        {back ? (
+          <Link href={back.href} className={styles.back} prefetch={false}>
+            <span aria-hidden="true">←</span> {back.label}
+          </Link>
+        ) : (
+          <Link href="/" className={styles.labName} prefetch={false}>
+            {labName}
+          </Link>
+        )}
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          {actions}
+          <TextSizeToggle initial={jar.get("text")?.value === "large"} label={t.common.textSize} />
+        </div>
       </header>
       {tabs}
-      <main
-        className={styles.sheet}
-        data-tone={tone}
-        data-mode={mode}
-        style={tint ? ({ "--sheet-bg": tint } as CSSProperties) : undefined}
-      >
-        {children}
-      </main>
+      {sheet ? (
+        <main
+          className={styles.sheet}
+          data-tone={tone}
+          data-mode={mode}
+          style={tint ? ({ "--sheet-bg": tint } as CSSProperties) : undefined}
+        >
+          {children}
+        </main>
+      ) : (
+        <main className={styles.bare} data-mode={mode}>
+          {children}
+        </main>
+      )}
       {footer ? <CallFooter callLab={t.common.callLab} callMeBack={t.common.callMeBack} /> : null}
     </div>
   );

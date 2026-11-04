@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { FamilyTabs } from "@/components/patient/FamilyTabs";
 import { Shell } from "@/components/patient/Shell";
 import shell from "@/components/patient/shell.module.css";
 import { PrimaryLink, TextLink } from "@/components/ui/Button";
 import { NotchRule } from "@/components/ui/NotchRule";
-import { Tabs } from "@/components/ui/Tabs";
-import { familyForSession } from "@/lib/auth/access";
 import { requireConsentedPatient } from "@/lib/auth/guards";
-import { db } from "@/lib/db/client";
 import { localeFromCookie, messages } from "@/lib/i18n";
+import { familyOverview } from "@/lib/patient/family";
 import { firstName, signedWhen } from "@/lib/patient-format";
 
 export const metadata: Metadata = { title: "Whose file?" };
-
-const TINTS = ["var(--sky)", "var(--rose)", "var(--sand)", "var(--lilac)", "var(--sage)"];
 
 /** "Whose file?": one index tab per family member on this number. */
 export default async function FamilyPage({
@@ -23,28 +20,8 @@ export default async function FamilyPage({
 }) {
   const { session } = await requireConsentedPatient();
   const t = messages(localeFromCookie((await cookies()).get("lang")?.value));
-  const family = await familyForSession(session);
+  const people = await familyOverview(session);
   const { p } = await searchParams;
-
-  const opened = new Set(
-    (
-      await db.accessLog.findMany({
-        where: { householdId: session.householdId, action: "REPORT_OPENED" },
-        select: { reportId: true },
-      })
-    ).map((l) => l.reportId),
-  );
-
-  const people = family.map((person, i) => {
-    const signed = person.reports.filter((r) => r.status === "SIGNED");
-    return {
-      person,
-      tint: TINTS[i % TINTS.length]!,
-      call: signed.some((r) => r.hasCritical),
-      fresh: signed.filter((r) => !opened.has(r.id)),
-      preparing: person.reports.filter((r) => r.status !== "SIGNED"),
-    };
-  });
   const selected = people.find((x) => x.person.id === p) ?? people[0];
 
   if (!selected) {
@@ -85,40 +62,17 @@ export default async function FamilyPage({
               ? t.family.ledeOne
               : t.family.lede.replace("{count}", numberWord(people.length))}
           </p>
-          <Tabs
-            label={t.family.label}
+          <FamilyTabs
+            people={people}
+            currentId={person.id}
+            href={(id) => `/family?p=${id}`}
+            t={t.family}
             keepTint
-            items={people.map((x) => ({
-              key: x.person.id,
-              href: `/family?p=${x.person.id}`,
-              current: x.person.id === person.id,
-              tint: x.tint,
-              ariaLabel: `${x.person.name}, ${
-                x.call ? t.family.tabCall : x.fresh.length ? t.family.tabNew : t.family.tabNothing
-              }`,
-              label: (
-                <>
-                  {firstName(x.person.name)}
-                  {x.call ? (
-                    <span
-                      aria-hidden="true"
-                      style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: "50%",
-                        background: "var(--clay)",
-                        display: "inline-block",
-                      }}
-                    />
-                  ) : null}
-                </>
-              ),
-            }))}
           />
         </>
       }
     >
-      <span style={{ fontSize: 15, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+      <span className={shell.eyebrow}>
         {isSelf ? t.family.you : person.relation} · {person.age}
       </span>
       <h1 className={shell.hero} style={{ marginTop: -14 }}>

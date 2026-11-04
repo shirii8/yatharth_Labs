@@ -25,6 +25,47 @@
   text-decoration: none;
 }
 
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  font-weight: 700;
+  font-size: 17px;
+  text-decoration: none;
+}
+
+.bare {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 4px 6px 16px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 18px;
+  background: var(--page);
+  border: var(--frame) solid var(--ink);
+  box-shadow:
+    inset 0 0 0 6px var(--page),
+    inset 0 0 0 7.5px var(--ink);
+}
+
+.bare[data-mode="compact"] .card {
+  border-radius: 2px;
+}
+
+.eyebrow {
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .aa {
   flex: none;
   width: 50px;
