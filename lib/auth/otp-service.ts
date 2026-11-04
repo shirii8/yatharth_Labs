@@ -46,11 +46,13 @@ export async function requestCode(
     where: { phoneHash, createdAt: { gt: new Date(now.getTime() - 24 * 60 * 60_000) } },
     select: { createdAt: true, lockedUntil: true },
   });
+  const demo = Boolean(config.DEMO_MODE && config.DEMO_OTP && DEMO_NUMBERS.has(phone));
   const decision = decideIssue(recent, now);
-  if (!decision.ok) return decision;
+  // Demo numbers have a fixed code and get no SMS, so many reviewers can sign in a
+  // day: only the five-wrong-tries pause still applies to them.
+  if (!decision.ok && !(demo && decision.reason !== "LOCKED")) return decision;
 
   const household = await db.household.findUnique({ where: { phoneHash } });
-  const demo = config.DEMO_MODE && config.DEMO_OTP && DEMO_NUMBERS.has(phone);
   const code = demo ? config.DEMO_OTP! : generateOtp();
 
   await db.$transaction([

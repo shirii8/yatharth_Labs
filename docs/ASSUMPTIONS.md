@@ -46,3 +46,4 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 - A19. The brief asks for a daily cap on codes but gives no number. The cap is 5 codes per number in 24 hours.
 - A20. A patient session ends after 30 minutes without use and after 12 hours at most. A session opened from an SMS link lasts at most 2 hours and opens only that report. Staff sessions end after 2 hours idle or 10 hours.
 - A21. Three demo numbers (+91 90000 00001 to 00003) accept a fixed code only when DEMO_MODE is on, so reviewers can sign in without a phone. It is off by default.
+- A23. In demo mode only, the three demo numbers skip the 60 second resend wait and the daily cap, because their code is fixed and no SMS is sent; many reviewers may sign in on the same day. The five-wrong-tries pause still applies.
