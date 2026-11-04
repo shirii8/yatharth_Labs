@@ -121,7 +121,7 @@ function Resend({ t, resendAt }: { t: Messages["code"]; resendAt: string | null 
     <div className={styles.resend}>
       <span>{t.noSms}</span>
       {left > 0 ? (
-        <span aria-live="polite">
+        <span aria-live="polite" suppressHydrationWarning>
           {t.resendIn.replace(
             "{time}",
             `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`,
