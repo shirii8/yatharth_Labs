@@ -166,6 +166,21 @@ export const en = {
     markHigh: "High",
     markUsual: "Usual",
   },
+  print: {
+    print: "Print this page",
+    back: "Back to the report",
+    simpleCopy: "Simple copy for you",
+    order: "Order",
+    signed: "signed",
+    result: "Result",
+    value: "Your value",
+    usual: "Usual range",
+    reading: "What it means",
+    callUs:
+      "Please call us about this report. We kept the explanation for a phone call with a doctor.",
+    footnote: "This is a simple copy. The signed report from {lab} is the medical record.",
+    phone: "Lab phone:",
+  },
   data: {
     back: "Back to the family",
     title: "Your data and choices",

@@ -1,0 +1,107 @@
+/* One A4 page, large type, ink on white. No grain, no drawings, no colour needed. */
+
+.sheet {
+  max-width: 210mm;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 16mm 14mm;
+  background: #fff;
+  color: var(--ink);
+  font-size: 20px;
+}
+
+.noPrint {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.back {
+  font-weight: 700;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 2.5px solid var(--ink);
+  font-size: 16px;
+}
+
+.lab {
+  font-family: var(--font-serif);
+  font-variant: small-caps;
+  font-size: 22px;
+}
+
+.name {
+  margin: 18px 0 4px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 40px;
+}
+
+.meta {
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+.intro {
+  font-size: 22px;
+  line-height: 1.4;
+}
+
+.callUs {
+  margin: 24px 0;
+  padding: 16px;
+  border: 2.5px solid var(--ink);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 20px;
+}
+
+.table th,
+.table td {
+  padding: 10px 6px;
+  border-bottom: 1px solid var(--ink);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table thead th {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.steps {
+  padding-left: 24px;
+  line-height: 1.5;
+}
+
+.small {
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  .noPrint {
+    display: none;
+  }
+
+  .sheet {
+    padding: 0;
+    min-height: auto;
+  }
+}
