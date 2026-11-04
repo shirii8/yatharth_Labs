@@ -20,7 +20,8 @@
     "db:up": "docker compose up -d db",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
-    "db:reset": "prisma migrate reset --force"
+    "db:reset": "prisma migrate reset --force",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

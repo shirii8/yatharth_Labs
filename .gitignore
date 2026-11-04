@@ -52,3 +52,6 @@ desktop.ini
 
 # Generated Prisma client (rebuilt by "prisma generate")
 lib/generated/
+
+# Playwright
+blob-report/
