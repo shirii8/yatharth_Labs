@@ -22,6 +22,21 @@ export default async function SignInPage() {
       <p className={styles.lede}>{t.signIn.lede}</p>
       <NotchRule />
       <SignInForm t={t.signIn} />
+      {process.env.DEMO_MODE === "true" && process.env.DEMO_OTP ? (
+        <p
+          style={{
+            margin: 0,
+            padding: "10px 14px",
+            border: "2px dashed var(--ink)",
+            borderRadius: 12,
+            background: "var(--sand)",
+            fontSize: "0.85em",
+          }}
+        >
+          <strong>Demo only.</strong> SMS is simulated. Use +91 90000 00001, 00002 or 00003, and the
+          code {process.env.DEMO_OTP}.
+        </p>
+      ) : null}
       <div className={styles.aside}>
         <Folder />
         <span>{t.signIn.safe}</span>
