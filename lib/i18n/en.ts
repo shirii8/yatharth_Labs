@@ -21,6 +21,8 @@ export const en = {
     sending: "Sending your code",
     safe: "No password to remember. Only this number opens your file, and we write down every time it is opened.",
     badPhone: "Please type the 10-digit mobile number you gave at the lab.",
+    locked: "This number is paused for a little while. Please try again at {time}, or call us.",
+    dailyCap: "We have sent the most codes we can for today. Please call us and we will help.",
   },
 };
 
