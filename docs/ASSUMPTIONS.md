@@ -47,3 +47,11 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 - A20. A patient session ends after 30 minutes without use and after 12 hours at most. A session opened from an SMS link lasts at most 2 hours and opens only that report. Staff sessions end after 2 hours idle or 10 hours.
 - A21. Three demo numbers (+91 90000 00001 to 00003) accept a fixed code only when DEMO_MODE is on, so reviewers can sign in without a phone. It is off by default.
 - A23. In demo mode only, the three demo numbers skip the 60 second resend wait and the daily cap, because their code is fixed and no SMS is sent; many reviewers may sign in on the same day. The five-wrong-tries pause still applies.
+
+## Staff work and patient requests
+
+- A24. The staff desk is in English only. Telugu and Hindi are for patients.
+- A25. The brief gives no call times. A critical result asks staff to call within 30 minutes; "Call me back" within 2 hours, between 8 am and 8 pm.
+- A26. "Call me back" needs a sign-in or an open link, so the lab knows whose file it is. Signed out, the page offers the lab's phone number instead of promising a call.
+- A27. "Something looks wrong" creates a flag for staff. Nothing on the report changes until a doctor has looked.
+- A28. Signing in with a code opens every signed report on that number, including ones whose SMS link has expired. The code is the "OTP to reopen" the brief asks for.
