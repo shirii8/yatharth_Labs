@@ -1,0 +1,44 @@
+enum ImportSource {
+  UPLOAD
+  FOLDER
+}
+
+enum ImportRowStatus {
+  IMPORTED
+  UPDATED
+  UNCHANGED
+  ERROR
+}
+
+/// One LIS export file, uploaded by staff or picked up from the export folder.
+model ImportBatch {
+  id           String       @id @default(cuid())
+  fileName     String
+  /// SHA-256 of the file. The same file again is reported as unchanged rows, not copies.
+  fileHash     String
+  source       ImportSource @default(UPLOAD)
+  uploadedById String?
+  totalRows    Int
+  importedRows Int
+  errorRows    Int
+  createdAt    DateTime     @default(now())
+  rows         ImportRow[]
+
+  @@index([fileHash])
+  @@index([createdAt])
+}
+
+/// One row of an export, with what happened to it.
+model ImportRow {
+  id        String          @id @default(cuid())
+  batchId   String
+  batch     ImportBatch     @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  rowNumber Int
+  status    ImportRowStatus
+  orderId   String?
+  /// A plain sentence staff can act on, for example "Phone number has 9 digits".
+  error     String?
+  raw       Json
+
+  @@index([batchId, rowNumber])
+}
