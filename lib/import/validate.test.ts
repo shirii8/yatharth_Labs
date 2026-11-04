@@ -118,10 +118,7 @@ describe("validateRows", () => {
   });
 
   it("refuses rows of one order and test that disagree on the patient", () => {
-    const rows = [
-      row(),
-      row({ Patient: "Someone Else", Parameter: "Haemoglobin", Result: "11" }),
-    ];
+    const rows = [row(), row({ Patient: "Someone Else", Parameter: "Haemoglobin", Result: "11" })];
     const { valid, errors } = validateRows(rows, catalog);
     expect(valid).toHaveLength(1);
     expect(errors[0]?.rowNumber).toBe(3);
