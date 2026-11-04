@@ -55,7 +55,10 @@ describe("encryptPhone and decryptPhone", () => {
 
   it("refuses a tampered ciphertext", () => {
     const cipher = encryptPhone("+919000000001", key);
-    const tampered = cipher.slice(0, -2) + (cipher.endsWith("A") ? "B" : "A") + cipher.slice(-1);
+    // Flip one byte of the encrypted number itself (after the nonce and tag).
+    const bytes = Buffer.from(cipher, "base64");
+    bytes[30] = bytes[30]! ^ 0xff;
+    const tampered = bytes.toString("base64");
     expect(() => decryptPhone(tampered, key)).toThrow();
   });
 });
