@@ -9,8 +9,16 @@
   margin-bottom: calc(var(--frame) * -1);
 }
 
+@media (min-width: 720px) {
+  .tabs {
+    padding: 0 18px;
+    gap: 6px;
+  }
+}
+
 .tab {
-  flex: 1;
+  flex: 1 1 0;
+  max-width: 240px;
   display: flex;
   align-items: center;
   justify-content: center;

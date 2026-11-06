@@ -1,3 +1,13 @@
+/*
+ * The patient frame. One layout system for every screen size:
+ * - phones (default): one column, 480 px at most;
+ * - tablets (720 px and up): a wider sheet with more breathing room;
+ * - laptops (1080 px and up): the sheet splits into two columns where a page
+ *   has two parts (for example the report and what to do next), so nothing
+ *   needs long scrolling.
+ * Single-task screens (enter code, notices) use the narrow width everywhere.
+ */
+
 .shell {
   position: relative;
   display: flex;
@@ -9,12 +19,36 @@
   padding: 0 10px 12px;
 }
 
+@media (min-width: 720px) {
+  .shell {
+    max-width: 720px;
+    padding: 0 24px 24px;
+  }
+}
+
+@media (min-width: 1080px) {
+  .shell {
+    max-width: 1120px;
+    padding: 0 32px 28px;
+  }
+}
+
+.shell[data-width="narrow"] {
+  max-width: 640px;
+}
+
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   padding: 12px 4px;
+}
+
+@media (min-width: 720px) {
+  .topbar {
+    padding: 20px 4px 16px;
+  }
 }
 
 .labName {
@@ -35,6 +69,69 @@
   text-decoration: none;
 }
 
+.aa {
+  flex: none;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--page);
+  font-family: var(--font-serif);
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.aa[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--page);
+}
+
+/* The page: a clean double rule. */
+.sheet {
+  --sheet-bg: var(--page);
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 30px 24px 26px;
+  background: var(--sheet-bg);
+  border: var(--frame) solid var(--ink);
+  box-shadow:
+    inset 0 0 0 6px var(--sheet-bg),
+    inset 0 0 0 7.5px var(--ink);
+}
+
+@media (min-width: 720px) {
+  .sheet {
+    padding: 44px 48px 40px;
+  }
+}
+
+/* On laptops the sheet fits its content instead of filling the window. */
+@media (min-width: 1080px) {
+  .sheet {
+    flex: 0 0 auto;
+  }
+}
+
+.sheet[data-tone="call"] {
+  --sheet-bg: var(--call-page);
+}
+
+.sheet[data-mode="compact"] {
+  gap: 16px;
+  padding: 22px 18px 20px;
+  border-radius: 2px;
+}
+
+@media (min-width: 720px) {
+  .sheet[data-mode="compact"] {
+    padding: 32px 36px;
+  }
+}
+
+/* Pages without the big sheet (the report) lay out their own cards. */
 .bare {
   flex: 1;
   display: flex;
@@ -56,56 +153,49 @@
     inset 0 0 0 7.5px var(--ink);
 }
 
+@media (min-width: 720px) {
+  .card {
+    padding: 28px 30px;
+  }
+}
+
 .bare[data-mode="compact"] .card {
   border-radius: 2px;
 }
 
-.eyebrow {
-  font-size: 15px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+/*
+ * Two columns on laptops: the main part on the left, the supporting part on
+ * the right. Below 1080 px the columns simply stack, in the same order.
+ */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
 }
 
-.aa {
-  flex: none;
-  width: 50px;
-  height: 50px;
-  border: 2px solid var(--ink);
-  border-radius: 50%;
-  background: var(--page);
-  font-family: var(--font-serif);
-  font-size: 21px;
-  cursor: pointer;
-}
-
-.aa[aria-pressed="true"] {
-  background: var(--ink);
-  color: var(--page);
-}
-
-.sheet {
-  --sheet-bg: var(--page);
-  position: relative;
-  flex: 1;
+.col {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  padding: 30px 24px 26px;
-  background: var(--sheet-bg);
-  border: var(--frame) solid var(--ink);
-  box-shadow:
-    inset 0 0 0 6px var(--sheet-bg),
-    inset 0 0 0 7.5px var(--ink);
+  min-width: 0;
 }
 
-.sheet[data-tone="call"] {
-  --sheet-bg: var(--call-page);
-}
+@media (min-width: 1080px) {
+  .split {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 56px;
+    align-items: start;
+  }
 
-.sheet[data-mode="compact"] {
-  gap: 16px;
-  padding: 22px 18px 20px;
-  border-radius: 2px;
+  .split[data-even] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* The supporting column stays in view while the main one scrolls. */
+  .sticky {
+    position: sticky;
+    top: 24px;
+  }
 }
 
 .footer {
@@ -113,6 +203,20 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   padding-top: 10px;
+}
+
+@media (min-width: 720px) {
+  .footer {
+    grid-template-columns: repeat(2, minmax(0, 260px));
+    justify-content: end;
+    padding-top: 14px;
+  }
+}
+
+.eyebrow {
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .hero {

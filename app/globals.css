@@ -49,6 +49,12 @@
   --ease-paper: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+@media (min-width: 1080px) {
+  :root {
+    --hero-size: 64px;
+  }
+}
+
 /* Aa: larger text, one tap away, remembered in a cookie */
 html[data-text="large"] {
   --body: 22px;
@@ -79,10 +85,7 @@ body {
   font-family: var(--font-sans);
   font-size: var(--body);
   line-height: var(--lh);
-  /* Paper grain: one tiny static tile, no filters, cheap to scroll on old phones */
-  background: var(--desk)
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' fill='%23161513' fill-opacity='.07'%3E%3Ccircle cx='7' cy='12' r='.8'/%3E%3Ccircle cx='31' cy='4' r='.6'/%3E%3Ccircle cx='54' cy='19' r='.9'/%3E%3Ccircle cx='88' cy='9' r='.7'/%3E%3Ccircle cx='112' cy='27' r='.8'/%3E%3Ccircle cx='18' cy='44' r='.7'/%3E%3Ccircle cx='47' cy='58' r='.6'/%3E%3Ccircle cx='73' cy='39' r='.9'/%3E%3Ccircle cx='101' cy='61' r='.7'/%3E%3Ccircle cx='9' cy='83' r='.9'/%3E%3Ccircle cx='38' cy='97' r='.7'/%3E%3Ccircle cx='64' cy='78' r='.8'/%3E%3Ccircle cx='92' cy='104' r='.6'/%3E%3Ccircle cx='117' cy='89' r='.8'/%3E%3Ccircle cx='26' cy='116' r='.6'/%3E%3Ccircle cx='79' cy='117' r='.7'/%3E%3C/svg%3E")
-    repeat;
+  background: var(--desk);
 }
 
 a {

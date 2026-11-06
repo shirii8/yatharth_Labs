@@ -8,6 +8,7 @@
 
 .ruler {
   display: block;
+  max-width: 560px;
   overflow: visible;
 }
 

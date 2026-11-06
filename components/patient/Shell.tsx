@@ -3,7 +3,6 @@ import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { localeFromCookie, messages } from "@/lib/i18n";
 import { CallFooter } from "./CallFooter";
-import { HandFilter } from "./Drawings";
 import styles from "./shell.module.css";
 import { TextSizeToggle } from "./TextSizeToggle";
 
@@ -24,6 +23,8 @@ interface ShellProps {
   back?: { href: string; label: string };
   /** Extra header controls before Aa, for example the Compact switch. */
   actions?: ReactNode;
+  /** "narrow" for single-task screens (enter code, notices); "wide" uses the full laptop width. */
+  width?: "narrow" | "wide";
 }
 
 /** The patient frame: lab name or back link, Aa, tabs, the double-ruled sheet, the call footer. */
@@ -37,14 +38,14 @@ export async function Shell({
   sheet = true,
   back,
   actions,
+  width = "wide",
 }: ShellProps) {
   const jar = await cookies();
   const t = messages(localeFromCookie(jar.get("lang")?.value));
   const labName = process.env.NEXT_PUBLIC_LAB_NAME || "Your lab";
 
   return (
-    <div className={styles.shell}>
-      <HandFilter />
+    <div className={styles.shell} data-width={width}>
       <header className={styles.topbar}>
         {back ? (
           <Link href={back.href} className={styles.back} prefetch={false}>
