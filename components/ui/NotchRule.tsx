@@ -1,6 +1,9 @@
 import styles from "./ui.module.css";
 
-/** A section divider with a small tab-shaped notch: the index tab again. */
+/**
+ * A section divider with a small tab-shaped notch: the index tab again.
+ * A clean vector line that stays 1.5 px thick at any width.
+ */
 export function NotchRule() {
   return (
     <svg
@@ -10,12 +13,12 @@ export function NotchRule() {
       preserveAspectRatio="none"
     >
       <path
-        d="M1 12H150Q154 12 156 3H184Q186 12 190 12H329"
+        d="M0 12H148L154 3H176L182 12H330"
         fill="none"
         stroke="var(--ink)"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        filter="url(#hand)"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
       />
     </svg>
   );
