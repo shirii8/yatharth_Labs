@@ -71,3 +71,17 @@
     transform: translateY(-2px);
   }
 }
+
+/* New pages, and then waiting and filed pages: one column on phones, two from tablets up. */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px 28px;
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}

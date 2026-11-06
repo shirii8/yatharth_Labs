@@ -46,17 +46,23 @@ export default async function PreferencePage({
         />
       }
     >
-      <h1 className={shell.hero} style={{ fontSize: 40, lineHeight: 1.05 }}>
-        {t.title}
-      </h1>
-      <p style={{ margin: 0 }}>{mode === "SIMPLE" ? t.simpleBody : t.compactBody}</p>
-      <Preview mode={mode} />
-      <form action={setReadingModeAction}>
-        <input type="hidden" name="mode" value={mode} />
-        <input type="hidden" name="back" value={back} />
-        <PrimaryButton>{mode === "SIMPLE" ? t.ctaSimple : t.ctaCompact}</PrimaryButton>
-      </form>
-      <p style={{ margin: 0, fontSize: "0.85em", color: "var(--ink-soft)" }}>{t.note}</p>
+      <div className={shell.split} data-even="">
+        <div className={shell.col}>
+          <h1 className={shell.hero} style={{ fontSize: 40, lineHeight: 1.05 }}>
+            {t.title}
+          </h1>
+          <p style={{ margin: 0 }}>{mode === "SIMPLE" ? t.simpleBody : t.compactBody}</p>
+        </div>
+        <div className={shell.col}>
+          <Preview mode={mode} />
+          <form action={setReadingModeAction}>
+            <input type="hidden" name="mode" value={mode} />
+            <input type="hidden" name="back" value={back} />
+            <PrimaryButton>{mode === "SIMPLE" ? t.ctaSimple : t.ctaCompact}</PrimaryButton>
+          </form>
+          <p style={{ margin: 0, fontSize: "0.85em", color: "var(--ink-soft)" }}>{t.note}</p>
+        </div>
+      </div>
     </Shell>
   );
 }

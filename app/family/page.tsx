@@ -72,35 +72,41 @@ export default async function FamilyPage({
         </>
       }
     >
-      <span className={shell.eyebrow}>
-        {isSelf ? t.family.you : person.relation} · {person.age}
-      </span>
-      <h1 className={shell.hero} style={{ marginTop: -14 }}>
-        {person.name}
-      </h1>
-      <NotchRule />
-      <p
-        style={{
-          margin: 0,
-          fontFamily: "var(--font-serif)",
-          fontSize: "1.45em",
-          lineHeight: 1.25,
-          color: selected.call ? "var(--clay)" : undefined,
-        }}
-      >
-        {selected.call ? <span aria-hidden="true">● </span> : null}
-        {status}
-      </p>
-      {details.length > 0 ? <p style={{ margin: 0 }}>{details.join(" ")}</p> : null}
-      <PrimaryLink href={`/file/${person.id}`} prefetch={false}>
-        {isSelf ? t.family.openMine : t.family.open}
-      </PrimaryLink>
-      <div
-        className={shell.stack}
-        style={{ marginTop: "auto", borderTop: "1.5px solid var(--ink)", paddingTop: 16 }}
-      >
-        <span>{t.family.missing}</span>
-        <TextLink href="/me/data">{t.family.data}</TextLink>
+      <div className={shell.split}>
+        <div className={shell.col}>
+          <span className={shell.eyebrow}>
+            {isSelf ? t.family.you : person.relation} · {person.age}
+          </span>
+          <h1 className={shell.hero} style={{ marginTop: -14 }}>
+            {person.name}
+          </h1>
+          <NotchRule />
+        </div>
+        <div className={shell.col}>
+          <p
+            style={{
+              margin: 0,
+              fontFamily: "var(--font-serif)",
+              fontSize: "1.45em",
+              lineHeight: 1.25,
+              color: selected.call ? "var(--clay)" : undefined,
+            }}
+          >
+            {selected.call ? <span aria-hidden="true">● </span> : null}
+            {status}
+          </p>
+          {details.length > 0 ? <p style={{ margin: 0 }}>{details.join(" ")}</p> : null}
+          <PrimaryLink href={`/file/${person.id}`} prefetch={false}>
+            {isSelf ? t.family.openMine : t.family.open}
+          </PrimaryLink>
+          <div
+            className={shell.stack}
+            style={{ borderTop: "1.5px solid var(--ink)", paddingTop: 16 }}
+          >
+            <span>{t.family.missing}</span>
+            <TextLink href="/me/data">{t.family.data}</TextLink>
+          </div>
+        </div>
       </div>
     </Shell>
   );

@@ -6,6 +6,7 @@ import { Tabs } from "@/components/ui/Tabs";
 import { currentSession } from "@/lib/auth/cookies";
 import { db } from "@/lib/db/client";
 import { localeFromCookie, messages } from "@/lib/i18n";
+import shell from "@/components/patient/shell.module.css";
 import styles from "./consent.module.css";
 import { ConsentForm } from "./consent-form";
 
@@ -37,30 +38,36 @@ export default async function ConsentPage() {
         />
       }
     >
-      <p className={styles.greeting}>
-        {firstName
-          ? t.consent.greeting.replace("{name}", `${firstName} ${t.common.honorific}`)
-          : t.consent.greetingNoName}
-      </p>
-      <h1 className={styles.title}>{t.consent.title}</h1>
-      <p style={{ margin: 0 }}>{t.consent.lede}</p>
-      <ol className={styles.promises}>
-        {t.consent.promises.map((p, i) => (
-          <li key={p.head} className={styles.promise}>
-            <span className={styles.number} aria-hidden="true">
-              {i + 1}
-            </span>
-            <span>
-              <strong>{p.head}</strong>
-              <span>{p.body}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
-      <ConsentForm t={t.consent} />
-      <p className={styles.footnote}>
-        {t.consent.footer} {t.common.signedBy}.
-      </p>
+      <div className={shell.split}>
+        <div className={shell.col}>
+          <p className={styles.greeting}>
+            {firstName
+              ? t.consent.greeting.replace("{name}", `${firstName} ${t.common.honorific}`)
+              : t.consent.greetingNoName}
+          </p>
+          <h1 className={styles.title}>{t.consent.title}</h1>
+          <p style={{ margin: 0 }}>{t.consent.lede}</p>
+        </div>
+        <div className={shell.col}>
+          <ol className={styles.promises}>
+            {t.consent.promises.map((p, i) => (
+              <li key={p.head} className={styles.promise}>
+                <span className={styles.number} aria-hidden="true">
+                  {i + 1}
+                </span>
+                <span>
+                  <strong>{p.head}</strong>
+                  <span>{p.body}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <ConsentForm t={t.consent} />
+          <p className={styles.footnote}>
+            {t.consent.footer} {t.common.signedBy}.
+          </p>
+        </div>
+      </div>
     </Shell>
   );
 }

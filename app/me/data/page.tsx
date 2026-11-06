@@ -40,84 +40,92 @@ export default async function DataPage({
           : null}
       </p>
 
-      <section className={shell.stack} aria-labelledby="ledger">
-        <h2 id="ledger" className={shell.eyebrow} style={{ margin: 0, fontWeight: 700 }}>
-          {t.data.ledgerHead}
-        </h2>
-        <p style={{ margin: 0, fontSize: "0.85em" }}>{t.data.ledgerNote}</p>
-        {ledger.length === 0 ? (
-          <p style={{ margin: 0 }}>{t.data.ledgerEmpty}</p>
-        ) : (
-          <ol style={{ margin: 0, padding: 0, listStyle: "none" }}>
-            {ledger.map((row) => (
-              <li
-                key={row.id}
-                style={{
-                  padding: "10px 0",
-                  borderBottom: "1px solid var(--rule)",
-                  display: "grid",
-                  gap: 2,
-                }}
-              >
-                <span style={{ fontSize: 15, color: "var(--ink-soft)" }}>{dateTime(row.at)}</span>
-                <span>
-                  {row.byStaff ? <strong>{t.data.staff} </strong> : null}
-                  {row.words}
-                  {row.about ? `: ${row.about}` : ""}
-                </span>
-              </li>
-            ))}
-          </ol>
-        )}
-      </section>
+      <div className={shell.split}>
+        <div className={shell.col}>
+          <section className={shell.stack} aria-labelledby="ledger">
+            <h2 id="ledger" className={shell.eyebrow} style={{ margin: 0, fontWeight: 700 }}>
+              {t.data.ledgerHead}
+            </h2>
+            <p style={{ margin: 0, fontSize: "0.85em" }}>{t.data.ledgerNote}</p>
+            {ledger.length === 0 ? (
+              <p style={{ margin: 0 }}>{t.data.ledgerEmpty}</p>
+            ) : (
+              <ol style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                {ledger.map((row) => (
+                  <li
+                    key={row.id}
+                    style={{
+                      padding: "10px 0",
+                      borderBottom: "1px solid var(--rule)",
+                      display: "grid",
+                      gap: 2,
+                    }}
+                  >
+                    <span style={{ fontSize: 15, color: "var(--ink-soft)" }}>
+                      {dateTime(row.at)}
+                    </span>
+                    <span>
+                      {row.byStaff ? <strong>{t.data.staff} </strong> : null}
+                      {row.words}
+                      {row.about ? `: ${row.about}` : ""}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </section>
+        </div>
+        <div className={`${shell.col} ${shell.sticky}`}>
+          <section className={shell.stack} aria-labelledby="choices">
+            <h2 id="choices" className={shell.eyebrow} style={{ margin: 0, fontWeight: 700 }}>
+              {t.data.choicesHead}
+            </h2>
+            <span>{t.common.language}</span>
+            <LanguageTabs current={locale} next="/me/data" />
+            <div style={{ height: 8, borderTop: "2.5px solid var(--ink)", marginTop: -2 }} />
+            <OutlineLink href="/preference">{t.data.readingStyle}</OutlineLink>
+            <form action={signOutAction}>
+              <OutlineButton type="submit" style={{ width: "100%" }}>
+                {t.common.signOut}
+              </OutlineButton>
+            </form>
+          </section>
 
-      <NotchRule />
-      <section className={shell.stack} aria-labelledby="choices">
-        <h2 id="choices" className={shell.eyebrow} style={{ margin: 0, fontWeight: 700 }}>
-          {t.data.choicesHead}
-        </h2>
-        <span>{t.common.language}</span>
-        <LanguageTabs current={locale} next="/me/data" />
-        <div style={{ height: 8, borderTop: "2.5px solid var(--ink)", marginTop: -2 }} />
-        <OutlineLink href="/preference">{t.data.readingStyle}</OutlineLink>
-        <form action={signOutAction}>
-          <OutlineButton type="submit" style={{ width: "100%" }}>
-            {t.common.signOut}
-          </OutlineButton>
-        </form>
-      </section>
-
-      <NotchRule />
-      <section className={shell.stack} aria-labelledby="withdraw">
-        <h2 id="withdraw" className={shell.eyebrow} style={{ margin: 0, fontWeight: 700 }}>
-          {t.data.withdrawHead}
-        </h2>
-        {withdraw ? (
-          <form action={withdrawConsentAction} className={shell.stack}>
-            <p style={{ margin: 0 }}>
-              <strong>{t.data.withdrawFirst}</strong>
-            </p>
-            <ul style={{ margin: 0, paddingLeft: 22 }}>
-              {t.data.consequences.map((c) => (
-                <li key={c}>{c}</li>
-              ))}
-            </ul>
-            <input type="hidden" name="confirm" value="yes" />
-            <OutlineButton
-              type="submit"
-              style={{ borderColor: "var(--clay)", color: "var(--clay)", width: "100%" }}
-            >
-              {t.data.withdrawConfirm}
-            </OutlineButton>
-            <TextLink href="/me/data">{t.data.keep}</TextLink>
-          </form>
-        ) : (
-          <>
-            <p style={{ margin: 0 }}>{t.data.withdrawIntro}</p>
-            <OutlineLink href="/me/data?withdraw=1#withdraw">{t.data.withdrawStart}</OutlineLink>
-          </>
-        )}
-      </section>
+          <NotchRule />
+          <section className={shell.stack} aria-labelledby="withdraw">
+            <h2 id="withdraw" className={shell.eyebrow} style={{ margin: 0, fontWeight: 700 }}>
+              {t.data.withdrawHead}
+            </h2>
+            {withdraw ? (
+              <form action={withdrawConsentAction} className={shell.stack}>
+                <p style={{ margin: 0 }}>
+                  <strong>{t.data.withdrawFirst}</strong>
+                </p>
+                <ul style={{ margin: 0, paddingLeft: 22 }}>
+                  {t.data.consequences.map((c) => (
+                    <li key={c}>{c}</li>
+                  ))}
+                </ul>
+                <input type="hidden" name="confirm" value="yes" />
+                <OutlineButton
+                  type="submit"
+                  style={{ borderColor: "var(--clay)", color: "var(--clay)", width: "100%" }}
+                >
+                  {t.data.withdrawConfirm}
+                </OutlineButton>
+                <TextLink href="/me/data">{t.data.keep}</TextLink>
+              </form>
+            ) : (
+              <>
+                <p style={{ margin: 0 }}>{t.data.withdrawIntro}</p>
+                <OutlineLink href="/me/data?withdraw=1#withdraw">
+                  {t.data.withdrawStart}
+                </OutlineLink>
+              </>
+            )}
+          </section>
+        </div>
+      </div>
     </Shell>
   );
 }

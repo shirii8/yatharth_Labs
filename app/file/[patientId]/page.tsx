@@ -70,76 +70,84 @@ export default async function ReportsListPage({
         </div>
       ) : null}
 
-      {calls.map((r) => (
-        <section
-          key={r.id}
-          className={styles.page}
-          style={{ "--tint": "var(--rose)" } as CSSProperties}
-        >
-          <span className={styles.tag} data-tone="call">
-            {t.file.callTag}
-          </span>
-          <h2 className={styles.title}>{r.test.name}</h2>
-          <p style={{ margin: 0 }}>{t.file.callBody}</p>
-          <PrimaryLink href={`/file/${person.id}/${r.id}`} prefetch={false}>
-            {t.file.callOpen}
-          </PrimaryLink>
-        </section>
-      ))}
+      <div className={styles.grid}>
+        {calls.map((r) => (
+          <section
+            key={r.id}
+            className={styles.page}
+            style={{ "--tint": "var(--rose)" } as CSSProperties}
+          >
+            <span className={styles.tag} data-tone="call">
+              {t.file.callTag}
+            </span>
+            <h2 className={styles.title}>{r.test.name}</h2>
+            <p style={{ margin: 0 }}>{t.file.callBody}</p>
+            <PrimaryLink href={`/file/${person.id}/${r.id}`} prefetch={false}>
+              {t.file.callOpen}
+            </PrimaryLink>
+          </section>
+        ))}
 
-      {fresh.map((r) => (
-        <section key={r.id} className={styles.page} style={{ "--tint": me.tint } as CSSProperties}>
-          <span className={styles.tag}>
-            {t.file.newTag.replace("{when}", signedWhen(r.signedAt))}
-          </span>
-          <h2 className={styles.title}>{r.test.name}</h2>
-          <p style={{ margin: 0 }}>{t.file.signedAt.replace("{when}", signedWhen(r.signedAt))}</p>
-          <PrimaryLink href={`/file/${person.id}/${r.id}`} prefetch={false}>
-            {t.file.open}
-          </PrimaryLink>
-        </section>
-      ))}
+        {fresh.map((r) => (
+          <section
+            key={r.id}
+            className={styles.page}
+            style={{ "--tint": me.tint } as CSSProperties}
+          >
+            <span className={styles.tag}>
+              {t.file.newTag.replace("{when}", signedWhen(r.signedAt))}
+            </span>
+            <h2 className={styles.title}>{r.test.name}</h2>
+            <p style={{ margin: 0 }}>{t.file.signedAt.replace("{when}", signedWhen(r.signedAt))}</p>
+            <PrimaryLink href={`/file/${person.id}/${r.id}`} prefetch={false}>
+              {t.file.open}
+            </PrimaryLink>
+          </section>
+        ))}
+      </div>
 
-      {me.preparing.map((r) => (
-        <div key={r.id} className={shell.stack}>
-          <NotchRule />
-          <div className={styles.row}>
-            <Kettle />
-            <div className={shell.stack} style={{ gap: 6 }}>
-              <span className={shell.eyebrow}>
-                {t.file.preparingEyebrow.replace("{test}", r.test.name)}
-              </span>
-              <span className={styles.italic}>{t.file.preparingTitle}</span>
-              <span style={{ fontSize: "0.9em" }}>{t.file.preparingBody}</span>
+      <div className={styles.grid}>
+        {me.preparing.map((r) => (
+          <div key={r.id} className={shell.stack}>
+            <NotchRule />
+            <div className={styles.row}>
+              <Kettle />
+              <div className={shell.stack} style={{ gap: 6 }}>
+                <span className={shell.eyebrow}>
+                  {t.file.preparingEyebrow.replace("{test}", r.test.name)}
+                </span>
+                <span className={styles.italic}>{t.file.preparingTitle}</span>
+                <span style={{ fontSize: "0.9em" }}>{t.file.preparingBody}</span>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
 
-      {filed.map((r) => (
-        <div key={r.id} className={shell.stack}>
-          <NotchRule />
-          <div className={styles.row}>
-            <FiledPage />
-            <div className={shell.stack} style={{ gap: 8 }}>
-              <span className={shell.eyebrow}>
-                {t.file.filedEyebrow.replace("{test}", r.test.name).replace(
-                  "{date}",
-                  (r.signedAt ?? r.createdAt).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    timeZone: "Asia/Kolkata",
-                  }),
-                )}
-              </span>
-              <span style={{ fontSize: "0.9em" }}>{t.file.filedBody}</span>
-              <OutlineLink href={`/file/${person.id}/${r.id}`} prefetch={false}>
-                {t.file.readAgain}
-              </OutlineLink>
+        {filed.map((r) => (
+          <div key={r.id} className={shell.stack}>
+            <NotchRule />
+            <div className={styles.row}>
+              <FiledPage />
+              <div className={shell.stack} style={{ gap: 8 }}>
+                <span className={shell.eyebrow}>
+                  {t.file.filedEyebrow.replace("{test}", r.test.name).replace(
+                    "{date}",
+                    (r.signedAt ?? r.createdAt).toLocaleDateString("en-IN", {
+                      day: "numeric",
+                      month: "short",
+                      timeZone: "Asia/Kolkata",
+                    }),
+                  )}
+                </span>
+                <span style={{ fontSize: "0.9em" }}>{t.file.filedBody}</span>
+                <OutlineLink href={`/file/${person.id}/${r.id}`} prefetch={false}>
+                  {t.file.readAgain}
+                </OutlineLink>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <div style={{ marginTop: "auto" }}>
         <TextLink href="/family">{t.file.switchPerson}</TextLink>

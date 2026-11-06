@@ -5,9 +5,6 @@
  */
 
 .calm {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   animation: appear 300ms ease-out both;
 }
 

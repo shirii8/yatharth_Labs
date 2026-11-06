@@ -101,45 +101,49 @@ export default async function ReportPage({
 
   return (
     <Shell sheet={false} back={back} actions={switchView} mode={compact ? "compact" : "simple"}>
-      <p className={styles.greeting}>{greeting}</p>
-      <h1 className={styles.title}>{title}</h1>
-      <svg
-        className={styles.thread}
-        viewBox="0 0 240 10"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M2 6Q60 2 120 5T238 4"
-          pathLength={1}
-          fill="none"
-          stroke="var(--green)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-        />
-      </svg>
-      <h2 className="visually-hidden">{t.report.inShort}</h2>
-      <p className={styles.inShort}>{intro}</p>
-      {ai ? <p className={styles.aiNote}>{t.report.aiNote}</p> : null}
-      <ListenButton
-        locale={locale}
-        label={t.report.listen}
-        stopLabel={t.report.stop}
-        text={[
-          greeting,
-          title,
-          intro,
-          ...summary.items.map(
-            (i) => `${i.name}: ${i.valueText} ${i.unit}. ${i.word} ${i.sentence}`,
-          ),
-        ].join(" ")}
-      />
-      {compact ? (
-        <CompactResults items={summary.items} t={t} report={report} locale={locale} />
-      ) : (
-        <SimpleResult items={summary.items} t={t} base={base} index={Number(search.r ?? 1)} />
-      )}
-      {nextCard}
+      <div className={shell.split}>
+        <div className={shell.col}>
+          <p className={styles.greeting}>{greeting}</p>
+          <h1 className={styles.title}>{title}</h1>
+          <svg
+            className={styles.thread}
+            viewBox="0 0 240 10"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M2 5H238"
+              pathLength={1}
+              fill="none"
+              stroke="var(--green)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+          </svg>
+          <h2 className="visually-hidden">{t.report.inShort}</h2>
+          <p className={styles.inShort}>{intro}</p>
+          {ai ? <p className={styles.aiNote}>{t.report.aiNote}</p> : null}
+          <ListenButton
+            locale={locale}
+            label={t.report.listen}
+            stopLabel={t.report.stop}
+            text={[
+              greeting,
+              title,
+              intro,
+              ...summary.items.map(
+                (i) => `${i.name}: ${i.valueText} ${i.unit}. ${i.word} ${i.sentence}`,
+              ),
+            ].join(" ")}
+          />
+          {compact ? (
+            <CompactResults items={summary.items} t={t} report={report} locale={locale} />
+          ) : (
+            <SimpleResult items={summary.items} t={t} base={base} index={Number(search.r ?? 1)} />
+          )}
+        </div>
+        <div className={`${shell.col} ${shell.sticky}`}>{nextCard}</div>
+      </div>
     </Shell>
   );
 }
