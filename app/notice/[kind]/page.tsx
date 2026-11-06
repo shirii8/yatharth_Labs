@@ -21,7 +21,7 @@ export default async function NoticePage({ params }: { params: Promise<{ kind: s
   if (!(kind in TARGETS)) notFound();
   const t = messages(localeFromCookie((await cookies()).get("lang")?.value));
   return (
-    <Shell>
+    <Shell width="narrow">
       <Notice kind={kind as NoticeKind} t={t} ctaHref={TARGETS[kind as NoticeKind]} />
     </Shell>
   );

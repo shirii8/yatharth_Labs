@@ -29,7 +29,7 @@ export default async function CallMeBackPage({
 
   if (!session?.householdId || session.kind === "STAFF") {
     return (
-      <Shell>
+      <Shell width="narrow">
         <Phone size={100} />
         <h1 className={shell.hero} style={{ fontSize: 42 }}>
           {t.callBack.signedOutTitle}
@@ -51,7 +51,7 @@ export default async function CallMeBackPage({
 
   if (done) {
     return (
-      <Shell>
+      <Shell width="narrow">
         <Phone size={100} />
         <h1 className={shell.hero} style={{ fontSize: 42 }}>
           {t.callBack.doneTitle}
@@ -63,7 +63,7 @@ export default async function CallMeBackPage({
   }
 
   return (
-    <Shell>
+    <Shell width="narrow">
       <Phone size={100} />
       <h1 className={shell.hero} style={{ fontSize: 42 }}>
         {t.callBack.title}

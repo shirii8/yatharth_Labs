@@ -11,7 +11,7 @@ import { localeFromCookie, messages } from "@/lib/i18n";
 export default async function NotFound() {
   const t = messages(localeFromCookie((await cookies()).get("lang")?.value));
   return (
-    <Shell>
+    <Shell width="narrow">
       <Notice kind="notFound" t={t} ctaHref="/family" />
     </Shell>
   );

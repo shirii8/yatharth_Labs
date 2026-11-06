@@ -13,7 +13,7 @@ export const metadata: Metadata = { title: "Privacy notice" };
 export default function PrivacyPage() {
   const lab = process.env.NEXT_PUBLIC_LAB_NAME || "The lab";
   return (
-    <Shell>
+    <Shell width="narrow">
       <h1 className={shell.hero} style={{ fontSize: 44 }}>
         How we look after your file.
       </h1>

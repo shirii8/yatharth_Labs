@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { DemoHint } from "@/components/patient/DemoHint";
 import { Shell } from "@/components/patient/Shell";
 import shell from "@/components/patient/shell.module.css";
 import { TextLink } from "@/components/ui/Button";
@@ -28,7 +29,7 @@ function Hourglass() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <g filter="url(#hand)">
+      <g>
         <path d="M36 8h48M36 88h48M40 8v14l20 24-20 24v18M80 8v14L60 46l20 24v18" />
         <path d="M48 80h24l-12-10z" stroke="var(--green)" />
       </g>
@@ -50,7 +51,7 @@ export default async function CodePage() {
       timeZone: "Asia/Kolkata",
     });
     return (
-      <Shell>
+      <Shell width="narrow">
         <Hourglass />
         <h1 className={styles.title}>{t.code.lockedTitle}</h1>
         <p style={{ margin: 0 }}>{t.code.lockedBody}</p>
@@ -71,9 +72,10 @@ export default async function CodePage() {
   }
 
   return (
-    <Shell>
+    <Shell width="narrow">
       <h1 className={styles.title}>{t.code.title}</h1>
       <p style={{ margin: "-8px 0 0" }}>{t.code.sentTo.replace("{phone}", maskPhone(phone))}</p>
+      <DemoHint codeOnly />
       <CodeForm t={t.code} resendAt={status.resendAt?.toISOString() ?? null} />
       <NotchRule />
       <p className={styles.note}>{t.code.note}</p>

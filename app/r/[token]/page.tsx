@@ -28,7 +28,7 @@ export default async function LinkPage({ params }: { params: Promise<{ token: st
 
   const t = messages(localeFromCookie((await cookies()).get("lang")?.value));
   return (
-    <Shell>
+    <Shell width="narrow">
       <Folder size={110} />
       <h1 className={shell.hero} style={{ fontSize: 44, lineHeight: 1.05 }}>
         {t.link.title}
