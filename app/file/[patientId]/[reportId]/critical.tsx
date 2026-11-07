@@ -19,11 +19,13 @@ export async function CriticalReport({
   t,
   back,
   base,
+  nav = false,
 }: {
   report: { id: string; patient: { name: string; relation: string } };
   t: Messages;
   back: { href: string; label: string };
   base: string;
+  nav?: boolean;
 }) {
   const task = await db.callbackTask.findFirst({
     where: { reportId: report.id, type: "CRITICAL" },
@@ -44,7 +46,7 @@ export async function CriticalReport({
   const phone = process.env.NEXT_PUBLIC_LAB_PHONE || "+910000000000";
 
   return (
-    <Shell tone="call" back={back}>
+    <Shell nav={nav} tone="call" back={back}>
       <div className={`${styles.calm} ${shell.split}`}>
         <div className={shell.col}>
           <Phone size={96} />

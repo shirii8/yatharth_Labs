@@ -5,6 +5,12 @@ import type { PartialMessages } from "./index";
  * Keys not here fall back to English.
  */
 export const te: PartialMessages = {
+  nav: {
+    home: "హోమ్",
+    menu: "మెనూ",
+    close: "మూసివేయండి",
+    settings: "సెట్టింగ్‌లు",
+  },
   common: {
     textSize: "అక్షరాల పరిమాణం మార్చండి",
     easyView: "సులభ వీక్షణ",

@@ -22,6 +22,11 @@ async function passConsentAndPreference(page: Page) {
   }
   if (page.url().includes("/preference")) {
     await page.getByRole("button", { name: "Read it the Simple way" }).click();
+    await page.waitForURL((url) => !url.pathname.startsWith("/preference"));
+  }
+  if (page.url().includes("/setup")) {
+    await expect(page.getByRole("heading", { name: "Who is on this number?" })).toBeVisible();
+    await page.getByRole("button", { name: "This is right, continue" }).click();
   }
   await page.waitForURL("**/family**");
 }
@@ -73,4 +78,26 @@ test("five wrong codes pause the number for 15 minutes", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Let us pause for a little while." }),
   ).toBeVisible();
+});
+
+test("Home and the menu reach settings, and a relation can be changed", async ({ page }) => {
+  await signIn(page, "9000000001", DEMO_CODE);
+  await passConsentAndPreference(page);
+
+  await page.getByRole("button", { name: "Menu" }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.getByRole("link", { name: "People on this number" }).click();
+  await page.waitForURL("**/settings/people");
+  await expect(page.getByRole("dialog")).toBeHidden();
+
+  await page.getByLabel(/Ramana Rao K is/).selectOption("Spouse");
+  await page.getByRole("button", { name: "Save these" }).click();
+  await expect(page.getByRole("status")).toContainText("Saved");
+  await expect(page.getByLabel(/Ramana Rao K is/)).toHaveValue("Spouse");
+
+  // On a phone, a page with a way back keeps Home in the menu.
+  await page.getByRole("button", { name: "Menu" }).click();
+  await page.getByRole("dialog").getByRole("link", { name: /Home/ }).click();
+  await page.waitForURL("**/family**");
+  await expect(page.getByRole("link", { name: "Open my file" })).toBeVisible();
 });

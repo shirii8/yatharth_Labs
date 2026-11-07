@@ -1,10 +1,12 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { localeFromCookie, messages } from "@/lib/i18n";
+import { LOCALES, LOCALE_LABELS, localeFromCookie, messages } from "@/lib/i18n";
 import { CallFooter } from "./CallFooter";
 import styles from "./shell.module.css";
 import { EasyToggle } from "./EasyToggle";
+import { GearIcon, HomeIcon } from "./Icons";
+import { Menu } from "./Menu";
 import { TextSizeToggle } from "./TextSizeToggle";
 
 interface ShellProps {
@@ -26,6 +28,11 @@ interface ShellProps {
   actions?: ReactNode;
   /** "narrow" for single-task screens (enter code, notices); "wide" uses the full laptop width. */
   width?: "narrow" | "wide";
+  /**
+   * Signed in with the whole file (not a link, not mid-setup): shows Home, and
+   * the menu on phones and tablets or Settings on laptops.
+   */
+  nav?: boolean;
 }
 
 /** The patient frame: lab name or back link, Aa, tabs, the double-ruled sheet, the call footer. */
@@ -40,23 +47,38 @@ export async function Shell({
   back,
   actions,
   width = "wide",
+  nav = false,
 }: ShellProps) {
   const jar = await cookies();
-  const t = messages(localeFromCookie(jar.get("lang")?.value));
+  const locale = localeFromCookie(jar.get("lang")?.value);
+  const t = messages(locale);
   const labName = process.env.NEXT_PUBLIC_LAB_NAME || "Your lab";
+  const largeText = jar.get("text")?.value === "large";
 
   return (
     <div className={styles.shell} data-width={width}>
-      <header className={styles.topbar}>
-        {back ? (
-          <Link href={back.href} className={styles.back} prefetch={false}>
-            <span aria-hidden="true">←</span> {back.label}
-          </Link>
-        ) : (
-          <Link href="/" className={styles.labName} prefetch={false}>
-            {labName}
-          </Link>
-        )}
+      <header
+        className={styles.topbar}
+        data-nav={nav ? "" : undefined}
+        data-back={back ? "" : undefined}
+      >
+        <div className={styles.lead}>
+          {/* Home always means one place: "Whose file?", where you choose whose reports to read. */}
+          {nav ? (
+            <Link href="/family" className={styles.home} prefetch={false}>
+              <HomeIcon />
+              <span>{t.nav.home}</span>
+            </Link>
+          ) : null}
+          {back ? (
+            <Link href={back.href} className={styles.back} prefetch={false}>
+              <span aria-hidden="true">←</span> {back.label}
+            </Link>
+          ) : (
+            // The lab's name is a label, not a hidden link: Home does that job, in words.
+            <span className={styles.labName}>{labName}</span>
+          )}
+        </div>
         <div className={styles.actions}>
           {actions}
           {/* On laptops the two call buttons sit up here; phones keep them in the bottom bar. */}
@@ -66,12 +88,27 @@ export async function Shell({
             </div>
           ) : null}
           <EasyToggle initial={jar.get("easy")?.value === "on"} label={t.common.easyView} />
-          <span data-advanced="">
-            <TextSizeToggle
-              initial={jar.get("text")?.value === "large"}
-              label={t.common.textSize}
-            />
+          <span data-advanced="" className={styles.aaSlot}>
+            <TextSizeToggle initial={largeText} label={t.common.textSize} />
           </span>
+          {nav ? (
+            <>
+              <Link href="/settings" className={styles.settings} prefetch={false}>
+                <GearIcon />
+                <span>{t.nav.settings}</span>
+              </Link>
+              <Menu
+                t={t.nav}
+                labName={labName}
+                languages={LOCALES.map((code) => ({
+                  code,
+                  label: LOCALE_LABELS[code],
+                  current: code === locale,
+                }))}
+                textSize={<TextSizeToggle initial={largeText} label={t.common.textSize} />}
+              />
+            </>
+          ) : null}
         </div>
       </header>
       {tabs}

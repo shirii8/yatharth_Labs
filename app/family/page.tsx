@@ -26,7 +26,7 @@ export default async function FamilyPage({
 
   if (!selected) {
     return (
-      <Shell>
+      <Shell nav>
         <h1 className={shell.hero}>{t.family.empty}</h1>
         <p style={{ margin: 0 }}>{t.family.missing}</p>
       </Shell>
@@ -54,6 +54,7 @@ export default async function FamilyPage({
 
   return (
     <Shell
+      nav
       tint={selected.tint}
       tabs={
         <>
@@ -104,7 +105,9 @@ export default async function FamilyPage({
             style={{ borderTop: "1.5px solid var(--ink)", paddingTop: 16 }}
           >
             <span>{t.family.missing}</span>
-            <TextLink href="/me/data">{t.family.data}</TextLink>
+            <TextLink href="/settings/people" prefetch={false}>
+              {t.nav.people}
+            </TextLink>
           </div>
         </div>
       </div>

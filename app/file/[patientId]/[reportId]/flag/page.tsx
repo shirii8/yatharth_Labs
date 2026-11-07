@@ -42,6 +42,7 @@ export default async function FlagPage({
 
   return (
     <Shell
+      nav
       width="narrow"
       back={{ href: base, label: t.cancel }}
       tabs={

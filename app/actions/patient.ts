@@ -8,6 +8,7 @@ import { requirePatient } from "@/lib/auth/guards";
 import { revokeSession } from "@/lib/auth/session";
 import { CONSENT_VERSION } from "@/lib/consent";
 import { db } from "@/lib/db/client";
+import { saveRelations } from "@/lib/patient/relations";
 
 export type ConsentState = { error?: "MUST_AGREE" };
 
@@ -44,7 +45,7 @@ export async function giveConsentAction(
     redirect(`/file/${session.patientId}/${session.reportId}`);
   }
   const household = await db.household.findUniqueOrThrow({ where: { id: householdId } });
-  redirect(household.readingMode ? "/family" : "/preference");
+  redirect(!household.readingMode ? "/preference" : household.setupAt ? "/family" : "/setup");
 }
 
 const modeForm = z.object({ mode: z.enum(["SIMPLE", "COMPACT"]) });
@@ -64,7 +65,9 @@ export async function setReadingModeAction(form: FormData): Promise<void> {
     sameSite: "lax",
   });
   const back = String(form.get("back") ?? "");
-  redirect(back.startsWith("/file/") ? back : "/family");
+  if (back.startsWith("/file/") || back === "/settings") redirect(back);
+  // First time through: the next setup step is who is on this number.
+  redirect(household.setupAt ? "/family" : "/setup");
 }
 
 /**
@@ -94,6 +97,25 @@ export async function withdrawConsentAction(form: FormData): Promise<void> {
   ]);
   await clearSessionCookie();
   redirect("/notice/withdrawn");
+}
+
+/**
+ * Saves how each person on the number relates to the number holder. Used by
+ * first-time setup ("setup") and by Settings ("settings"). Each select is
+ * named "rel:<patient id>"; the rules live in lib/patient/relations.ts.
+ */
+export async function saveRelationsAction(form: FormData): Promise<void> {
+  const { session } = await requirePatient();
+  const from = form.get("from") === "setup" ? "setup" : "settings";
+  const page = from === "setup" ? "/setup" : "/settings/people";
+  const choices = [...form.entries()]
+    .filter(([key]) => key.startsWith("rel:"))
+    .map(([key, value]) => ({ patientId: key.slice(4), relation: String(value) }));
+  const result = await saveRelations(session, choices, { ipHash: await ipHash() });
+  if (!result.ok) {
+    redirect(`${page}?error=${result.reason === "TWO_SELF" ? "two-self" : "bad"}`);
+  }
+  redirect(from === "setup" ? "/family" : "/settings/people?saved=1");
 }
 
 export async function signOutAction(): Promise<void> {

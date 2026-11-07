@@ -110,6 +110,7 @@ export default async function ReportsListPage({
 
   return (
     <Shell
+      nav
       tabs={
         <FamilyTabs
           people={people}

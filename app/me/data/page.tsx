@@ -29,7 +29,7 @@ export default async function DataPage({
   const { withdraw } = await searchParams;
 
   return (
-    <Shell back={{ href: "/family", label: t.data.back }}>
+    <Shell nav back={{ href: "/settings", label: t.settings.title.replace(".", "") }}>
       <h1 className={shell.hero} style={{ fontSize: 44 }}>
         {t.data.title}
       </h1>

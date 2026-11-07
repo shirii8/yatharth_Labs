@@ -5,6 +5,12 @@ import type { PartialMessages } from "./index";
  * Keys not here fall back to English.
  */
 export const hi: PartialMessages = {
+  nav: {
+    home: "होम",
+    menu: "मेनू",
+    close: "बंद करें",
+    settings: "सेटिंग्स",
+  },
   common: {
     textSize: "अक्षर का आकार बदलें",
     easyView: "आसान दृश्य",

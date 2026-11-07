@@ -58,14 +58,16 @@ export default async function ReportPage({
       ? { href: "/", label: t.report.signInForMore }
       : { href: `/file/${patientId}`, label: t.report.backTo.replace("{name}", name) };
   const base = `/file/${patientId}/${reportId}`;
+  // A one-report link has no Home or menu: it opens this page only.
+  const full = session.kind === "PATIENT";
 
   if (report.hasCritical) {
-    return <CriticalReport report={report} t={t} back={back} base={base} />;
+    return <CriticalReport report={report} t={t} back={back} base={base} nav={full} />;
   }
 
   const { summary, ai } = await summaryForReport(report, locale);
   if (summary.kind === "CRITICAL") {
-    return <CriticalReport report={report} t={t} back={back} base={base} />;
+    return <CriticalReport report={report} t={t} back={back} base={base} nav={full} />;
   }
 
   // Easy view always reads the Simple way: one result at a time, very large type.
@@ -102,7 +104,13 @@ export default async function ReportPage({
   );
 
   return (
-    <Shell sheet={false} back={back} actions={switchView} mode={compact ? "compact" : "simple"}>
+    <Shell
+      nav={full}
+      sheet={false}
+      back={back}
+      actions={switchView}
+      mode={compact ? "compact" : "simple"}
+    >
       <div className={shell.split}>
         <div className={shell.col}>
           <p className={styles.greeting}>{greeting}</p>

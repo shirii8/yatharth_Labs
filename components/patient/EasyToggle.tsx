@@ -8,7 +8,16 @@ import styles from "./shell.module.css";
  * every screen. A real switch (aria-pressed), remembered for a year. It changes
  * the page at once with no reload, because the simplification is pure CSS.
  */
-export function EasyToggle({ initial, label }: { initial: boolean; label: string }) {
+export function EasyToggle({
+  initial,
+  label,
+  states,
+}: {
+  initial: boolean;
+  label: string;
+  /** Inside a labelled row the switch shows its state instead of repeating the label. */
+  states?: { on: string; off: string };
+}) {
   const [on, setOn] = useState(initial);
 
   function toggle() {
@@ -25,11 +34,17 @@ export function EasyToggle({ initial, label }: { initial: boolean; label: string
   }
 
   return (
-    <button type="button" className={styles.easy} aria-pressed={on} onClick={toggle}>
+    <button
+      type="button"
+      className={styles.easy}
+      aria-pressed={on}
+      aria-label={states ? label : undefined}
+      onClick={toggle}
+    >
       <span className={styles.switch} aria-hidden="true">
         <span className={styles.knob} />
       </span>
-      {label}
+      {states ? (on ? states.on : states.off) : label}
     </button>
   );
 }

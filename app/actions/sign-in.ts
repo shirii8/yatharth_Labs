@@ -64,6 +64,7 @@ export async function verifyCodeAction(_prev: VerifyState, form: FormData): Prom
   const household = await db.household.findUniqueOrThrow({ where: { id: result.householdId } });
   if (!household.consentAt || household.consentWithdrawnAt) redirect("/consent");
   if (!household.readingMode) redirect("/preference");
+  if (!household.setupAt) redirect("/setup");
   redirect("/family");
 }
 

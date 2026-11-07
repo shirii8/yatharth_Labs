@@ -39,16 +39,106 @@
   }
 }
 
-.shell[data-width="narrow"] {
+/* Single-task screens: the content narrows, the header keeps its room. */
+.shell[data-width="narrow"] > :not(header) {
+  width: 100%;
   max-width: 640px;
+  margin-inline: auto;
 }
 
 .topbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px 12px;
   padding: 12px 4px;
+}
+
+/* Home and the lab name (or the way back) on the left. */
+.lead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.home,
+.settings {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 4px 16px 4px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--page);
+  color: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.home:hover,
+.settings:hover {
+  background: var(--field);
+}
+
+/* The house settles a little on hover: this is where you come back to. */
+.home svg {
+  transition: transform 200ms var(--ease-paper);
+}
+
+.home:hover svg {
+  transform: translateY(-1px);
+}
+
+/* The gear turns a quarter: settings, not a page of reports. */
+.settings svg {
+  transition: transform 320ms var(--ease-paper);
+}
+
+.settings:hover svg {
+  transform: rotate(45deg);
+}
+
+/* Settings is a header link on laptops only; phones and tablets use the menu. */
+.settings {
+  display: none;
+}
+
+@media (min-width: 1080px) {
+  .settings {
+    display: inline-flex;
+  }
+}
+
+/* Signed in, below laptop width, Aa lives in the menu so the header stays one line. */
+@media (max-width: 1079px) {
+  .topbar[data-nav] .aaSlot {
+    display: none;
+  }
+}
+
+/* Phones: Easy view covers bigger letters, so Aa steps aside and the header stays one line. */
+@media (max-width: 479px) {
+  .aaSlot {
+    display: none;
+  }
+}
+
+/* Phones, signed in: Home replaces the lab name; with a way back, Home moves into the menu. */
+@media (max-width: 719px) {
+  .topbar[data-nav] .labName {
+    display: none;
+  }
+
+  .topbar[data-nav][data-back] .home {
+    display: none;
+  }
 }
 
 @media (min-width: 720px) {
@@ -279,8 +369,11 @@
 /* Header controls: on laptops the call buttons move up here (as in the design). */
 .actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: 8px;
+  margin-left: auto;
 }
 
 .headerCalls {
@@ -309,10 +402,12 @@
 
 /* "Easy view": a labelled switch, so its state is a word and a position, not a colour. */
 .easy {
+  flex: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-height: 48px;
+  white-space: nowrap;
   padding: 4px 16px 4px 8px;
   border: 2px solid var(--ink);
   border-radius: 999px;
@@ -328,6 +423,7 @@
 }
 
 .switch {
+  flex: none;
   position: relative;
   width: 36px;
   height: 20px;

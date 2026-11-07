@@ -18,17 +18,22 @@ export default async function PreferencePage({
 }) {
   const { household } = await requireConsentedPatient();
   const params = await searchParams;
-  const t = messages(localeFromCookie((await cookies()).get("lang")?.value)).preference;
+  const all = messages(localeFromCookie((await cookies()).get("lang")?.value));
+  const t = all.preference;
+  const steps = all.people.step;
   const mode =
     params.mode === "compact" || (!params.mode && household.readingMode === "COMPACT")
       ? "COMPACT"
       : "SIMPLE";
   const back = params.back ?? "";
+  // First time through, this is setup step 1 of 2; afterwards it is a setting.
+  const firstTime = !household.readingMode;
   const tab = (m: "simple" | "compact") =>
     `/preference?mode=${m}${back ? `&back=${encodeURIComponent(back)}` : ""}`;
 
   return (
     <Shell
+      nav={!firstTime}
       mode={mode === "COMPACT" ? "compact" : "simple"}
       tabs={
         <Tabs
@@ -48,6 +53,7 @@ export default async function PreferencePage({
     >
       <div className={shell.split} data-even="">
         <div className={shell.col}>
+          {firstTime ? <span className={shell.eyebrow}>{steps.replace("{n}", "1")}</span> : null}
           <h1 className={shell.hero} style={{ fontSize: 40, lineHeight: 1.05 }}>
             {t.title}
           </h1>

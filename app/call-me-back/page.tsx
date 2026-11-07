@@ -51,7 +51,7 @@ export default async function CallMeBackPage({
 
   if (done) {
     return (
-      <Shell width="narrow">
+      <Shell nav={session.kind === "PATIENT"} width="narrow">
         <Phone size={100} />
         <h1 className={shell.hero} style={{ fontSize: 42 }}>
           {t.callBack.doneTitle}
@@ -63,7 +63,7 @@ export default async function CallMeBackPage({
   }
 
   return (
-    <Shell width="narrow">
+    <Shell nav={session.kind === "PATIENT"} width="narrow">
       <Phone size={100} />
       <h1 className={shell.hero} style={{ fontSize: 42 }}>
         {t.callBack.title}
