@@ -1,87 +1,329 @@
-/* A page in the file: a tinted card with an index tab on its top edge. */
-.page {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 24px;
-  padding: 24px 20px 20px;
-  border: var(--frame) solid var(--ink);
-  border-radius: 4px;
-  background: var(--tint, var(--sky));
+/*
+ * One person's file. Phones: one column (summary, then cards). Laptops: the
+ * summary on the left, the cards and the history on the right.
+ */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
 }
 
-.tag {
-  position: absolute;
-  top: -40px;
-  left: 18px;
+@media (min-width: 1080px) {
+  .layout {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+
+  .side {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+}
+
+/* The proportion of results in and outside the usual range; it grows in from the left. */
+.bar {
+  display: flex;
+  height: 32px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
+
+.barUsual,
+.barOutside {
+  flex-basis: 0;
+  transform-origin: left;
+  animation: grow 700ms var(--ease-paper) 150ms both;
+}
+
+.barUsual {
+  background: var(--sage);
+}
+
+.barOutside {
+  background: var(--clay-wash);
+  border-left: 2px solid var(--ink);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px 16px;
+  border: 1.5px solid var(--ink);
+  border-top-width: 6px;
+  border-radius: 8px;
+  background: var(--sage);
+  border-top-color: var(--sage-ink);
+}
+
+.tile[data-tone="low"] {
+  background: var(--clay-wash);
+  border-top-color: var(--clay);
+}
+
+.tile[data-tone="waiting"] {
+  background: var(--sand);
+  border-top-color: var(--sand-ink);
+}
+
+.tileN {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  line-height: 1;
+}
+
+.tileLabel {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.back {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
-  padding: 4px 16px;
-  border: var(--frame) solid var(--ink);
+  gap: 8px;
+  min-height: 48px;
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+
+.back span {
+  transition: transform 180ms var(--ease-paper);
+}
+
+.back:hover span {
+  transform: translateX(-4px);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px 24px;
+}
+
+@media (min-width: 720px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* A page in the file: a tab on top, a tinted card with a coloured edge. */
+.card {
+  --edge: var(--sage-ink);
+  --card-bg: var(--sage-tint);
+  display: flex;
+  flex-direction: column;
+  animation: cardIn 360ms var(--ease-paper) both;
+}
+
+.card[data-tone="attention"] {
+  --edge: var(--clay);
+  --card-bg: var(--clay-tint);
+}
+
+.card[data-tone="call"] {
+  --edge: var(--ink);
+  --card-bg: var(--call-page);
+}
+
+.card[data-tone="waiting"] {
+  --edge: var(--sand-ink);
+  --card-bg: #fbf6e6;
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: -2px;
+  padding-left: 16px;
+}
+
+.cardTab {
+  padding: 8px 20px;
+  border: 2px solid var(--ink);
   border-bottom: 0;
   border-radius: 10px 10px 0 0;
-  background: var(--green);
-  color: var(--on-green);
-  font-size: 15px;
+  background: var(--rose);
+  font-size: 16px;
   font-weight: 700;
 }
 
-.tag[data-tone="call"] {
-  background: var(--rose);
-  color: var(--ink);
+.cardMeta {
+  padding-bottom: 8px;
+  font-size: 15px;
 }
 
-.title {
+.cardMeta[data-new] {
+  font-weight: 700;
+  color: var(--green);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border: 2px solid var(--ink);
+  border-left: 8px solid var(--edge);
+  border-radius: 4px 12px 12px 12px;
+  background: var(--card-bg);
+  transition:
+    transform 200ms var(--ease-paper),
+    box-shadow 200ms var(--ease-paper);
+}
+
+/* A card that can be opened lifts a little under the pointer. */
+@media (hover: hover) {
+  .card:has(a):hover .cardBody {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+.cardTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cardTitle {
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: 34px;
+  font-size: 32px;
   line-height: 1.1;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 92px 1fr;
+.overTime {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  align-items: center;
 }
 
-.italic {
+.overHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+.overTitle {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 28px;
+}
+
+.overNote {
+  margin: 0;
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.2em;
-  line-height: 1.25;
 }
 
-/* The kettle's steam breathes slowly while a report is being prepared. */
-.row :global(.steam) {
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: separate;
+  border-spacing: 8px 8px;
+}
+
+.table thead th {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.table tbody th,
+.table tbody td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--sage);
+  font-family: var(--font-serif);
+  font-size: 1.2em;
+}
+
+.cell[data-tone="low"],
+.cell[data-tone="high"] {
+  background: var(--clay-wash);
+}
+
+/* Kettle steam breathes slowly while a report is being prepared. */
+.card :global(.steam) {
   animation: steam 4.5s ease-in-out infinite;
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 
 @keyframes steam {
   0%,
   100% {
     opacity: 0.35;
-    transform: translateY(2px);
   }
   50% {
     opacity: 1;
-    transform: translateY(-2px);
   }
 }
 
-/* New pages, and then waiting and filed pages: one column on phones, two from tablets up. */
-.grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 20px 28px;
-}
-
-@media (min-width: 720px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+/* Phones read the cards; the side-by-side history needs a wider screen. */
+@media (max-width: 719px) {
+  .overTime {
+    display: none;
   }
 }
