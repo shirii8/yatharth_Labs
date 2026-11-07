@@ -23,6 +23,13 @@
   --clay-wash: #f0d8c8;
   --call-page: #f6e8e6;
 
+  /* Card tints and accent strips for result tones (always with a word and a mark) */
+  --sage-ink: #6b8f68;
+  --sage-tint: #f2f6ef;
+  --clay-tint: #f9eee7;
+  --sand-ink: #b8973f;
+  --shadow-soft: 0 1px 2px rgb(22 21 19 / 0.06), 0 8px 24px rgb(22 21 19 / 0.08);
+
   /* Index-tab tints: identify tabs, carry no meaning on their own */
   --sky: #d7e3ee;
   --sage: #dce7d6;
@@ -131,4 +138,34 @@ select {
   :root {
     --hero-size: 36px;
   }
+}
+
+/*
+ * Easy view, for older readers: bigger text (set with data-text) and only the
+ * essentials. Anything marked data-advanced (Compact switch, print and PDF
+ * buttons, history tables, count tiles, text-size control) steps aside.
+ */
+html[data-easy="on"] [data-advanced] {
+  display: none !important;
+}
+
+html[data-easy="on"] {
+  --hero-size: clamp(40px, 11vw, 64px);
+}
+
+/* A new page settles in gently, so the eye knows something new arrived. */
+main {
+  animation: page-in 240ms var(--ease-paper) both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Focus moves visibly but without a jump. */
+:focus-visible {
+  transition: outline-offset 120ms ease;
 }

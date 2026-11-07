@@ -183,3 +183,48 @@
   font-weight: 700;
   color: var(--clay);
 }
+
+/*
+ * Buttons answer touch: a slight press on tap, and on a pointer the green
+ * button's arrow nudges forward, the direction it will take you.
+ */
+.primary,
+.outline {
+  transition:
+    transform 120ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.primary:active,
+.outline:active {
+  transform: scale(0.98);
+}
+
+.chip {
+  transition: transform 200ms var(--ease-paper);
+}
+
+@media (hover: hover) {
+  .primary:hover {
+    background: #0b4a37;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .primary:hover .chip {
+    transform: translateX(4px);
+  }
+
+  .outline:hover {
+    background: var(--field);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .tab:not([aria-current]):hover {
+    filter: brightness(1.03);
+  }
+}
+
+.tab {
+  transition: background-color 160ms ease;
+}
