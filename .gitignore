@@ -58,3 +58,6 @@ blob-report/
 
 # Generated from docs/tdd/tdd.template.html by scripts/build-tdd.mjs
 docs/tdd/TDD.html
+
+# Submission package, built locally and uploaded by hand
+submission/
