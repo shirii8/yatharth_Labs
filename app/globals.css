@@ -110,7 +110,7 @@ select {
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
+  margin: -4px;
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
@@ -123,5 +123,12 @@ select {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Short screens: a smaller headline so the main action stays in view. */
+@media (max-height: 700px) {
+  :root {
+    --hero-size: 36px;
   }
 }

@@ -15,14 +15,14 @@
 
 .legend {
   padding: 0;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-weight: 700;
 }
 
 .boxes {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 7px;
+  gap: 8px;
 }
 
 .box {
@@ -43,7 +43,7 @@
 
 .alert {
   margin: 0;
-  padding: 12px 14px;
+  padding: 12px 16px;
   border-left: 4px solid var(--clay);
   background: var(--call-page);
 }
@@ -87,4 +87,15 @@
   font-size: 0.85em;
   font-style: italic;
   color: var(--ink-soft);
+}
+
+/* Short screens: the six boxes and the button must fit the first screenful. */
+@media (max-height: 700px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .box {
+    height: 56px;
+  }
 }

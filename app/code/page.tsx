@@ -73,10 +73,11 @@ export default async function CodePage() {
 
   return (
     <Shell width="narrow">
+      {/* One section: the code. Everything that supports it comes after the button. */}
       <h1 className={styles.title}>{t.code.title}</h1>
       <p style={{ margin: "-8px 0 0" }}>{t.code.sentTo.replace("{phone}", maskPhone(phone))}</p>
-      <DemoHint codeOnly />
       <CodeForm t={t.code} resendAt={status.resendAt?.toISOString() ?? null} />
+      <DemoHint codeOnly />
       <NotchRule />
       <p className={styles.note}>{t.code.note}</p>
       <div className={shell.stack} style={{ marginTop: "auto" }}>
