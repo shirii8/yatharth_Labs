@@ -45,6 +45,35 @@ export async function approvedTemplates(
   return map;
 }
 
+/**
+ * Rules and templates only, never the AI: for lists, cards and printouts that
+ * show each result's words but must not trigger a model call.
+ */
+export async function ruleSummary(report: ReportWithResults, locale: Locale): Promise<Summary> {
+  const english = await approvedTemplates("EN");
+  const local = locale === "en" ? english : await approvedTemplates(locale === "te" ? "TE" : "HI");
+  return buildSummary(
+    {
+      testCode: report.test.code,
+      testName: report.test.name,
+      hasCritical: report.hasCritical,
+      results: report.results.map((r) => ({
+        name: r.analyte.name,
+        helper: r.analyte.helper,
+        unit: r.analyte.unit,
+        value: r.value,
+        valueText: r.valueText,
+        refLow: r.refLow,
+        refHigh: r.refHigh,
+        refText: r.refText,
+        flag: r.flag,
+      })),
+    },
+    local,
+    english,
+  );
+}
+
 export async function summaryForReport(
   report: ReportWithResults,
   locale: Locale,
