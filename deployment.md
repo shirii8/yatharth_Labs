@@ -121,6 +121,8 @@ Demo mode is on in the demo deployment only. It must never be on with real patie
 
 Code for all three on the live demo: **246810** (the deployment's `DEMO_OTP`). SMS is simulated, so no message arrives; any other number gets no code.
 
+The first sign-in on a number walks through consent, then setup in two steps: how to read reports, and "Who is on this number?" (how each person is related to the number holder). After that, **Home** (top left) always opens "Whose file?", and **Menu** (phones) or **Settings** (laptops) holds people on this number, reading style, language, text size, your data and sign out.
+
 To see the lockout, type a wrong code five times for any number. Try **Easy view** (top right) for the simplified screens for older readers, and the language tabs for Telugu.
 
 **Staff** at `/desk/sign-in`:
