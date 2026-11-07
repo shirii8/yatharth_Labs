@@ -7,6 +7,7 @@ import type { PartialMessages } from "./index";
 export const te: PartialMessages = {
   common: {
     textSize: "అక్షరాల పరిమాణం మార్చండి",
+    easyView: "సులభ వీక్షణ",
     language: "భాష",
     callLab: "ల్యాబ్‌కు కాల్ చేయండి",
     callMeBack: "నాకు తిరిగి కాల్ చేయండి",

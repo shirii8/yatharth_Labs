@@ -14,7 +14,7 @@ import { currentSession, ipHash, sessionToken } from "@/lib/auth/cookies";
 import { db } from "@/lib/db/client";
 import { localeFromCookie, messages, type Locale, type Messages } from "@/lib/i18n";
 import { openReport, previousReport } from "@/lib/patient/open-report";
-import { dateTime, firstName } from "@/lib/patient-format";
+import { dateTime, firstName, formatUnit } from "@/lib/patient-format";
 import type { SummaryItem } from "@/lib/summary/builder";
 import { summaryForReport, trendSentence } from "@/lib/summary/service";
 import { CriticalReport } from "./critical";
@@ -68,8 +68,10 @@ export default async function ReportPage({
     return <CriticalReport report={report} t={t} back={back} base={base} />;
   }
 
+  // Easy view always reads the Simple way: one result at a time, very large type.
+  const easy = (await cookies()).get("easy")?.value === "on";
   const compact =
-    search.view === "compact" || (!search.view && household.readingMode === "COMPACT");
+    !easy && (search.view === "compact" || (!search.view && household.readingMode === "COMPACT"));
   const linkExpiry =
     session.kind === "LINK"
       ? (await db.reportLink.findFirst({ where: { reportId }, orderBy: { createdAt: "desc" } }))
@@ -79,7 +81,7 @@ export default async function ReportPage({
   const intro = ai?.text ?? summary.intro;
   const greeting = `${name} ${t.common.honorific},`;
   const title = t.report.titleFor.replace("{test}", report.test.name);
-  const switchView = (
+  const switchView = easy ? null : (
     <OutlineLink
       href={`${base}?view=${compact ? "simple" : "compact"}`}
       prefetch={false}
@@ -132,7 +134,7 @@ export default async function ReportPage({
               title,
               intro,
               ...summary.items.map(
-                (i) => `${i.name}: ${i.valueText} ${i.unit}. ${i.word} ${i.sentence}`,
+                (i) => `${i.name}: ${i.valueText} ${formatUnit(i.unit)}. ${i.word} ${i.sentence}`,
               ),
             ].join(" ")}
           />
@@ -156,7 +158,7 @@ function usualLabel(item: SummaryItem, t: Messages) {
 }
 
 function ariaFor(item: SummaryItem, t: Messages) {
-  return `${item.name} ${item.valueText} ${item.unit}, ${usualLabel(item, t)}, ${item.word}`;
+  return `${item.name} ${item.valueText} ${formatUnit(item.unit)}, ${usualLabel(item, t)}, ${item.word}`;
 }
 
 /** Simple: one result at a time, very large type, Back and Next. */
@@ -205,7 +207,7 @@ function SimpleResult({
         <span style={{ marginTop: -8 }}>{item.helper}</span>
         <div className={styles.value}>
           {item.valueText}
-          <span className={styles.unit}>{item.unit}</span>
+          <span className={styles.unit}>{formatUnit(item.unit)}</span>
         </div>
         <RangeRuler
           key={item.name}
@@ -299,7 +301,7 @@ async function CompactResults({
             <div key={item.name} className={styles.compactRow}>
               <strong>{item.name}</strong>
               <span className={styles.compactValue}>
-                {item.valueText} <small style={{ fontSize: 14 }}>{item.unit}</small>
+                {item.valueText} <small style={{ fontSize: 14 }}>{formatUnit(item.unit)}</small>
               </span>
               <span
                 className={`${styles.mark} ${item.tone === "ATTENTION" ? styles.attention : ""}`}
@@ -404,7 +406,7 @@ function NextSteps({
           </li>
         ))}
       </ol>
-      <div className={styles.pair}>
+      <div className={styles.pair} data-advanced="">
         <OutlineLink href={`${base}/print`} prefetch={false}>
           {t.report.print}
         </OutlineLink>
@@ -418,7 +420,11 @@ function NextSteps({
         </span>
         {t.report.flag}
       </TextLink>
-      <p className={styles.small} style={{ borderTop: "1.5px solid var(--ink)", paddingTop: 12 }}>
+      <p
+        className={styles.small}
+        style={{ borderTop: "1.5px solid var(--ink)", paddingTop: 12 }}
+        data-advanced=""
+      >
         {t.report.ledger.replace("{when}", dateTime(new Date()))}{" "}
         <a href="/me/data" style={{ fontWeight: 700 }}>
           {t.report.ledgerLink}

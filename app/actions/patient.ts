@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { clearSessionCookie, currentSession, ipHash, sessionToken } from "@/lib/auth/cookies";
@@ -55,6 +56,12 @@ export async function setReadingModeAction(form: FormData): Promise<void> {
   await db.household.update({
     where: { id: household.id },
     data: { readingMode: parsed.data.mode },
+  });
+  // Simple is the easy view: bigger text and fewer buttons on every screen.
+  (await cookies()).set("easy", parsed.data.mode === "SIMPLE" ? "on" : "off", {
+    path: "/",
+    maxAge: 60 * 60 * 24 * 365,
+    sameSite: "lax",
   });
   const back = String(form.get("back") ?? "");
   redirect(back.startsWith("/file/") ? back : "/family");

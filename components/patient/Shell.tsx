@@ -4,6 +4,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { localeFromCookie, messages } from "@/lib/i18n";
 import { CallFooter } from "./CallFooter";
 import styles from "./shell.module.css";
+import { EasyToggle } from "./EasyToggle";
 import { TextSizeToggle } from "./TextSizeToggle";
 
 interface ShellProps {
@@ -56,9 +57,21 @@ export async function Shell({
             {labName}
           </Link>
         )}
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <div className={styles.actions}>
           {actions}
-          <TextSizeToggle initial={jar.get("text")?.value === "large"} label={t.common.textSize} />
+          {/* On laptops the two call buttons sit up here; phones keep them in the bottom bar. */}
+          {footer ? (
+            <div className={styles.headerCalls}>
+              <CallFooter callLab={t.common.callLab} callMeBack={t.common.callMeBack} inline />
+            </div>
+          ) : null}
+          <EasyToggle initial={jar.get("easy")?.value === "on"} label={t.common.easyView} />
+          <span data-advanced="">
+            <TextSizeToggle
+              initial={jar.get("text")?.value === "large"}
+              label={t.common.textSize}
+            />
+          </span>
         </div>
       </header>
       {tabs}
@@ -76,7 +89,11 @@ export async function Shell({
           {children}
         </main>
       )}
-      {footer ? <CallFooter callLab={t.common.callLab} callMeBack={t.common.callMeBack} /> : null}
+      {footer ? (
+        <div className={styles.bottomCalls}>
+          <CallFooter callLab={t.common.callLab} callMeBack={t.common.callMeBack} />
+        </div>
+      ) : null}
     </div>
   );
 }

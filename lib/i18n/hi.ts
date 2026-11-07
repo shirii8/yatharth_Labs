@@ -7,6 +7,7 @@ import type { PartialMessages } from "./index";
 export const hi: PartialMessages = {
   common: {
     textSize: "अक्षर का आकार बदलें",
+    easyView: "आसान दृश्य",
     language: "भाषा",
     callLab: "लैब को कॉल करें",
     callMeBack: "मुझे वापस कॉल करें",

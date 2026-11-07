@@ -33,6 +33,12 @@
   }
 }
 
+@media (min-width: 1360px) {
+  .shell {
+    max-width: 1280px;
+  }
+}
+
 .shell[data-width="narrow"] {
   max-width: 640px;
 }
@@ -267,5 +273,120 @@
 
   .lede {
     font-size: 1.05em;
+  }
+}
+
+/* Header controls: on laptops the call buttons move up here (as in the design). */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerCalls {
+  display: none;
+}
+
+.inlineCalls {
+  display: flex;
+  gap: 8px;
+}
+
+.inlineCalls > * {
+  min-height: 48px;
+  padding: 4px 20px;
+}
+
+@media (min-width: 1080px) {
+  .headerCalls {
+    display: block;
+  }
+
+  .bottomCalls {
+    display: none;
+  }
+}
+
+/* "Easy view": a labelled switch, so its state is a word and a position, not a colour. */
+.easy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 4px 16px 4px 8px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--page);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.easy[aria-pressed="true"] {
+  background: var(--green-wash);
+}
+
+.switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--page);
+  transition: background-color 200ms ease;
+}
+
+.easy[aria-pressed="true"] .switch {
+  background: var(--green);
+}
+
+.knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink);
+  transition:
+    transform 220ms var(--ease-paper),
+    background-color 200ms ease;
+}
+
+.easy[aria-pressed="true"] .knob {
+  transform: translateX(16px);
+  background: var(--on-green);
+}
+
+.relation {
+  display: none;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+@media (min-width: 720px) {
+  .relation {
+    display: inline;
+  }
+}
+
+/* Small phones: a quieter lab name and a compact switch, so the header stays on one line. */
+@media (max-width: 479px) {
+  .labName {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .easy {
+    min-height: 44px;
+    padding: 4px 12px 4px 8px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .aa {
+    width: 44px;
+    height: 44px;
   }
 }

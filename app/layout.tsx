@@ -21,10 +21,11 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const jar = await cookies();
   const locale = localeFromCookie(jar.get("lang")?.value);
-  const large = jar.get("text")?.value === "large";
+  const easy = jar.get("easy")?.value === "on";
+  const large = easy || jar.get("text")?.value === "large";
 
   return (
-    <html lang={locale} data-text={large ? "large" : undefined}>
+    <html lang={locale} data-text={large ? "large" : undefined} data-easy={easy ? "on" : undefined}>
       <head>
         {/* Only the two Latin faces every page needs. Telugu and Hindi load on demand by unicode-range. */}
         <link

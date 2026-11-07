@@ -2,6 +2,7 @@ import { Tabs } from "@/components/ui/Tabs";
 import type { Messages } from "@/lib/i18n";
 import type { FamilyMember } from "@/lib/patient/family";
 import { firstName } from "@/lib/patient-format";
+import styles from "./shell.module.css";
 
 /**
  * One index tab per person on this number. A person with a report to call
@@ -35,6 +36,12 @@ export function FamilyTabs({
         label: (
           <>
             {firstName(x.person.name)}
+            {/* On wider screens the tab also says who this is to the number holder. */}
+            <span className={styles.relation}>
+              {x.person.relation.toLowerCase() === "self"
+                ? t.you.toLowerCase()
+                : x.person.relation.toLowerCase()}
+            </span>
             {x.call ? (
               <span
                 aria-hidden="true"
