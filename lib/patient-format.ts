@@ -34,3 +34,12 @@ export function dateTime(date: Date): string {
 export function clock(date: Date): string {
   return date.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", timeZone: IST });
 }
+
+/** Units as a person reads them: "x10^3/uL" becomes "×10³/µL". Display only. */
+export function formatUnit(unit: string): string {
+  return unit
+    .replace(/x10\^3/g, "×10³")
+    .replace(/x10\^6/g, "×10⁶")
+    .replace(/\bu(L|IU)\b/g, "µ$1")
+    .replace(/\/uL/g, "/µL");
+}

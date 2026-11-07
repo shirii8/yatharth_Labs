@@ -1,0 +1,123 @@
+/* Result marks, pills and rows. Tone colours are always paired with a word and a mark. */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 4px 12px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.pill[data-tone="usual"] {
+  color: var(--ink);
+  border-color: var(--sage-ink);
+  background: var(--sage);
+}
+
+.pill[data-tone="low"],
+.pill[data-tone="high"] {
+  color: var(--ink);
+  border-color: var(--clay);
+  background: var(--clay-wash);
+}
+
+.pill[data-tone="call"] {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: var(--rose);
+}
+
+.pill[data-tone="waiting"] {
+  color: var(--ink);
+  border-color: var(--sand-ink);
+  background: var(--sand);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 52px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--sage);
+  /* The rows arrive one by one, so the eye reads them as a list from the lab. */
+  animation: rowIn 320ms var(--ease-paper) both;
+}
+
+.row[data-tone="low"],
+.row[data-tone="high"] {
+  background: var(--clay-wash);
+}
+
+.rowName {
+  min-width: 0;
+}
+
+.rowValue {
+  font-family: var(--font-serif);
+  font-size: 1.25em;
+  font-variant-numeric: tabular-nums;
+}
+
+.mini {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.miniTrack {
+  position: relative;
+  display: block;
+  height: 12px;
+  border-radius: 999px;
+  background: #ebe4d6;
+}
+
+.miniBand {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--sage);
+}
+
+.miniDot {
+  position: absolute;
+  top: -6px;
+  width: 12px;
+  height: 24px;
+  margin-left: -6px;
+  border-radius: 999px;
+  background: var(--ink);
+}
+
+.miniLabel {
+  justify-self: center;
+  font-size: 14px;
+}
+
+@keyframes rowIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
