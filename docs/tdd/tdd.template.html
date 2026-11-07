@@ -110,6 +110,8 @@
 <p>The patient sees no number, no summary and no flag words: "Please call us about your report", with the first step already ticked ("We have asked our team to call you", with the time). The callback task was created with the report's link. Staff see the value and range on the desk. The AI is never involved.</p>
 <h3>4.6 Front desk</h3>
 <p>Search by full number (matched by hash), last four digits or name. Opening a record is logged; the full number is shown only on request, and that is logged too. Resend revokes the old link at once and sends a new one. Calls are marked done with a note; flags are resolved with a note.</p>
+<div class="wide"><img src="img/desk-patient.png" alt="Patient desk"></div>
+<p class="muted" style="font-size:8.5pt">The patient desk: the family on one number, each report with SMS, delivery and opening times and Resend, the access log, and the calls waiting for this number.</p>
 
 <h2>5. How the AI part works, and what happens when it is wrong</h2>
 <p><strong>Rules decide every flag. Locked templates supply every sentence. The AI writes only the short "In short" paragraph, and only for tests without locked wording, and only if a checker passes it.</strong></p>
@@ -126,26 +128,27 @@
 </ol>
 
 <h2 class="page-break">6. UI and design decisions</h2>
-<p>The design idea is "your health file, kept by people who know you": every report is a page in a file, behind an index tab. The client values minimal, purposeful design, and many patients are elderly on small phones, so every screen has one large serif line, one green next step, large type (19 px, 22 px with Aa), and plain, calm words. Status is always a word plus a mark, never colour alone. There is no red anywhere a patient looks.</p>
+<p>The design idea is "your health file, kept by people who know you": every report is a page in a file, behind an index tab. The client values minimal, purposeful design, and many patients are elderly on small phones, so every screen has one main section and one green next step, large type, and plain, calm words. Status is always a word plus a mark, never colour alone, so it also reads in black and white and for colour-blind readers. There is no red anywhere a patient looks. Spacing sits on a 4 px grid; all lines are clean vectors.</p>
+<div class="wide"><img src="img/list.png" alt="A person's file on a laptop"></div>
+<p class="muted" style="font-size:8.5pt">A person's file on a laptop: where things stand on the left (a bar of results in and outside the usual range, three counts), each page as a card with its results in the lab's rule words, and each test over time. Every sentence comes from approved templates.</p>
 <div class="shots">
-  <figure><img src="img/signin.png" alt="Sign in"><figcaption>Sign in: language tabs, one field, one green button. The demo hint shows only in demo mode.</figcaption></figure>
-  <figure><img src="img/family.png" alt="Whose file"><figcaption>Whose file: one tab per person on the number; the tab's colour carries into the page.</figcaption></figure>
+  <figure><img src="img/report.png" alt="Report on a phone"><figcaption>Report on a phone: one result at a time; the ruler's position comes only from the printed range.</figcaption></figure>
+  <figure><img src="img/easy.png" alt="Easy view"><figcaption>Easy view for older readers: bigger text, the Simple report only, secondary buttons step aside.</figcaption></figure>
   <figure><img src="img/critical.png" alt="Please call us"><figcaption>Please call us: no value, no summary, the call already queued, a fixed safety note.</figcaption></figure>
 </div>
-<div class="shots">
-  <figure><img src="img/report.png" alt="Report, Simple"><figcaption>Report, Simple: one result at a time; the ruler's position comes only from the printed range.</figcaption></figure>
-  <figure><img src="img/compact.png" alt="Report, Compact"><figcaption>Report, Compact: all results and the trend since last time, drawn as a small inline SVG.</figcaption></figure>
-  <figure><img src="img/desk-calls.png" alt="Desk callbacks"><figcaption>Desk: critical calls first, each closed with a note.</figcaption></figure>
-</div>
+<div class="wide"><img src="img/print.png" alt="Printable copy on a laptop"></div>
+<p class="muted" style="font-size:8.5pt">Printable copy: one A4 page with a colour key; Print opens the dialog, Save as PDF downloads the same simple copy. On phones the page becomes cards with a sticky Print and Save bar.</p>
 <table>
   <thead><tr><th>Decision</th><th>Why</th></tr></thead>
   <tbody>
+    <tr><td>One layout system: 480 px phones, 720 px tablets, up to 1280 px laptops; two columns on laptops</td><td>Families read on phones and laptops; staff on desktops. No long scrolling on a laptop, one column on a phone. Each screen's main action is checked to sit in the first screenful at 1366x768 down to 360x640.</td></tr>
+    <tr><td>Easy view switch on every screen, also set by choosing Simple</td><td>Older readers get bigger text and only the essentials: one clear action plus Call the lab. Pure CSS, so it switches instantly with no reload.</td></tr>
+    <tr><td>Call the lab and Call me back on every screen (header on laptops, bottom bar on phones)</td><td>The brief's goal is that patients never have to hunt for help.</td></tr>
     <tr><td>Tabs, Back and Next are plain links; forms are plain posts</td><td>Everything works before JavaScript loads on a slow phone.</td></tr>
-    <tr><td>Fonts self-hosted and split by script (unicode-range)</td><td>No call to Google Fonts; a phone downloads Telugu glyphs only when a page shows Telugu.</td></tr>
-    <tr><td>Telugu and Hindi get taller line height and a smaller display size</td><td>The scripts are taller; buttons grow and never clip (checked at 390 px).</td></tr>
-    <tr><td>Three motion moments only (opening a report, the value finding its place, please call us), transform and opacity only</td><td>Calm, cheap on old phones, and shown as a final frame under reduced motion.</td></tr>
-    <tr><td>Listen uses the phone's own voice</td><td>Nothing leaves the phone; the button hides when there is no voice.</td></tr>
-    <tr><td>One notice layout for expired, invalid, timeout, loading, empty, error, withdrawn</td><td>Every dead end says what happened and what to do next, signed by the front desk.</td></tr>
+    <tr><td>Fonts self-hosted and split by script</td><td>No call to Google Fonts; a phone downloads Telugu glyphs only when a page shows Telugu.</td></tr>
+    <tr><td>Telugu and Hindi get taller line height and a smaller display size</td><td>The scripts are taller; buttons grow and never clip.</td></tr>
+    <tr><td>Motion only where it means something: pages settle in, a loading bar along the top, buttons press, the green arrow nudges forward, cards lift when they open, result rows arrive in order, the proportion bar grows, the ruler finds the value, the call button breathes</td><td>Each one answers a question (did my tap work, where does this go, what is this bar). Transform and opacity only; all of it stops under reduced motion.</td></tr>
+    <tr><td>One notice layout for expired, invalid, timeout, empty, error, withdrawn</td><td>Every dead end says what happened and what to do next, signed by the front desk. No dead buttons anywhere.</td></tr>
   </tbody>
 </table>
 
@@ -183,7 +186,7 @@
   <li><strong>Cut:</strong> the referring doctor view and the operations report (optional depth); a doctor role.</li>
   <li><strong>Mocked by design:</strong> SMS (provider interface ready for an SMS or WhatsApp gateway) and the signed PDF (a marked stand-in).</li>
   <li><strong>Limits:</strong> Telugu and Hindi copy comes from the design and needs native review; critical limits and the safety note are placeholders for the lab doctor; correcting a phone number on file is not built; there is no folder watcher yet (the import service is ready for one); the page-weight budget is missed by about 5 KB.</li>
-  <li><strong>Next:</strong> a real SMS gateway with delivery receipts; the referring doctor view (90 days, by doctor); an operations dashboard from the delivery and access data; an India-hosted model behind the same interface; native-speaker review and doctor sign-off of all wording; a folder watcher for the LIS export.</li>
+  <li><strong>Next:</strong> a real SMS gateway with delivery receipts; the referring doctor view (90 days, by doctor); an operations dashboard from the delivery and access data; an India-hosted model behind the same interface; native-speaker review and doctor sign-off of all wording; a folder watcher for the LIS export; a usability test of easy view with five patients over 60.</li>
 </ul>
 
 </body>
