@@ -31,6 +31,8 @@ model Household {
   consentVersion     String?
   consentAt          DateTime?
   consentWithdrawnAt DateTime?
+  /// When the number holder confirmed who is on the number (first-time setup).
+  setupAt            DateTime?
   createdAt          DateTime       @default(now())
   patients           Patient[]
   sessions           Session[]

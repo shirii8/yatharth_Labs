@@ -55,3 +55,5 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 - A26. "Call me back" needs a sign-in or an open link, so the lab knows whose file it is. Signed out, the page offers the lab's phone number instead of promising a call.
 - A27. "Something looks wrong" creates a flag for staff. Nothing on the report changes until a doctor has looked.
 - A28. Signing in with a code opens every signed report on that number, including ones whose SMS link has expired. The code is the "OTP to reopen" the brief asks for.
+- A29. People on a number come only from the lab's records (the LIS export or the front desk). From the phone, the number holder can say how each person is related to them, from a fixed list, but cannot add or remove anyone, so no one's reports can be hidden or claimed by mistake. A relation the lab typed that is not on the list (for example "Daughter-in-law") is kept as it is. Only one person can be "Self".
+- A30. The first time a number signs in, after consent and reading style, the number holder confirms who is on the number. It is one screen with the lab's guesses already filled in, so it can be passed with one tap.
