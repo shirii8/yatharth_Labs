@@ -3,7 +3,7 @@
 Lab report delivery portal for Company A, Vijayawada.
 
 - GitHub: https://github.com/shirii8/yatharth_Labs
-- Live app: to be added after deployment
+- Live app: https://yatharth-labs-beryl.vercel.app (Vercel, Mumbai; database on Supabase, Mumbai)
 
 All data in the app is synthetic. SMS is simulated, as the brief asks.
 
@@ -119,9 +119,9 @@ Demo mode is on in the demo deployment only. It must never be on with real patie
 | +91 90000 00002 | Venkata Rao M | Lipid report explained with the checked AI paragraph (when an API key is set), and an older link that has expired |
 | +91 90000 00003 | Farzana Begum | Critical potassium: "Please call us", no values shown |
 
-Code for all three: the value of `DEMO_OTP` on the deployment.
+Code for all three on the live demo: **246810** (the deployment's `DEMO_OTP`). SMS is simulated, so no message arrives; any other number gets no code.
 
-To see the lockout, type a wrong code five times for any number.
+To see the lockout, type a wrong code five times for any number. Try **Easy view** (top right) for the simplified screens for older readers, and the language tabs for Telugu.
 
 **Staff** at `/desk/sign-in`:
 
@@ -130,6 +130,6 @@ To see the lockout, type a wrong code five times for any number.
 | frontdesk@demo.lab | Front desk | Import, patients, resend, callbacks, flags, add family |
 | labadmin@demo.lab | Lab admin | All of the above, plus wording approvals and the AI review |
 
-Password for both: the value of `DEMO_STAFF_PASSWORD` used when seeding the deployment.
+Password for both on the live demo: **Desk-demo-2026!** (the `DEMO_STAFF_PASSWORD` the demo data was seeded with). These are demo-only accounts over synthetic data; a real deployment sets its own and turns `DEMO_MODE` off.
 
 A sample LIS export to upload is in `samples/lis-export-2026-11-04.csv`. Uploading it again changes nothing.

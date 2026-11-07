@@ -2,7 +2,7 @@
 
 A report delivery portal for a diagnostic lab chain in coastal Andhra Pradesh (6 labs, 38 collection centres). When the pathologist signs a report in the lab system, the patient gets a safe, expiring link by SMS. They sign in with their mobile number and a one-time code, read a plain summary in English, Telugu or Hindi, and download the signed report. Front-desk staff can find a patient, resend links and see delivery status and the access log.
 
-Built as a one-person, 7-day build test. Status: in progress.
+Built as a one-person, 7-day build test. Status: the core slice is complete, tested and live.
 
 ## The slice being built
 
@@ -14,7 +14,7 @@ Built as a one-person, 7-day build test. Status: in progress.
 
 ## Links
 
-- Live demo: to be added
+- Live demo: https://yatharth-labs-beryl.vercel.app
 - Deployment and local setup: [deployment.md](deployment.md)
 - Design: [DESIGN.md](DESIGN.md)
 - Assumptions: [docs/ASSUMPTIONS.md](docs/ASSUMPTIONS.md)
