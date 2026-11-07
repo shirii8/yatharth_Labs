@@ -1,94 +1,529 @@
-/* One A4 page, large type, ink on white. No grain, no drawings, no colour needed. */
+/*
+ * The simple copy. Laptops: a control panel beside a white A4 sheet.
+ * Phones: the sheet as cards with a sticky Print / Save bar. Paper: the sheet only.
+ */
 
-.sheet {
-  max-width: 210mm;
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  max-width: 1280px;
   min-height: 100dvh;
   margin: 0 auto;
-  padding: 16mm 14mm;
-  background: #fff;
-  color: var(--ink);
-  font-size: 20px;
+  padding: 16px 12px 104px;
 }
 
-.noPrint {
+@media (min-width: 1080px) {
+  .page {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 48px;
+    padding: 40px 32px;
+    align-items: start;
+  }
+}
+
+/* ---------- Control panel ---------- */
+
+.panel {
   display: flex;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 24px;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.panelTitle,
+.panelBody,
+.panelActions,
+.key {
+  display: none;
+}
+
+@media (min-width: 1080px) {
+  .panel {
+    position: sticky;
+    top: 40px;
+  }
+
+  .panelTitle {
+    display: block;
+    margin: 12px 0 0;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.08;
+  }
+
+  .panelBody {
+    display: block;
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .panelActions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .key {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 20px;
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    background: var(--page);
+  }
 }
 
 .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
   font-weight: 700;
+  text-underline-offset: 4px;
 }
 
-.header {
+.back span {
+  transition: transform 180ms var(--ease-paper);
+}
+
+.back:hover span {
+  transform: translateX(-4px);
+}
+
+.printButton {
   display: flex;
-  justify-content: space-between;
-  padding-bottom: 8px;
-  border-bottom: 2.5px solid var(--ink);
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 8px 20px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--green);
+  color: var(--on-green);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    background-color 160ms ease;
+}
+
+.printButton:active,
+.saveButton:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) {
+  .printButton:hover {
+    background: #0b4a37;
+  }
+
+  .saveButton:hover {
+    background: var(--field);
+  }
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 8px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--page);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 120ms ease,
+    background-color 160ms ease;
+}
+
+.keyTitle {
+  margin: 0 0 4px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.keyRow {
+  display: grid;
+  grid-template-columns: 40px 20px 1fr;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
   font-size: 16px;
+}
+
+.keySwatch {
+  height: 20px;
+  border-left: 6px solid var(--sage-ink);
+  border-radius: 4px;
+  background: var(--sage);
+}
+
+.keyRow[data-tone="low"] .keySwatch,
+.keyRow[data-tone="high"] .keySwatch {
+  border-left-color: var(--clay);
+  background: var(--clay-wash);
+}
+
+.keyRow[data-tone="call"] .keySwatch {
+  border-left-color: var(--ink);
+  background: var(--call-page);
+}
+
+/* ---------- The sheet ---------- */
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 20px;
+  border: 2px solid var(--ink);
+  background: var(--page);
+  animation: sheetIn 360ms var(--ease-paper) both;
+}
+
+@media (min-width: 720px) {
+  .sheet {
+    padding: 48px 56px;
+    background: #fff;
+    box-shadow: 0 24px 48px rgb(22 21 19 / 0.12);
+  }
+}
+
+.sheetHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding-bottom: 16px;
+  border-bottom: 2.5px solid var(--ink);
 }
 
 .lab {
   font-family: var(--font-serif);
-  font-variant: small-caps;
   font-size: 22px;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+}
+
+.copyTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.copySwatch {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  background: var(--rose);
+}
+
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
 }
 
 .name {
-  margin: 20px 0 4px;
+  margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: 40px;
+  font-size: clamp(36px, 8vw, 52px);
+  line-height: 1.05;
 }
 
 .meta {
-  margin: 0 0 16px;
+  margin: 8px 0 0;
   font-size: 16px;
+  color: var(--ink-soft);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Phones: one chip per result, a glance before the detail. */
+.chips {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.chips li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 4px;
+  background: var(--sage);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.chips li + li {
+  border-left: 1.5px solid var(--ink);
+}
+
+.chips li[data-tone="low"],
+.chips li[data-tone="high"] {
+  background: var(--clay-wash);
+}
+
+@media (min-width: 720px) {
+  .chips {
+    display: none;
+  }
 }
 
 .intro {
-  font-size: 22px;
-  line-height: 1.4;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 4vw, 28px);
+  line-height: 1.35;
 }
 
-.callUs {
-  margin: 24px 0;
-  padding: 16px;
-  border: 2.5px solid var(--ink);
-  font-size: 24px;
-  font-weight: 700;
+.highlight {
+  padding: 0 4px;
+  border-radius: 4px;
+  background: var(--clay-wash);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 12px 0 20px;
+.tableHead {
+  display: none;
 }
 
-.table th,
-.table td {
-  padding: 12px 8px;
-  border-bottom: 1px solid var(--ink);
-  text-align: left;
-  vertical-align: top;
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.table thead th {
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+/* Phones: a card per result (name and word, then value, then ruler). */
+.result {
+  display: grid;
+  grid-template-areas:
+    "name word"
+    "value value"
+    "ruler ruler";
+  grid-template-columns: 1fr auto;
+  gap: 8px 12px;
+  padding: 16px 20px;
+  border: 1.5px solid var(--ink);
+  border-left: 8px solid var(--sage-ink);
+  border-radius: 8px;
+  background: var(--sage-tint);
 }
 
-.steps {
-  padding-left: 24px;
-  line-height: 1.5;
+.result[data-tone="low"],
+.result[data-tone="high"] {
+  border-left-color: var(--clay);
+  background: var(--clay-tint);
 }
 
-.small {
+.resultName {
+  grid-area: name;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultName span {
+  display: none;
   font-size: 15px;
   color: var(--ink-soft);
 }
+
+.resultValue {
+  grid-area: value;
+  font-family: var(--font-serif);
+  font-size: 44px;
+  line-height: 1;
+}
+
+.resultValue small {
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
+.resultRuler {
+  grid-area: ruler;
+}
+
+.resultWord {
+  grid-area: word;
+  justify-self: end;
+}
+
+/* Wider screens and paper: a table of four columns. */
+@media (min-width: 720px) {
+  .tableHead,
+  .result {
+    grid-template-areas: none;
+    grid-template-columns: 1.3fr 0.9fr 1.4fr 1fr;
+    align-items: center;
+  }
+
+  .tableHead {
+    display: grid;
+    gap: 12px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .result {
+    gap: 12px;
+  }
+
+  .resultName,
+  .resultValue,
+  .resultRuler,
+  .resultWord {
+    grid-area: auto;
+  }
+
+  .resultWord {
+    justify-self: start;
+  }
+
+  .resultName span {
+    display: block;
+  }
+
+  .resultValue {
+    font-size: 36px;
+  }
+}
+
+.next {
+  padding: 20px 24px;
+  border-radius: 12px;
+  background: var(--sky);
+}
+
+.nextTitle {
+  margin: 0 0 12px;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nextList {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nextList li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 720px) {
+  .nextList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+.nextN {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.callUs {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 0;
+  padding: 20px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--call-page);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sheetFoot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.sheetFoot p {
+  max-width: 560px;
+  margin: 0;
+}
+
+.questions {
+  text-align: right;
+  color: var(--ink);
+}
+
+/* Phones: Print and Save stay in reach at the bottom. */
+.mobileBar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+  border-top: 2px solid var(--ink);
+  background: var(--desk);
+}
+
+@media (min-width: 1080px) {
+  .mobileBar {
+    display: none;
+  }
+}
+
+@keyframes sheetIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* ---------- Paper ---------- */
 
 @page {
   size: A4;
@@ -96,12 +531,73 @@
 }
 
 @media print {
-  .noPrint {
-    display: none;
+  .panel,
+  .mobileBar {
+    display: none !important;
+  }
+
+  .page {
+    display: block;
+    padding: 0;
   }
 
   .sheet {
     padding: 0;
-    min-height: auto;
+    border: 0;
+    box-shadow: none;
+    background: #fff;
+    animation: none;
   }
+
+  .chips {
+    display: none;
+  }
+
+  .tableHead,
+  .result {
+    grid-template-areas: none;
+    grid-template-columns: 1.3fr 0.9fr 1.4fr 1fr;
+    align-items: center;
+  }
+
+  .tableHead {
+    display: grid;
+    gap: 12px;
+    padding: 0 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .resultName,
+  .resultValue,
+  .resultRuler,
+  .resultWord {
+    grid-area: auto;
+  }
+
+  .resultName span {
+    display: block;
+  }
+
+  .nextList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .result,
+  .next,
+  .highlight {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* The sticky bar on phones: both buttons on one line each. */
+.mobileBar .printButton,
+.mobileBar .saveButton {
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 16px;
+  white-space: nowrap;
 }
