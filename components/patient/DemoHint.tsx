@@ -8,7 +8,7 @@ export function DemoHint({ codeOnly = false }: { codeOnly?: boolean }) {
     <p
       style={{
         margin: 0,
-        padding: "10px 14px",
+        padding: "12px 16px",
         border: "1.5px solid var(--ink)",
         borderRadius: 12,
         background: "var(--sand)",

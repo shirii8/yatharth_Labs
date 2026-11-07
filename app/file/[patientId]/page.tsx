@@ -59,7 +59,7 @@ export default async function ReportsListPage({
       }
     >
       <span className={shell.eyebrow}>{t.file.eyebrow.replace("{name}", person.name)}</span>
-      <h1 className={shell.hero} style={{ marginTop: -14 }}>
+      <h1 className={shell.hero} style={{ marginTop: -16 }}>
         {title}
       </h1>
 
@@ -112,7 +112,7 @@ export default async function ReportsListPage({
             <NotchRule />
             <div className={styles.row}>
               <Kettle />
-              <div className={shell.stack} style={{ gap: 6 }}>
+              <div className={shell.stack} style={{ gap: 8 }}>
                 <span className={shell.eyebrow}>
                   {t.file.preparingEyebrow.replace("{test}", r.test.name)}
                 </span>

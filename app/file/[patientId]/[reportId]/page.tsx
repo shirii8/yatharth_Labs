@@ -83,7 +83,7 @@ export default async function ReportPage({
     <OutlineLink
       href={`${base}?view=${compact ? "simple" : "compact"}`}
       prefetch={false}
-      style={{ minHeight: 48, borderRadius: 999, padding: "4px 14px", fontSize: 15 }}
+      style={{ minHeight: 48, borderRadius: 999, padding: "4px 16px", fontSize: 15 }}
     >
       {compact ? t.report.simple : t.report.compact}
     </OutlineLink>
@@ -202,7 +202,7 @@ function SimpleResult({
         <h3 id="result-name" className={styles.name}>
           {item.name}
         </h3>
-        <span style={{ marginTop: -6 }}>{item.helper}</span>
+        <span style={{ marginTop: -8 }}>{item.helper}</span>
         <div className={styles.value}>
           {item.valueText}
           <span className={styles.unit}>{item.unit}</span>

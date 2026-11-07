@@ -77,7 +77,7 @@ function Preview({ mode }: { mode: "SIMPLE" | "COMPACT" }) {
   };
   if (mode === "SIMPLE") {
     return (
-      <div aria-hidden="true" style={{ ...box, display: "flex", flexDirection: "column", gap: 6 }}>
+      <div aria-hidden="true" style={{ ...box, display: "flex", flexDirection: "column", gap: 8 }}>
         <span style={{ fontSize: 15, color: "var(--ink-soft)" }}>Result 1 of 3</span>
         <span style={{ fontWeight: 700 }}>Haemoglobin</span>
         <span style={{ fontFamily: "var(--font-serif)", fontSize: 56, lineHeight: 1 }}>10.2</span>
@@ -102,9 +102,9 @@ function Preview({ mode }: { mode: "SIMPLE" | "COMPACT" }) {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr auto auto",
-            gap: 10,
+            gap: 12,
             borderBottom: "1px solid var(--rule)",
-            paddingBottom: 6,
+            paddingBottom: 8,
           }}
         >
           <span>{n}</span>

@@ -7,7 +7,7 @@
 }
 
 .title {
-  margin: -14px 0 0;
+  margin: -16px 0 0;
   font-family: var(--font-serif);
   font-weight: 500;
   font-size: clamp(36px, 10vw, 46px);
@@ -21,7 +21,7 @@
   display: block;
   width: 70%;
   height: 10px;
-  margin-top: -10px;
+  margin-top: -12px;
 }
 
 .thread path {
@@ -35,7 +35,7 @@
 }
 
 .aiNote {
-  margin: -10px 0 0;
+  margin: -12px 0 0;
   font-size: 0.75em;
   color: var(--ink-soft);
 }
@@ -43,7 +43,7 @@
 .resultCard {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .name {
@@ -57,7 +57,7 @@
 .value {
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--font-serif);
   font-weight: 500;
   font-size: clamp(72px, 24vw, 96px);
@@ -91,7 +91,7 @@
 .nav {
   display: grid;
   grid-template-columns: 1fr 1.6fr;
-  gap: 10px;
+  gap: 12px;
 }
 
 .nav > :only-child {
@@ -120,7 +120,7 @@
 .pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 12px;
 }
 
 .small {
@@ -131,7 +131,7 @@
 .compactRow {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 2px 12px;
+  gap: 4px 12px;
   padding: 12px 0;
   border-bottom: 1px solid var(--rule);
   line-height: 1.3;

@@ -5,14 +5,14 @@
   z-index: 2;
   display: flex;
   gap: 4px;
-  padding: 0 10px;
+  padding: 0 12px;
   margin-bottom: calc(var(--frame) * -1);
 }
 
 @media (min-width: 720px) {
   .tabs {
-    padding: 0 18px;
-    gap: 6px;
+    padding: 0 20px;
+    gap: 8px;
   }
 }
 
@@ -22,11 +22,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   min-width: 0;
   min-height: 54px;
   margin-top: 8px;
-  padding: 4px 6px;
+  padding: 4px 8px;
   border: var(--frame) solid var(--ink);
   border-radius: var(--radius) var(--radius) 0 0;
   background: var(--tint, var(--sky));
@@ -62,10 +62,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   min-height: 62px;
-  padding: 8px 10px 8px 20px;
+  padding: 8px 12px 8px 20px;
   border: 0;
   border-radius: var(--radius);
   background: var(--green);
@@ -99,7 +99,7 @@
   justify-content: center;
   gap: 8px;
   min-height: var(--tap);
-  padding: 6px 14px;
+  padding: 8px 16px;
   border: 2px solid var(--ink);
   border-radius: var(--radius);
   background: var(--page);
@@ -157,7 +157,7 @@
 .prefix {
   display: flex;
   align-items: center;
-  padding: 0 14px;
+  padding: 0 16px;
   border-right: 1.5px solid var(--ink);
   font-weight: 700;
 }
@@ -165,7 +165,7 @@
 .input {
   flex: 1;
   min-width: 0;
-  padding: 0 14px;
+  padding: 0 16px;
   border: 0;
   background: transparent;
   font-size: 1.05em;

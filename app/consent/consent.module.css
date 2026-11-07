@@ -25,7 +25,7 @@
   display: grid;
   grid-template-columns: 48px 1fr;
   gap: 8px;
-  padding: 14px 0;
+  padding: 16px 0;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -48,9 +48,9 @@
 .agree {
   display: grid;
   grid-template-columns: 36px 1fr;
-  gap: 14px;
+  gap: 16px;
   align-items: center;
-  padding: 16px 18px;
+  padding: 16px 20px;
   border: var(--frame) solid var(--ink);
   border-radius: var(--radius);
   background: var(--field);

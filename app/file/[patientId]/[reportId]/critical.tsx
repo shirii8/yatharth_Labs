@@ -100,7 +100,7 @@ export async function CriticalReport({
             <h2 id="safety" style={{ margin: 0, fontSize: "1em" }}>
               {safetyHead}
             </h2>
-            <ul style={{ margin: 0, paddingLeft: 22 }}>
+            <ul style={{ margin: 0, paddingLeft: 24 }}>
               {safetyItems.map((item) => (
                 <li key={item}>{item}</li>
               ))}

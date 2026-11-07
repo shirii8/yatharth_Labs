@@ -11,7 +11,7 @@ export function ImportForm() {
 
   return (
     <>
-      <form action={action} className={styles.actions} style={{ marginBottom: 18 }}>
+      <form action={action} className={styles.actions} style={{ marginBottom: 20 }}>
         <label htmlFor="file" className="visually-hidden">
           LIS export file (CSV)
         </label>

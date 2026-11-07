@@ -26,7 +26,7 @@ export function SignInForm({ t }: { t: Messages["signIn"] }) {
           : undefined;
 
   return (
-    <form action={action} style={{ display: "flex", flexDirection: "column", gap: 22 }} noValidate>
+    <form action={action} style={{ display: "flex", flexDirection: "column", gap: 24 }} noValidate>
       <Field
         id="phone"
         name="phone"

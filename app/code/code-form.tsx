@@ -58,7 +58,7 @@ export function CodeForm({ t, resendAt }: { t: Messages["code"]; resendAt: strin
 
   return (
     <>
-      <form action={action} style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+      <form action={action} style={{ display: "flex", flexDirection: "column", gap: 24 }}>
         <fieldset className={styles.fieldset}>
           <legend className={styles.legend}>{t.legend}</legend>
           <div className={styles.boxes}>

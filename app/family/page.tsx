@@ -57,7 +57,7 @@ export default async function FamilyPage({
       tint={selected.tint}
       tabs={
         <>
-          <p className={shell.lede} style={{ margin: "0 4px 14px" }}>
+          <p className={shell.lede} style={{ margin: "0 4px 16px" }}>
             {people.length === 1
               ? t.family.ledeOne
               : t.family.lede.replace("{count}", numberWord(people.length))}
@@ -77,7 +77,7 @@ export default async function FamilyPage({
           <span className={shell.eyebrow}>
             {isSelf ? t.family.you : person.relation} · {person.age}
           </span>
-          <h1 className={shell.hero} style={{ marginTop: -14 }}>
+          <h1 className={shell.hero} style={{ marginTop: -16 }}>
             {person.name}
           </h1>
           <NotchRule />

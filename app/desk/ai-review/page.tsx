@@ -94,7 +94,7 @@ export default async function AiReviewPage({
       ))}
 
       <h2 className={styles.h2}>Refused by the checker or failed ({refused.length})</h2>
-      <p className={styles.muted} style={{ marginTop: -6 }}>
+      <p className={styles.muted} style={{ marginTop: -8 }}>
         Patients saw the rule wording instead of these.
       </p>
       <table className={styles.table}>

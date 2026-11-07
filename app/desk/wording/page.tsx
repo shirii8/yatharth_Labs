@@ -113,7 +113,7 @@ export default async function WordingPage({
       ))}
 
       <h2 className={styles.h2}>Needs the lab doctor before go-live ({pending.length})</h2>
-      <p className={styles.muted} style={{ marginTop: -6 }}>
+      <p className={styles.muted} style={{ marginTop: -8 }}>
         Placeholder safety wording, shown on &ldquo;Please call us&rdquo; pages with a note that it
         awaits approval.
       </p>

@@ -55,10 +55,10 @@ export default async function DataPage({
                   <li
                     key={row.id}
                     style={{
-                      padding: "10px 0",
+                      padding: "12px 0",
                       borderBottom: "1px solid var(--rule)",
                       display: "grid",
-                      gap: 2,
+                      gap: 4,
                     }}
                   >
                     <span style={{ fontSize: 15, color: "var(--ink-soft)" }}>
@@ -82,7 +82,7 @@ export default async function DataPage({
             </h2>
             <span>{t.common.language}</span>
             <LanguageTabs current={locale} next="/me/data" />
-            <div style={{ height: 8, borderTop: "2.5px solid var(--ink)", marginTop: -2 }} />
+            <div style={{ height: 8, borderTop: "2.5px solid var(--ink)", marginTop: -4 }} />
             <OutlineLink href="/preference">{t.data.readingStyle}</OutlineLink>
             <form action={signOutAction}>
               <OutlineButton type="submit" style={{ width: "100%" }}>
@@ -101,7 +101,7 @@ export default async function DataPage({
                 <p style={{ margin: 0 }}>
                   <strong>{t.data.withdrawFirst}</strong>
                 </p>
-                <ul style={{ margin: 0, paddingLeft: 22 }}>
+                <ul style={{ margin: 0, paddingLeft: 24 }}>
                   {t.data.consequences.map((c) => (
                     <li key={c}>{c}</li>
                   ))}

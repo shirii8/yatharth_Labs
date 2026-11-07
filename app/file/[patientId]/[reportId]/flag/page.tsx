@@ -58,7 +58,7 @@ export default async function FlagPage({
     >
       <span className={shell.eyebrow}>{report.test.name}</span>
       {step === 1 ? (
-        <form method="get" className={shell.stack} style={{ gap: 18 }}>
+        <form method="get" className={shell.stack} style={{ gap: 20 }}>
           <input type="hidden" name="step" value="2" />
           <fieldset style={{ border: 0, padding: 0, margin: 0 }} className={shell.stack}>
             <legend>
@@ -81,7 +81,7 @@ export default async function FlagPage({
                   gap: 12,
                   alignItems: "center",
                   minHeight: 60,
-                  padding: "10px 14px",
+                  padding: "12px 16px",
                   border: "2px solid var(--ink)",
                   borderRadius: 12,
                   background: "var(--field)",
@@ -105,7 +105,7 @@ export default async function FlagPage({
       ) : null}
 
       {step === 2 && kind ? (
-        <form action={raiseFlagAction} className={shell.stack} style={{ gap: 18 }}>
+        <form action={raiseFlagAction} className={shell.stack} style={{ gap: 20 }}>
           <h1 className={shell.hero} style={{ fontSize: 42 }}>
             {t.t2}
           </h1>
@@ -126,7 +126,7 @@ export default async function FlagPage({
               maxLength={1000}
               aria-describedby="message-hint"
               style={{
-                padding: 14,
+                padding: 16,
                 border: "2.5px solid var(--ink)",
                 borderRadius: 12,
                 background: "var(--field)",

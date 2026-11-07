@@ -69,7 +69,7 @@ export default async function CallMeBackPage({
         {t.callBack.title}
       </h1>
       <p style={{ margin: 0 }}>{t.callBack.body.replace("{phone}", household.phoneMasked)}</p>
-      <form action={callBackAction} className={shell.stack} style={{ gap: 18 }}>
+      <form action={callBackAction} className={shell.stack} style={{ gap: 20 }}>
         <input type="hidden" name="reportId" value={report ?? session.reportId ?? ""} />
         <div className={uiStyles.field}>
           <label htmlFor="reason" className={uiStyles.label}>
@@ -82,7 +82,7 @@ export default async function CallMeBackPage({
             maxLength={500}
             aria-describedby="reason-hint"
             style={{
-              padding: 14,
+              padding: 16,
               border: "2.5px solid var(--ink)",
               borderRadius: 12,
               background: "var(--field)",

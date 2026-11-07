@@ -224,7 +224,7 @@ export default async function PatientDeskPage({
                     </div>
                   </div>
                   {report.status === "SIGNED" && can(staff.role, "resend") ? (
-                    <form action={resendAction} style={{ marginTop: 10 }}>
+                    <form action={resendAction} style={{ marginTop: 12 }}>
                       <input type="hidden" name="reportId" value={report.id} />
                       <input type="hidden" name="householdId" value={householdId} />
                       <button type="submit" className={styles.btn}>
@@ -268,7 +268,7 @@ export default async function PatientDeskPage({
           ))}
 
           <h2 className={styles.h2}>Access log</h2>
-          <p className={styles.muted} style={{ marginTop: -6 }}>
+          <p className={styles.muted} style={{ marginTop: -8 }}>
             The same record the patient sees under &ldquo;Every opening&rdquo;, plus system steps.
           </p>
           <table className={styles.table}>

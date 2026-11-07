@@ -24,7 +24,7 @@ export function StaffSignInForm() {
           : null;
 
   return (
-    <form action={action} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <form action={action} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <label htmlFor="email" style={{ fontWeight: 700 }}>
         Work email
       </label>
