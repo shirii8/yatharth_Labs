@@ -1,0 +1,409 @@
+/*
+ * Shared by the delivery report and the doctor's view. Numbers lead, words
+ * explain them, and every state carries a word as well as a colour.
+ */
+
+.lede {
+  margin: -8px 0 24px;
+  color: var(--ink-soft);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* 7 / 30 / 90 days: one choice, shown pressed. */
+.range {
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.range a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.range a + a {
+  border-left: 2px solid var(--ink);
+}
+
+.range a:hover {
+  background: var(--field);
+}
+
+.range a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--page);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border: 1.5px solid var(--rule);
+  border-radius: 12px;
+  background: var(--field);
+  animation: rise 320ms var(--ease-paper) both;
+}
+
+.tile:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+.tile:nth-child(3) {
+  animation-delay: 80ms;
+}
+
+.tile:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.tileLabel {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.big {
+  font-family: var(--font-serif);
+  font-size: 44px;
+  line-height: 1;
+}
+
+.sub {
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+/* Met / not met: a mark and a word, never colour alone. */
+.verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.verdict::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.verdict[data-ok="false"] {
+  color: var(--clay);
+}
+
+.verdict[data-ok="false"]::before {
+  border-radius: 2px;
+  background: var(--clay);
+  transform: rotate(45deg);
+}
+
+/* The headline bar: share opened online, with the 80% target marked. */
+.meter {
+  position: relative;
+  height: 12px;
+  border-radius: 6px;
+  background: var(--sage);
+}
+
+.meterFill {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--green);
+  transform-origin: left;
+  animation: grow 600ms var(--ease-paper) both;
+}
+
+.meterTarget {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--ink);
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.section {
+  margin: 0 0 32px;
+}
+
+.h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+/* The funnel: one series, one colour, numbers written beside every bar. */
+.funnel {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: minmax(140px, 220px) minmax(0, 1fr) 96px;
+  align-items: center;
+  gap: 16px;
+}
+
+.track {
+  height: 20px;
+  border-radius: 4px;
+  background: var(--page);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+
+.bar {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--green);
+  transform-origin: left;
+  animation: grow 600ms var(--ease-paper) both;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  font-weight: 700;
+}
+
+.num small {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 600px) {
+  .step {
+    grid-template-columns: 1fr 72px;
+  }
+
+  .track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+/* Daily trend: share opened online per day, the target as a rule across. */
+.trend {
+  position: relative;
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  align-items: end;
+  gap: 2px;
+  min-width: 0;
+  height: 140px;
+  padding-top: 8px;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.day {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  cursor: default;
+}
+
+.dayBar {
+  width: 100%;
+  min-height: 2px;
+  border-radius: 4px 4px 0 0;
+  background: var(--green);
+  transform-origin: bottom;
+  animation: rise-bar 500ms var(--ease-paper) both;
+  transition: opacity 120ms ease;
+}
+
+.day[data-empty] .dayBar {
+  background: transparent;
+  border-bottom: 2px dotted var(--rule);
+}
+
+.trend:hover .dayBar {
+  opacity: 0.45;
+}
+
+.trend .day:hover .dayBar {
+  opacity: 1;
+}
+
+@keyframes rise-bar {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+.target {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1.5px dashed var(--ink);
+  pointer-events: none;
+}
+
+.target span {
+  position: absolute;
+  right: 0;
+  top: -22px;
+  padding: 0 4px;
+  background: var(--page);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.tip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 2;
+  display: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--page);
+  font-size: 13px;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.day:hover .tip,
+.day:focus-visible .tip {
+  display: block;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.defs {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.defs dt {
+  color: var(--ink-soft);
+}
+
+.defs dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.note {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+details.table {
+  margin-top: 12px;
+}
+
+details.table summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* Doctor's list: status as a pill with a word. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--green-wash);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pill[data-tone="critical"] {
+  background: var(--clay-wash);
+  color: var(--clay);
+}
+
+.pill[data-tone="outside"] {
+  background: var(--sand);
+}
+
+.pill[data-tone="waiting"] {
+  background: var(--page);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+
+.rowCritical td:first-child {
+  box-shadow: inset 4px 0 0 var(--clay);
+}
+
+.values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hi {
+  font-weight: 700;
+}
+
+.open {
+  font-weight: 700;
+  white-space: nowrap;
+}

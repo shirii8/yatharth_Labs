@@ -12,9 +12,13 @@ const NAV: { href: string; label: string; action: StaffAction }[] = [
   { href: "/desk/calls", label: "Callbacks and flags", action: "callbacks" },
   { href: "/desk/wording", label: "Wording approvals", action: "approveWording" },
   { href: "/desk/ai-review", label: "AI summary review", action: "reviewAi" },
+  { href: "/desk/report", label: "Delivery report", action: "report" },
+  { href: "/desk/doctor", label: "My patients' reports", action: "doctorReports" },
 ];
 
-/** The desk frame: a sidebar showing only what this role may do, and the sheet. */
+const ROLE_NAME = { FRONT_DESK: "front desk", LAB_ADMIN: "lab admin", DOCTOR: "referring doctor" };
+
+/** The desk frame: a sidebar showing only what this role may do, and the sheet. Doctors use it too. */
 export async function DeskShell({
   staff,
   current,
@@ -29,7 +33,9 @@ export async function DeskShell({
   return (
     <div className={styles.layout}>
       <aside className={styles.side}>
-        <span className={styles.brand}>{lab} · desk</span>
+        <span className={styles.brand}>
+          {lab} · {staff.role === "DOCTOR" ? "doctors" : "desk"}
+        </span>
         <nav className={styles.nav} aria-label="Desk">
           {NAV.filter((n) => can(staff.role, n.action)).map((n) => (
             <Link
@@ -48,7 +54,7 @@ export async function DeskShell({
           ))}
         </nav>
         <span className={styles.who}>
-          {staff.name} · {staff.role === "LAB_ADMIN" ? "lab admin" : "front desk"}
+          {staff.name} · {ROLE_NAME[staff.role]}
         </span>
         <form action={signOutStaffAction}>
           <button type="submit" className={styles.signOut}>

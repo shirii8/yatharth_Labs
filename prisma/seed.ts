@@ -89,6 +89,31 @@ async function main() {
     });
   }
 
+  // Referring doctors, one account each, tied to the doctor named in the LIS export.
+  for (const doc of [
+    { email: "ramanaiah@demo.clinic", name: "Dr. S. Ramanaiah" },
+    { email: "anitha@demo.clinic", name: "Dr. P. Anitha" },
+    { email: "suresh@demo.clinic", name: "Dr. K. Suresh" },
+  ]) {
+    const doctor = await db.referringDoctor.upsert({
+      where: { name: doc.name },
+      create: { name: doc.name },
+      update: {},
+    });
+    await db.staffUser.upsert({
+      where: { email: doc.email },
+      create: { ...doc, passwordHash, role: "DOCTOR", doctorId: doctor.id },
+      update: {
+        passwordHash,
+        role: "DOCTOR",
+        doctorId: doctor.id,
+        active: true,
+        failedLogins: 0,
+        lockedUntil: null,
+      },
+    });
+  }
+
   // A number already paused after five wrong codes, to show and test the lockout.
   const lockedPhone = hashPhone(normalisePhone("+91 90000 00004")!, keys.PHONE_HASH_KEY);
   const locked = await db.otpChallenge.findFirst({ where: { phoneHash: lockedPhone } });

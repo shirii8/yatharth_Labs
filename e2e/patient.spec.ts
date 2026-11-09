@@ -86,7 +86,7 @@ test("Home and the menu reach settings, and a relation can be changed", async ({
 
   await page.getByRole("button", { name: "Menu" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
-  await page.getByRole("link", { name: "People on this number" }).click();
+  await page.getByRole("dialog").getByRole("link", { name: "People on this number" }).click();
   await page.waitForURL("**/settings/people");
   await expect(page.getByRole("dialog")).toBeHidden();
 

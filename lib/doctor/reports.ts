@@ -81,3 +81,17 @@ export async function doctorReport(
   });
   return report;
 }
+
+/** The state of one report, as a word for the doctor's list. */
+export function stateOf(r: {
+  status: string;
+  hasCritical: boolean;
+  results: { flag: string; isCritical: boolean }[];
+}) {
+  if (r.status !== "SIGNED") return { tone: "waiting", word: "Being prepared" } as const;
+  if (r.hasCritical || r.results.some((x) => x.isCritical))
+    return { tone: "critical", word: "Critical value" } as const;
+  if (r.results.some((x) => x.flag !== "USUAL"))
+    return { tone: "outside", word: "Outside usual range" } as const;
+  return { tone: "usual", word: "All in usual range" } as const;
+}

@@ -24,7 +24,8 @@ export default async function StaffSignInPage() {
           Good morning.
         </h1>
         <p className={styles.muted} style={{ marginTop: 0 }}>
-          Lab staff: find patients, import results and make today&apos;s calls. Referring doctors: your patients&apos; reports from the last 90 days.
+          Lab staff: find patients, import results and make today&apos;s calls. Referring doctors:
+          your patients&apos; reports from the last 90 days.
         </p>
         <StaffSignInForm />
       </main>

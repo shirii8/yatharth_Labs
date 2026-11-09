@@ -20,7 +20,7 @@ export default async function PatientsPage({
     <DeskShell staff={staff} current="/desk/patients">
       {denied ? (
         <p className={styles.notice} role="status">
-          That page is for the lab admin. Ask them if you need it.
+          That page is not part of your role. Ask the lab admin if you need it.
         </p>
       ) : null}
       <form className={styles.search} role="search">
