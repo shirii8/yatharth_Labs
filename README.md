@@ -1,6 +1,6 @@
 # Yatharth: lab report delivery portal
 
-A report delivery portal for a diagnostic lab chain in coastal Andhra Pradesh (6 labs, 38 collection centres). When the pathologist signs a report in the lab system, the patient gets a safe, expiring link by SMS. They sign in with their mobile number and a one-time code, read a plain summary in English, Telugu or Hindi, and download the signed report. Front-desk staff can find a patient, resend links and see delivery status and the access log.
+A report delivery portal for a diagnostic lab chain in coastal Andhra Pradesh (6 labs, 38 collection centres). When the pathologist signs a report in the lab system, the patient gets a safe, expiring link by SMS. They sign in with their mobile number and a one-time code, read a plain summary in English, Telugu or Hindi, and download the signed report. Front-desk staff can find a patient, resend links and see delivery status and the access log. Referring doctors see their own patients' reports from the last 90 days, and the lab admin reads a delivery and access report against the brief's targets.
 
 Built as a one-person, 7-day build test. Status: the core slice is complete, tested and live.
 
@@ -11,6 +11,7 @@ Built as a one-person, 7-day build test. Status: the core slice is complete, tes
 - Patient portal: mobile number and OTP, family on one number, report view
 - Plain-language summary of out-of-range values (flags by rule, wording from locked templates)
 - Front-desk console: search, resend link, delivery status, access log
+- Beyond the core: referring doctor view (90 days), delivery and access report, patient settings and first-time setup
 
 ## Links
 

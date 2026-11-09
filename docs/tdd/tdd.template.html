@@ -41,16 +41,16 @@
 </div>
 
 <h2>1. What was built</h2>
-<p>The core slice from the brief works end to end: an LIS CSV import, an automatic report link on sign-off, a patient portal with mobile number and OTP, a report view with a plain-language summary of out-of-range values, and a front-desk console that finds a patient, resends a link, shows delivery status and the access log. Two roles: patient and front-desk staff, plus a lab admin who approves wording and reviews the AI.</p>
+<p>The core slice from the brief works end to end: an LIS CSV import, an automatic report link on sign-off, a patient portal with mobile number and OTP, a report view with a plain-language summary of out-of-range values, and a front-desk console that finds a patient, resends a link, shows delivery status and the access log. Roles: patient, front-desk staff, a lab admin who approves wording, reviews the AI and reads the delivery report, and a referring doctor. Beyond the core slice, both optional must-haves are built too: the referring doctor view and the delivery and access report.</p>
 <table>
   <thead><tr><th>Brief, must have</th><th>Status</th></tr></thead>
   <tbody>
     <tr><td>Patient login by mobile and OTP, orders with status, PDF download</td><td>Built. OTP with lockout, family on one number, status per report, PDF (a marked stand-in, A7).</td></tr>
     <tr><td>Automatic SMS with an expiring link when a report is signed, fed by the LIS export</td><td>Built, with SMS mocked. Link created in the same transaction as sign-off; 72 hours; one report per link.</td></tr>
-    <tr><td>Plain-language summary of out-of-range values in English, Telugu and Hindi</td><td>Built. Rules plus locked templates; AI paragraph for tests without locked wording, checked before showing. Telugu approved from the design copy, Hindi waiting for approval to show the approval step.</td></tr>
+    <tr><td>Plain-language summary of out-of-range values in English, Telugu and Hindi</td><td>Built. Rules plus locked templates; AI paragraph for tests without locked wording, checked before showing. Telugu approved from the design copy, Hindi waiting for approval to show the approval step. The demo catalogue has 4 tests, 2 of them locked; the brief's 30 locked tests need the lab's own list and doctor-approved wording (section 11).</td></tr>
     <tr><td>Front-desk console: find a patient, resend links, delivery status, access log</td><td>Built, plus callbacks, flags, add a family member, wording approvals and the AI review.</td></tr>
-    <tr><td>Referring doctor view of the last 90 days</td><td>Not built (optional depth). The data model records the referring doctor on each report.</td></tr>
-    <tr><td>Delivery and access report for the operations head</td><td>Not built as a report. The data is all there: link delivery and opening times, and the access log.</td></tr>
+    <tr><td>Referring doctor view of the last 90 days</td><td>Built (optional depth). A doctor role tied to one referring doctor: their patients only, last 90 days, full values including critical ones, the signed PDF, and whether the lab has reached a critical patient yet. Every opening is logged.</td></tr>
+    <tr><td>Delivery and access report for the operations head</td><td>Built (optional depth). 7, 30 or 90 days against the brief's targets: share opened online vs 80%, time to first open, critical calls, wrong-person signals, the funnel from signing to reading, and who opened what.</td></tr>
   </tbody>
 </table>
 
@@ -73,12 +73,13 @@
 <p><strong>Hosting in India.</strong> The database is in Supabase's Mumbai region and Vercel functions are pinned to Mumbai (<code>bom1</code>). The AI receives no personal data (section 5).</p>
 
 <h2>3. Data model</h2>
-<p>17 tables in Prisma 7 (one schema file per group, one commit per group). Highlights:</p>
+<p>17 tables in Prisma 7 (one schema file per group, one commit per group), changed only by forward migrations. Highlights:</p>
 <table>
   <thead><tr><th>Table</th><th>Holds</th><th>Design choice</th></tr></thead>
   <tbody>
-    <tr><td>Household</td><td>One mobile number</td><td>Stored as an HMAC for lookup, AES-256-GCM ciphertext for sending SMS, and a masked form for display. Consent version and time.</td></tr>
-    <tr><td>Patient</td><td>A family member</td><td>Unique by household and name: one number covers a family.</td></tr>
+    <tr><td>Household</td><td>One mobile number</td><td>Stored as an HMAC for lookup, AES-256-GCM ciphertext for sending SMS, and a masked form for display. Consent version and time; when first-time setup was finished.</td></tr>
+    <tr><td>Patient</td><td>A family member</td><td>Unique by household and name: one number covers a family. The relation to the number holder comes from the LIS and can be corrected by the number holder from a fixed list (A29); re-import never overwrites it.</td></tr>
+    <tr><td>StaffUser, ReferringDoctor</td><td>Who signs in with a password</td><td>Roles FRONT_DESK, LAB_ADMIN and DOCTOR. A doctor account points at exactly one ReferringDoctor (unique), which is how every doctor query is scoped.</td></tr>
     <tr><td>TestDefinition, Analyte</td><td>Tests and what they measure</td><td>Critical limits on the analyte; a locked flag for tests with approved wording.</td></tr>
     <tr><td>Report, Result</td><td>One test on one order</td><td>Order plus test is unique (re-import is safe). Each result keeps the range printed on its report and the value as printed; the flag is computed by rule on write.</td></tr>
     <tr><td>ReportLink</td><td>The SMS link</td><td>Only the token's hash is stored. Delivery, opening and revoke times.</td></tr>
@@ -103,7 +104,7 @@
 <h3>4.2 Opening a link</h3>
 <p>The link page only checks the token. Opening the report needs a tap, because message apps fetch links to draw previews. The tap opens a session for that one report, capped at 2 hours and never past the link's 72 hours, and logs LINK_OPENED. Consent comes first. An expired or revoked link shows "We tied this page up for you" and offers a code.</p>
 <h3>4.3 Signing in with a code</h3>
-<p>Mobile number, then a six-digit code that lasts 10 minutes. Five wrong codes pause the number for 15 minutes; a resend waits 60 seconds; at most 5 codes a day (A19). An unknown number gets the same screens but no SMS. Codes are stored as keyed hashes and compared in constant time. Signing in opens the whole family's file, including pages whose links expired (A28).</p>
+<p>Mobile number, then a six-digit code that lasts 10 minutes. The first time a number signs in: consent, then a two-step setup (how to read reports; who is on this number, with the lab's guesses filled in). Five wrong codes pause the number for 15 minutes; a resend waits 60 seconds; at most 5 codes a day (A19). An unknown number gets the same screens but no SMS. Codes are stored as keyed hashes and compared in constant time. Signing in opens the whole family's file, including pages whose links expired (A28).</p>
 <h3>4.4 Reading a report</h3>
 <p>Every report read joins through the session's own household, so an ID typed into the URL can never reach another family (tested). The opening is logged in the same transaction as the link's open count. Simple mode shows one result at a time with a ruler; Compact shows all results and the trend since the last report.</p>
 <h3>4.5 Critical values</h3>
@@ -112,6 +113,12 @@
 <p>Search by full number (matched by hash), last four digits or name. Opening a record is logged; the full number is shown only on request, and that is logged too. Resend revokes the old link at once and sends a new one. Calls are marked done with a note; flags are resolved with a note.</p>
 <div class="wide"><img src="img/desk-patient.png" alt="Patient desk"></div>
 <p class="muted" style="font-size:8.5pt">The patient desk: the family on one number, each report with SMS, delivery and opening times and Resend, the access log, and the calls waiting for this number.</p>
+<h3>4.7 Referring doctor</h3>
+<p>Doctors sign in on the staff page with an account the lab issues. Their page lists only reports where they are the referring doctor, signed in the last 90 days or ordered then and still being prepared: critical first, then being prepared, then newest, with the out-of-range values written in each row so most reports need no click. A doctor sees full values, critical ones included, because they are the clinician, and sees whether the lab has reached a critical patient yet, so they do not call blind. They never see a phone number. Another doctor's report, an old one or an unsigned one all give the same "not found", and nothing is logged; every report actually opened is logged as DOCTOR_VIEWED_REPORT. Any desk page sends a doctor back to their own list (tested).</p>
+<div class="wide"><img src="img/doctor.png" alt="Referring doctor view"></div>
+<h3>4.8 Delivery and access report</h3>
+<p>For the operations head (the lab admin account stands in, A31). It reads the brief's success measures from data the app already keeps. "Delivered digitally" means the patient opened the report online, not only that the SMS arrived (A33). Each headline number carries a met or not-met mark and a word. The trend chart shows one series in one colour, the 80% target as a labelled line, a tooltip per day and a table view. At 2,000 reports a day the same numbers would come from a nightly roll-up table instead of live rows.</p>
+<div class="wide"><img src="img/ops.png" alt="Delivery and access report"></div>
 
 <h2>5. How the AI part works, and what happens when it is wrong</h2>
 <p><strong>Rules decide every flag. Locked templates supply every sentence. The AI writes only the short "In short" paragraph, and only for tests without locked wording, and only if a checker passes it.</strong></p>
@@ -119,10 +126,10 @@
   <li><strong>Rules</strong> set LOW, USUAL or HIGH against the range printed on the report, and "mild" or "marked" by how far past the limit (more than 20% is marked: 10.2 against 12.0 is "a little low").</li>
   <li><strong>Templates</strong> turn each finding into words. A test fails if any sentence the builder produces does not match an approved template.</li>
   <li><strong>Critical reports</strong> get no summary and no AI call.</li>
-  <li><strong>Locked tests</strong> (the brief's top 30; CBC and Electrolytes in the demo) use templates only.</li>
+  <li><strong>Locked tests</strong> (the brief's top 30; CBC and Electrolytes in the demo) use templates only. The demo deliberately leaves Lipid and Thyroid unlocked so the AI path has real work to do; a go-live loads the lab's 30 tests and their approved wording.</li>
   <li><strong>Other tests</strong> (Lipid, Thyroid in the demo) get an AI paragraph from claude-opus-5-5 at low effort. The model receives only test name, analyte names, values, units, printed ranges and the rule's words. No name, phone, age or order ID.</li>
   <li><strong>The checker</strong> refuses any number not on the report, disease or organ names, medicine or treatment advice, alarming or falsely calming words, a flag that disagrees with the rule, or a flagged result left out.</li>
-  <li><strong>When the AI is wrong or unsure:</strong> a refused answer, an error, or no answer within 8 seconds means the patient sees the template sentence instead, at once. Every attempt is stored with the reason.</li>
+  <li><strong>When the AI is wrong or unsure:</strong> a refused answer, an error, or no answer within 8 seconds means the patient sees the template sentence instead, at once. Every attempt is stored with the reason. With no API key set, every patient simply gets the template wording; nothing breaks.</li>
   <li><strong>Human review:</strong> the lab admin's review page shows unreviewed summaries next to the rule findings, counting toward the brief's 50 a week. Marking one "wrong" stops it showing immediately. Patients can also press "Something looks wrong".</li>
   <li><strong>Translations:</strong> the AI can draft Telugu or Hindi wording for any approved English template. Drafts keep every placeholder or are dropped, and stay hidden until a lab admin approves them; until then the patient sees English.</li>
 </ol>
@@ -136,6 +143,12 @@
   <figure><img src="img/easy.png" alt="Easy view"><figcaption>Easy view for older readers: bigger text, the Simple report only, secondary buttons step aside.</figcaption></figure>
   <figure><img src="img/critical.png" alt="Please call us"><figcaption>Please call us: no value, no summary, the call already queued, a fixed safety note.</figcaption></figure>
 </div>
+<div class="shots">
+  <figure><img src="img/setup.png" alt="Who is on this number"><figcaption>First-time setup, step 2 of 2: the lab's guesses filled in, one tap if right. Adding or removing people stays with the desk.</figcaption></figure>
+  <figure><img src="img/menu.png" alt="Menu on a phone"><figcaption>The phone menu: Home, people, reading style, data, language, text size, sign out. A native dialog that slides in from the side its button is on.</figcaption></figure>
+</div>
+<div class="wide"><img src="img/settings.png" alt="Settings on a laptop"></div>
+<p class="muted" style="font-size:8.5pt">Settings on a laptop: one list; rows that open a page end in a chevron, rows that change at once hold their own switch. On laptops the header has Home, the call buttons, Easy view, Aa and Settings.</p>
 <div class="wide"><img src="img/print.png" alt="Printable copy on a laptop"></div>
 <p class="muted" style="font-size:8.5pt">Printable copy: one A4 page with a colour key; Print opens the dialog, Save as PDF downloads the same simple copy. On phones the page becomes cards with a sticky Print and Save bar.</p>
 <table>
@@ -143,6 +156,10 @@
   <tbody>
     <tr><td>One layout system: 480 px phones, 720 px tablets, up to 1280 px laptops; two columns on laptops</td><td>Families read on phones and laptops; staff on desktops. No long scrolling on a laptop, one column on a phone. Each screen's main action is checked to sit in the first screenful at 1366x768 down to 360x640.</td></tr>
     <tr><td>Easy view switch on every screen, also set by choosing Simple</td><td>Older readers get bigger text and only the essentials: one clear action plus Call the lab. Pure CSS, so it switches instantly with no reload.</td></tr>
+    <tr><td>Home in words on every signed-in screen; the lab name is plain text</td><td>A logo that secretly links home is a convention many older users do not know. Home always means one place: choosing whose reports to read.</td></tr>
+    <tr><td>A menu on phones and tablets, a Settings link on laptops</td><td>Phones fit three header controls (Home, Easy view, Menu); only secondary items live in the menu, never a screen's main action. Laptops have room, so nothing hides there. Pages with a back link keep Home in the menu on phones.</td></tr>
+    <tr><td>First-time setup in two labelled steps</td><td>People see when setup ends. Confirming who is on the number costs one tap and prevents a health report greeting the wrong person.</td></tr>
+    <tr><td>Desk and doctor pages: numbers lead, words explain them, met or not met is a mark plus a word</td><td>The operations head should read the page in ten seconds; nothing relies on colour alone.</td></tr>
     <tr><td>Call the lab and Call me back on every screen (header on laptops, bottom bar on phones)</td><td>The brief's goal is that patients never have to hunt for help.</td></tr>
     <tr><td>Tabs, Back and Next are plain links; forms are plain posts</td><td>Everything works before JavaScript loads on a slow phone.</td></tr>
     <tr><td>Fonts self-hosted and split by script</td><td>No call to Google Fonts; a phone downloads Telugu glyphs only when a page shows Telugu.</td></tr>
@@ -155,9 +172,9 @@
 <h2>7. Security and privacy (DPDP Act 2023)</h2>
 <ul>
   <li><strong>Consent</strong> once, before any report, stored with its text version and time; withdrawing ends every session on the number, stops links and SMS, and is logged. A critical result still creates a staff call.</li>
-  <li><strong>Access log</strong> for every code sent, sign-in, link and report opening, PDF download, consent change, staff view and full-number view, written in the same transaction as the action. The database refuses to change or delete it. Patients read their own record in plain words.</li>
+  <li><strong>Access log</strong> for every code sent, sign-in, link and report opening, PDF download, consent change, relation change, staff view, full-number view and doctor view, written in the same transaction as the action. The database refuses to change or delete it. Patients read their own record in plain words.</li>
   <li><strong>Secrets</strong> only in environment variables; <code>.gitignore</code> was the first commit. Phone numbers hashed and encrypted; tokens and codes stored only as keyed hashes.</li>
-  <li><strong>Access control</strong> on the server for every page and action: reports through the session's household (IDOR tests), link sessions scoped to one report, staff roles per route (tested so no desk route lacks a permission).</li>
+  <li><strong>Access control</strong> on the server for every page and action: reports through the session's household (IDOR tests), link sessions scoped to one report, staff and doctor roles per route (tested so no desk route lacks a permission, and each role is checked against every route); doctor queries scoped to their own referring-doctor id.</li>
   <li><strong>Abuse limits:</strong> OTP lockout, cooldown and daily cap; staff lockout after 5 wrong passwords; same answers for unknown numbers and emails.</li>
   <li><strong>Inputs</strong> validated with Zod at every boundary; errors are sentences.</li>
   <li><strong>Headers:</strong> Referrer-Policy no-referrer (links carry tokens), framing refused, nosniff, HSTS in production, private pages never cached.</li>
@@ -167,9 +184,9 @@
 <table>
   <thead><tr><th>Kind</th><th>Count</th><th>What it proves</th></tr></thead>
   <tbody>
-    <tr><td>Unit (Vitest)</td><td>{{UNIT}}</td><td>Flags and boundaries, critical limits, 72 hour links, phone rules, OTP limits, CSV reading and row errors, summary builder (no free text), AI checker, staff permissions.</td></tr>
-    <tr><td>Database (Vitest, real Postgres)</td><td>{{DB}}</td><td>Idempotent import with the brief's three orders, links on sign-off, critical calls, OTP sign-in and lockout, IDOR and consent rules, link sessions, call-backs and flags, resend, staff lockout, AI summary paths with fake writers, append-only log.</td></tr>
-    <tr><td>End to end (Playwright)</td><td>4</td><td>Sign in to a report explained by rule; a critical page with no value; five wrong codes pause the number; a staff import listing bad rows.</td></tr>
+    <tr><td>Unit (Vitest)</td><td>{{UNIT}}</td><td>Flags and boundaries, critical limits, 72 hour links, phone rules, OTP limits, CSV reading and row errors, summary builder (no free text), AI checker, staff and doctor permissions.</td></tr>
+    <tr><td>Database (Vitest, real Postgres)</td><td>{{DB}}</td><td>Idempotent import with the brief's three orders, links on sign-off, critical calls, OTP sign-in and lockout, IDOR and consent rules, link sessions, call-backs and flags, resend, staff lockout, AI summary paths with fake writers, append-only log, relation rules, doctor scoping, delivery report counts.</td></tr>
+    <tr><td>End to end (Playwright)</td><td>6</td><td>Sign in to a report explained by rule; a critical page with no value; five wrong codes pause the number; the menu to settings to change a relation and back Home; a staff import listing bad rows; a doctor seeing only their own patients and refused from the desk.</td></tr>
   </tbody>
 </table>
 <p>Logic was written test first, visibly in the git history (a <code>test:</code> commit, then a <code>feat:</code> commit).</p>
@@ -183,10 +200,11 @@
 
 <h2>11. What was cut, honest limits, and what comes next</h2>
 <ul>
-  <li><strong>Cut:</strong> the referring doctor view and the operations report (optional depth); a doctor role.</li>
+  <li><strong>Built beyond the core:</strong> the referring doctor view and the delivery and access report (both optional depth in the brief), patient settings, and first-time setup.</li>
+  <li><strong>Cut:</strong> a separate operations-head role (the lab admin opens the report, A31); WhatsApp (SMS only, behind the same interface); doctors cannot add notes or message the lab.</li>
   <li><strong>Mocked by design:</strong> SMS (provider interface ready for an SMS or WhatsApp gateway) and the signed PDF (a marked stand-in).</li>
-  <li><strong>Limits:</strong> Telugu and Hindi copy comes from the design and needs native review; critical limits and the safety note are placeholders for the lab doctor; correcting a phone number on file is not built; there is no folder watcher yet (the import service is ready for one); the page-weight budget is missed by about 5 KB.</li>
-  <li><strong>Next:</strong> a real SMS gateway with delivery receipts; the referring doctor view (90 days, by doctor); an operations dashboard from the delivery and access data; an India-hosted model behind the same interface; native-speaker review and doctor sign-off of all wording; a folder watcher for the LIS export; a usability test of easy view with five patients over 60.</li>
+  <li><strong>Limits:</strong> the demo has 4 tests, 2 with locked wording, not the brief's 30; Telugu and Hindi copy comes from the design and needs native review; critical limits and the safety note are placeholders for the lab doctor; correcting a phone number on file is not built; there is no folder watcher yet (the import service is ready for one); the page-weight budget is missed by about 5 KB.</li>
+  <li><strong>Next:</strong> a real SMS or WhatsApp gateway with delivery receipts; the lab's 30 most common tests with approved wording; a nightly roll-up for the delivery report at full volume; an operations-head role; an India-hosted model behind the same interface; native-speaker review and doctor sign-off of all wording; a folder watcher for the LIS export; a usability test of easy view with five patients over 60.</li>
 </ul>
 
 </body>

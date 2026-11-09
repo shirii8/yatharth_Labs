@@ -130,8 +130,13 @@ To see the lockout, type a wrong code five times for any number. Try **Easy view
 | Email | Role | Can do |
 | --- | --- | --- |
 | frontdesk@demo.lab | Front desk | Import, patients, resend, callbacks, flags, add family |
-| labadmin@demo.lab | Lab admin | All of the above, plus wording approvals and the AI review |
+| labadmin@demo.lab | Lab admin | All of the above, plus wording approvals, the AI review and the delivery report |
+| ramanaiah@demo.clinic | Referring doctor | Dr. S. Ramanaiah's patients (Lakshmi's family): last 90 days, full values, signed PDF |
+| anitha@demo.clinic | Referring doctor | Dr. P. Anitha's patient (Venkata Rao M) |
+| suresh@demo.clinic | Referring doctor | Dr. K. Suresh's patient (Farzana Begum, critical potassium, with the lab's call status) |
 
-Password for both on the live demo: **Desk-demo-2026!** (the `DEMO_STAFF_PASSWORD` the demo data was seeded with). These are demo-only accounts over synthetic data; a real deployment sets its own and turns `DEMO_MODE` off.
+Password for all five on the live demo: **Desk-demo-2026!** (the `DEMO_STAFF_PASSWORD` the demo data was seeded with). These are demo-only accounts over synthetic data; a real deployment sets its own and turns `DEMO_MODE` off.
+
+The lab admin's **Delivery report** (left menu) shows the brief's targets: the share of reports opened online against 80%, time to first open, critical calls, and wrong-person signals. A doctor who asks for any desk page is sent back to their own list.
 
 A sample LIS export to upload is in `samples/lis-export-2026-11-04.csv`. Uploading it again changes nothing.
