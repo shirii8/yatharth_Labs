@@ -63,7 +63,7 @@
   <rect class="g" x="250" y="60" width="230" height="110" rx="8"/><text class="t" x="262" y="84">Next.js 16 on Vercel (Mumbai)</text><text class="s" x="262" y="104">server components, server actions</text><text class="s" x="262" y="122">rules, templates, access control</text><text class="s" x="262" y="140">import service, OTP, sessions</text><text class="s" x="262" y="158">AI checker</text>
   <rect class="b" x="580" y="10" width="170" height="56" rx="8"/><text class="t" x="592" y="34">Postgres (Supabase)</text><text class="s" x="592" y="52">Mumbai, append-only log</text>
   <rect class="b" x="580" y="86" width="170" height="56" rx="8"/><text class="t" x="592" y="110">SMS provider</text><text class="s" x="592" y="128">mock, behind an interface</text>
-  <rect class="b" x="580" y="162" width="170" height="56" rx="8"/><text class="t" x="592" y="186">Claude API</text><text class="s" x="592" y="204">de-identified values only</text>
+  <rect class="b" x="580" y="162" width="170" height="56" rx="8"/><text class="t" x="592" y="186">Gemini or Claude</text><text class="s" x="592" y="204">de-identified values only</text>
   <rect class="b" x="250" y="190" width="230" height="34" rx="8"/><text class="t" x="262" y="212">LIS CSV export (upload)</text>
   <path class="a" d="M160 48H250"/><path class="a" d="M160 168H250"/><path class="a" d="M480 85H580"/><path class="a" d="M480 115H580"/><path class="a" d="M480 150H580"/><path class="a" d="M365 190V170"/>
 </svg>
@@ -127,7 +127,7 @@
   <li><strong>Templates</strong> turn each finding into words. A test fails if any sentence the builder produces does not match an approved template.</li>
   <li><strong>Critical reports</strong> get no summary and no AI call.</li>
   <li><strong>Locked tests</strong> (the brief's top 30; CBC and Electrolytes in the demo) use templates only. The demo deliberately leaves Lipid and Thyroid unlocked so the AI path has real work to do; a go-live loads the lab's 30 tests and their approved wording.</li>
-  <li><strong>Other tests</strong> (Lipid, Thyroid in the demo) get an AI paragraph from claude-opus-5-5 at low effort. The model receives only test name, analyte names, values, units, printed ranges and the rule's words. No name, phone, age or order ID.</li>
+  <li><strong>Other tests</strong> (Lipid, Thyroid in the demo) get an AI paragraph. The model sits behind one interface: on the live demo it is Google Gemini <code>gemini-3.5-flash-lite</code> on the free tier (A34), and Claude <code>claude-opus-5-5</code> at low effort is supported by setting its key instead. The model receives only test name, analyte names, values, units, printed ranges and the rule's words. No name, phone, age or order ID.</li>
   <li><strong>The checker</strong> refuses any number not on the report, disease or organ names, medicine or treatment advice, alarming or falsely calming words, a flag that disagrees with the rule, or a flagged result left out.</li>
   <li><strong>When the AI is wrong or unsure:</strong> a refused answer, an error, or no answer within 8 seconds means the patient sees the template sentence instead, at once. Every attempt is stored with the reason. With no API key set, every patient simply gets the template wording; nothing breaks.</li>
   <li><strong>Human review:</strong> the lab admin's review page shows unreviewed summaries next to the rule findings, counting toward the brief's 50 a week. Marking one "wrong" stops it showing immediately. Patients can also press "Something looks wrong".</li>
@@ -204,7 +204,7 @@
   <li><strong>Cut:</strong> a separate operations-head role (the lab admin opens the report, A31); WhatsApp (SMS only, behind the same interface); doctors cannot add notes or message the lab.</li>
   <li><strong>Mocked by design:</strong> SMS (provider interface ready for an SMS or WhatsApp gateway) and the signed PDF (a marked stand-in).</li>
   <li><strong>Limits:</strong> the demo has 4 tests, 2 with locked wording, not the brief's 30; Telugu and Hindi copy comes from the design and needs native review; critical limits and the safety note are placeholders for the lab doctor; correcting a phone number on file is not built; there is no folder watcher yet (the import service is ready for one); the page-weight budget is missed by about 5 KB.</li>
-  <li><strong>Next:</strong> a real SMS or WhatsApp gateway with delivery receipts; the lab's 30 most common tests with approved wording; a nightly roll-up for the delivery report at full volume; an operations-head role; an India-hosted model behind the same interface; native-speaker review and doctor sign-off of all wording; a folder watcher for the LIS export; a usability test of easy view with five patients over 60.</li>
+  <li><strong>Next:</strong> a real SMS or WhatsApp gateway with delivery receipts; the lab's 30 most common tests with approved wording; a nightly roll-up for the delivery report at full volume; an operations-head role; a paid AI tier or an India-hosted model behind the same interface; native-speaker review and doctor sign-off of all wording; a folder watcher for the LIS export; a usability test of easy view with five patients over 60.</li>
 </ul>
 
 </body>

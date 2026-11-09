@@ -19,8 +19,9 @@ const schema = z.object({
   APP_BASE_URL: z.string().url(),
   NEXT_PUBLIC_LAB_PHONE: z.string().default("+910000000000"),
   SMS_PROVIDER: z.enum(["mock"]).default("mock"),
-  AI_PROVIDER: z.enum(["anthropic", "none"]).default("anthropic"),
+  AI_PROVIDER: z.enum(["auto", "anthropic", "gemini", "none"]).default("auto"),
   ANTHROPIC_API_KEY: z.string().optional(),
+  GEMINI_API_KEY: z.string().optional(),
   AI_MODEL: z.string().optional(),
   AI_TIMEOUT_SECONDS: z.coerce.number().int().min(1).max(30).default(8),
   DEMO_MODE: z

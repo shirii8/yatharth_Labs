@@ -36,7 +36,7 @@ You need Node.js 20 or newer (22 tested) and Docker Desktop.
 
    - `APP_BASE_URL=http://localhost:3000`, `NEXT_PUBLIC_LAB_NAME`, `NEXT_PUBLIC_LAB_PHONE`.
    - `DEMO_MODE=true`, `DEMO_OTP` (six digits) and `DEMO_STAFF_PASSWORD` (12 characters or more) for the demo logins.
-   - `ANTHROPIC_API_KEY` is optional. Without it, patients see the rule-based wording and no AI paragraph.
+   - `ANTHROPIC_API_KEY` or `GEMINI_API_KEY` is optional. Without either, patients see the rule-based wording and no AI paragraph. A Gemini key is free from Google AI Studio.
 
 3. Start the database, create the tables and load the demo data.
 
@@ -68,7 +68,7 @@ You need Node.js 20 or newer (22 tested) and Docker Desktop.
 | App | Vercel, functions pinned to Mumbai (`bom1` in `vercel.json`) | Server rendering close to patients in Andhra Pradesh |
 | Database | Supabase Postgres, Mumbai region (`ap-south-1`) | Health data stays in India (DPDP Act 2023) |
 | SMS | Mock provider | The brief says to mock messages |
-| AI | Claude API, only de-identified values sent | See the TDD, section on the AI part |
+| AI | Google Gemini (free tier) on the live demo; Claude supported by the same interface. Only de-identified values sent | See the TDD, section on the AI part |
 
 Steps:
 
@@ -98,9 +98,10 @@ Steps:
 | `NEXT_PUBLIC_LAB_NAME` | yes | Lab name shown to patients |
 | `NEXT_PUBLIC_LAB_PHONE` | yes | Number behind every "Call the lab" button |
 | `SMS_PROVIDER` | no | `mock` (default) |
-| `AI_PROVIDER` | no | `anthropic` (default) or `none` |
-| `ANTHROPIC_API_KEY` | no | Turns on the AI paragraph |
-| `AI_MODEL` | no | Default `claude-opus-5-5` |
+| `AI_PROVIDER` | no | `auto` (default: Claude if its key is set, else Gemini if its key is set, else none), `anthropic`, `gemini` or `none` |
+| `ANTHROPIC_API_KEY` | no | Turns on the AI paragraph with Claude |
+| `GEMINI_API_KEY` | no | Turns on the AI paragraph with Google Gemini (free tier available) |
+| `AI_MODEL` | no | Default `claude-opus-5-5` for Claude, `gemini-3.5-flash-lite` for Gemini |
 | `AI_TIMEOUT_SECONDS` | no | Default 8 |
 | `DEMO_MODE` | demo only | `true` allows the fixed demo code for the three demo numbers |
 | `DEMO_OTP` | demo only | The fixed six-digit demo code |

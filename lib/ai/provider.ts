@@ -1,11 +1,14 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { env } from "@/lib/env";
+import { env, type Env } from "@/lib/env";
 import type { AiFacts } from "./checker";
+import { GeminiSummaryWriter } from "./gemini";
+import { SYSTEM, TRANSLATE_SYSTEM } from "./prompts";
 
 /**
- * The AI behind one small interface, so another model (for example an
- * India-hosted one) can replace it. It receives only the rule's findings:
- * test name, analyte names, values, units, printed ranges and rule words.
+ * The AI behind one small interface: Claude or Gemini today, and another
+ * model (for example an India-hosted one) can replace either. It receives
+ * only the rule's findings: test name, analyte names, values, units, printed
+ * ranges and rule words.
  * Never a name, phone number, age or order ID.
  */
 
@@ -16,19 +19,6 @@ export interface SummaryWriter {
   write(facts: AiFacts): Promise<string>;
   translate(text: string, language: "TE" | "HI"): Promise<string>;
 }
-
-const SYSTEM = `You write the "In short" paragraph on a lab report page for patients in coastal Andhra Pradesh, many of them elderly.
-
-Rules:
-- Two or three short sentences, plain English, warm and calm.
-- Use only the facts given. Mention every result whose flag is LOW or HIGH, using exactly the rule words given for it (for example "a little low" or "much higher than usual"). You may give its value and printed range.
-- Do not mention results marked USUAL by name, except to say how many are in the usual range.
-- Never diagnose, name a disease or condition, suggest a cause, or advise on medicine, diet or treatment.
-- Never use the words urgent, critical, abnormal, serious, risk, normal, or say there is nothing to worry about.
-- End with: "Your doctor will explain what this means for you."
-- Reply with the paragraph only.`;
-
-const TRANSLATE_SYSTEM = `Translate the patient-facing sentence into the requested language for elderly readers in coastal Andhra Pradesh. Keep every {placeholder} exactly as written, keep numbers unchanged, use plain everyday words, and keep the calm tone. Reply with the translation only.`;
 
 function textOf(message: { content: { type: string; text?: string }[] }): string {
   return message.content
@@ -77,13 +67,43 @@ export class ClaudeSummaryWriter implements SummaryWriter {
   }
 }
 
+type AiConfig = Pick<Env, "AI_PROVIDER" | "AI_MODEL" | "AI_TIMEOUT_SECONDS"> & {
+  ANTHROPIC_API_KEY?: string;
+  GEMINI_API_KEY?: string;
+};
+
+/**
+ * Which model writes the paragraph. "auto" (the default) uses Claude when its
+ * key is set, otherwise Gemini when its key is set, otherwise none. With no
+ * writer, patients get the approved template wording: nothing breaks.
+ */
+export function chooseWriter(config: AiConfig): SummaryWriter | null {
+  const provider =
+    config.AI_PROVIDER === "auto"
+      ? config.ANTHROPIC_API_KEY
+        ? "anthropic"
+        : config.GEMINI_API_KEY
+          ? "gemini"
+          : "none"
+      : config.AI_PROVIDER;
+  if (provider === "anthropic" && config.ANTHROPIC_API_KEY) {
+    return new ClaudeSummaryWriter(
+      config.ANTHROPIC_API_KEY,
+      config.AI_MODEL || "claude-opus-5-5",
+      config.AI_TIMEOUT_SECONDS,
+    );
+  }
+  if (provider === "gemini" && config.GEMINI_API_KEY) {
+    return new GeminiSummaryWriter(
+      config.GEMINI_API_KEY,
+      config.AI_MODEL || "gemini-3.5-flash-lite",
+      config.AI_TIMEOUT_SECONDS,
+    );
+  }
+  return null;
+}
+
 /** The configured writer, or null when AI is off or has no key: rule lines only. */
 export function summaryWriter(): SummaryWriter | null {
-  const config = env();
-  if (config.AI_PROVIDER !== "anthropic" || !config.ANTHROPIC_API_KEY) return null;
-  return new ClaudeSummaryWriter(
-    config.ANTHROPIC_API_KEY,
-    config.AI_MODEL || "claude-opus-5-5",
-    config.AI_TIMEOUT_SECONDS,
-  );
+  return chooseWriter(env());
 }
