@@ -6,9 +6,9 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 
 ## Client and scope
 
-- A1. The client is the lab chain in Vijayawada described in the brief. An earlier build plan said Navi Mumbai; that was an error and the brief wins.
+- A1. The client is the lab chain in Vijayawada described in the brief.
 - A2. Roles built in the core slice are patient and front-desk staff, as the brief asks. A `lab_admin` role is added only to approve wording (templates and translations), because front-desk staff should not change medical wording.
-- A3. Referring doctor view and the operations delivery report are optional depth. They are built only if the core slice is finished.
+- A3. Referring doctor view and the operations delivery report are optional depth in the brief. Both are built, after the core slice was finished.
 
 ## Lab system and delivery
 
@@ -32,7 +32,7 @@ Sources, in order of authority: the client brief, then `DESIGN.md`, then the bui
 - A12. The AI receives only the test name, analyte names, values, units, ranges and rule flags. No name, phone, age or order ID is sent, so no personal data leaves India. An India-hosted model (for example Sarvam) can replace it behind the same interface.
 - A13. Critical results never reach the AI. Tests with an approved locked template use the template text and make no AI call at read time.
 - A14. Telugu and Hindi wording written by the AI is a draft until a lab_admin approves it. Until then the patient sees English.
-- A22. The AI model is claude-opus-5-5 at low effort, set by AI_MODEL. It gets one try with an 8 second limit and no retries; after a failed or refused attempt it is not asked again for that report for 24 hours, and the patient sees the rule-based wording.
+- A22. The AI model is set by AI_MODEL behind one interface. Claude (claude-opus-5-5 at low effort) is supported; the live demo uses Gemini (gemini-3.5-flash-lite, see A34). It gets one try with an 8 second limit and no retries; after a failed or refused attempt it is not asked again for that report for 24 hours, and the patient sees the rule-based wording.
 
 ## Import format and test catalog
 

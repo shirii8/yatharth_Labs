@@ -56,7 +56,7 @@ You need Node.js 20 or newer (22 tested) and Docker Desktop.
 
    ```
    npm run check        # lint, types, formatting, unit and database tests
-   npm run test:e2e     # four end-to-end flows; needs the app running
+   npm run test:e2e     # six end-to-end flows; needs the app running
    ```
 
    Database tests use a separate throwaway database (`yatharth_test`) and never touch the demo data.
