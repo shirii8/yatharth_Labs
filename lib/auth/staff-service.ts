@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db/client";
+import type { StaffRole } from "./roles";
 import { createSession } from "./session";
 
 /**
@@ -13,9 +14,8 @@ const LOCK_MINUTES = 15;
 // A real bcrypt hash, made once, so an unknown email costs the same time as a wrong password.
 let dummyHash: string | undefined;
 const dummy = () => (dummyHash ??= bcrypt.hashSync("not-a-real-password", 12));
-
 export type StaffSignIn =
-  | { ok: true; token: string; expiresAt: Date; staffUserId: string }
+  | { ok: true; token: string; expiresAt: Date; staffUserId: string; role: StaffRole }
   | { ok: false; reason: "WRONG" }
   | { ok: false; reason: "LOCKED"; until: Date };
 
@@ -64,6 +64,6 @@ export async function signInStaff(input: {
       },
     });
     const session = await createSession({ kind: "STAFF", staffUserId: user.id, now }, tx);
-    return { ok: true as const, ...session, staffUserId: user.id };
+    return { ok: true as const, ...session, staffUserId: user.id, role: user.role };
   });
 }

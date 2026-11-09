@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { homeFor } from "@/lib/auth/roles";
 import { z } from "zod";
 import { summaryWriter } from "@/lib/ai/provider";
 import { clearSessionCookie, ipHash, sessionToken, setSessionCookie } from "@/lib/auth/cookies";
@@ -38,7 +39,7 @@ export async function signInStaffAction(
       : { error: "WRONG" };
   }
   await setSessionCookie(result.token, result.expiresAt);
-  redirect("/desk/patients");
+  redirect(homeFor(result.role));
 }
 
 export async function signOutStaffAction(): Promise<void> {

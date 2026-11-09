@@ -1,20 +1,25 @@
 enum StaffRole {
   FRONT_DESK
   LAB_ADMIN
+  /// A referring doctor: sees only their own patients' reports, last 90 days.
+  DOCTOR
 }
 
 /// Lab staff who sign in with email and password. Patients never have passwords.
 model StaffUser {
-  id           String    @id @default(cuid())
-  email        String    @unique
+  id           String           @id @default(cuid())
+  email        String           @unique
   name         String
   /// bcrypt hash. The password itself is never stored.
   passwordHash String
   role         StaffRole
-  active       Boolean   @default(true)
+  /// For DOCTOR accounts: the referring doctor whose reports they may see.
+  doctorId     String?          @unique
+  doctor       ReferringDoctor? @relation(fields: [doctorId], references: [id], onDelete: Restrict)
+  active       Boolean          @default(true)
   /// Wrong passwords in a row, reset on success. Five locks the account for 15 minutes.
-  failedLogins Int       @default(0)
+  failedLogins Int              @default(0)
   lockedUntil  DateTime?
-  createdAt    DateTime  @default(now())
+  createdAt    DateTime         @default(now())
   sessions     Session[]
 }

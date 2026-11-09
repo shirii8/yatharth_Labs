@@ -11,9 +11,10 @@ enum Flag {
 }
 
 model ReferringDoctor {
-  id      String   @id @default(cuid())
-  name    String   @unique
+  id      String     @id @default(cuid())
+  name    String     @unique
   reports Report[]
+  account StaffUser?
 }
 
 /// One test on one order for one patient, as exported by the LIS.
