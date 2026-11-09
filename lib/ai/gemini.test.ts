@@ -116,6 +116,11 @@ describe("Choosing the AI", () => {
     ).toBeInstanceOf(ClaudeSummaryWriter);
   });
 
+  it("uses the other AI when the chosen one has no key, so an old setting cannot switch AI off", () => {
+    const writer = chooseWriter({ ...base, AI_PROVIDER: "anthropic", GEMINI_API_KEY: "g" });
+    expect(writer).toBeInstanceOf(GeminiSummaryWriter);
+  });
+
   it("is off with no key or when turned off, so patients get the templates", () => {
     expect(chooseWriter({ ...base, AI_PROVIDER: "auto" })).toBeNull();
     expect(chooseWriter({ ...base, AI_PROVIDER: "gemini" })).toBeNull();

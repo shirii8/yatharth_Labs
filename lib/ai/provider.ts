@@ -73,34 +73,30 @@ type AiConfig = Pick<Env, "AI_PROVIDER" | "AI_MODEL" | "AI_TIMEOUT_SECONDS"> & {
 };
 
 /**
- * Which model writes the paragraph. "auto" (the default) uses Claude when its
- * key is set, otherwise Gemini when its key is set, otherwise none. With no
- * writer, patients get the approved template wording: nothing breaks.
+ * Which model writes the paragraph: the chosen one ("anthropic" or "gemini";
+ * "auto" means Claude first) if its key is set, otherwise whichever key is
+ * set, otherwise none. "none" turns the AI off. With no writer, patients get
+ * the approved template wording: nothing breaks.
  */
 export function chooseWriter(config: AiConfig): SummaryWriter | null {
-  const provider =
-    config.AI_PROVIDER === "auto"
-      ? config.ANTHROPIC_API_KEY
-        ? "anthropic"
-        : config.GEMINI_API_KEY
-          ? "gemini"
-          : "none"
-      : config.AI_PROVIDER;
-  if (provider === "anthropic" && config.ANTHROPIC_API_KEY) {
-    return new ClaudeSummaryWriter(
-      config.ANTHROPIC_API_KEY,
-      config.AI_MODEL || "claude-opus-5-5",
-      config.AI_TIMEOUT_SECONDS,
-    );
-  }
-  if (provider === "gemini" && config.GEMINI_API_KEY) {
-    return new GeminiSummaryWriter(
-      config.GEMINI_API_KEY,
-      config.AI_MODEL || "gemini-3.5-flash-lite",
-      config.AI_TIMEOUT_SECONDS,
-    );
-  }
-  return null;
+  if (config.AI_PROVIDER === "none") return null;
+  const claude = config.ANTHROPIC_API_KEY
+    ? new ClaudeSummaryWriter(
+        config.ANTHROPIC_API_KEY,
+        config.AI_MODEL || "claude-opus-5-5",
+        config.AI_TIMEOUT_SECONDS,
+      )
+    : null;
+  const gemini = config.GEMINI_API_KEY
+    ? new GeminiSummaryWriter(
+        config.GEMINI_API_KEY,
+        config.AI_MODEL || "gemini-3.5-flash-lite",
+        config.AI_TIMEOUT_SECONDS,
+      )
+    : null;
+  // The chosen AI first; if it has no key, the other one, so a leftover
+  // setting can never switch the AI off while a working key is present.
+  return config.AI_PROVIDER === "gemini" ? (gemini ?? claude) : (claude ?? gemini);
 }
 
 /** The configured writer, or null when AI is off or has no key: rule lines only. */
